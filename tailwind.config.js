@@ -8,6 +8,9 @@ module.exports = {
       maxWidth: {
         desktop: "1440px",
       },
+      fontFamily:{
+        Monsterrat :" Montserrat, sans-serif"
+      }
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
