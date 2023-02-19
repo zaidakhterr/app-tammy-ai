@@ -3,11 +3,15 @@ import { Button } from "@/components/Button";
 import Input from "@/components/Input";
 import Image from "next/image";
 import youtubeLogo from "@/assets/youtube.png";
+import { useRouter } from "next/router";
 
 const CreateSummaryForm = () => {
+  const router = useRouter();
+
   const onSubmit = e => {
     e.preventDefault();
     console.log("Submitted");
+    router.push("/summary/123");
   };
 
   return (
