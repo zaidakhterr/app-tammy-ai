@@ -11,6 +11,13 @@ const inter = Inter({
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <style jsx global>
+        {`
+          :root {
+            --font-inter: ${inter.style.fontFamily};
+          }
+        `}
+      </style>
       <Head>
         <title>Tammy AI</title>
         <meta
@@ -19,13 +26,7 @@ function MyApp({ Component, pageProps }) {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <style jsx global>
-        {`
-          :root {
-            --font-inter: ${inter.style.fontFamily};
-          }
-        `}
-      </style>
+
       <Header />
       <Component {...pageProps} />
     </>
