@@ -47,7 +47,7 @@ const RegisterForm = () => {
         placeholder="Password"
         containerClassName="w-full"
       />
-      <Button type="submit">Create Account</Button>
+      <Button type="submit">Create account</Button>
     </form>
   );
 };
@@ -59,7 +59,7 @@ export default function Register() {
         <Logo />
       </div>
       <div className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4 p-4">
-        <h1 className="mb-6 text-3xl font-black">Get Started for Free</h1>
+        <h1 className="mb-6 text-3xl font-black">Get started for free</h1>
         <GoogleButton />
         <FacebookButton />
         <div className="my-3 flex w-full items-center">
@@ -73,7 +73,7 @@ export default function Register() {
         <p className="mt-10">
           Already have an account?{" "}
           <Link href="/auth/login" className="text-blue-600 hover:underline">
-            Login Here
+            Login here
           </Link>
         </p>
       </div>

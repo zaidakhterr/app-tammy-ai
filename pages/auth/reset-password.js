@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";
+import Link from "next/link";
 
 const ResetPasswordForm = () => {
   const router = useRouter();
@@ -35,10 +36,12 @@ export default function ResetPassword() {
   return (
     <div className="grid h-screen grid-cols-1 lg:grid-cols-2 lg:overflow-clip">
       <div className="fixed top-0 py-3 px-4 md:px-8">
-        <Logo />
+        <Link href="/">
+          <Logo />
+        </Link>
       </div>
       <div className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4 p-4">
-        <h1 className="mb-6 text-3xl font-black">Reset Password</h1>
+        <h1 className="mb-6 text-3xl font-black">Reset password</h1>
         <ResetPasswordForm />
       </div>
       <Image

@@ -47,7 +47,7 @@ const LoginForm = () => {
         placeholder="Password"
         containerClassName="w-full"
       />
-      <Button type="submit">Login</Button>
+      <Button type="submit">Log in</Button>
     </form>
   );
 };
@@ -59,7 +59,7 @@ export default function Login() {
         <Logo />
       </div>
       <div className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4 p-4">
-        <h1 className="mb-6 text-3xl font-black">Login</h1>
+        <h1 className="mb-6 text-3xl font-black">Log in</h1>
         <GoogleButton />
         <FacebookButton />
         <div className="my-3 flex w-full items-center">
@@ -74,12 +74,12 @@ export default function Login() {
           href="/auth/forgot-password"
           className="text-sm text-blue-600 hover:underline"
         >
-          Forgot Password?
+          Forgot password?
         </Link>
         <p className="mt-10">
           Don&apos;t have an account?{" "}
           <Link href="/auth/register" className="text-blue-600 hover:underline">
-            Get Started
+            Get started
           </Link>
         </p>
       </div>
