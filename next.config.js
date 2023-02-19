@@ -10,6 +10,10 @@ module.exports = {
         source: "/summary",
         destination: "/",
       },
+      {
+        source: "/auth",
+        destination: "/auth/login",
+      },
     ];
   },
 };
