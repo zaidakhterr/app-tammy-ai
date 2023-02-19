@@ -32,13 +32,13 @@ export const InputBox = () => {
             <input
               type="text"
               className="sm:text-md placeholder-sm block  w-full
-               flex-1 
-              border-none font-Monsterrat 
+               flex-1
+              border-none
               text-xl font-thin
-              text-slate-900 
+              text-slate-900
               outline-none
-               placeholder:font-Monsterrat 
-               placeholder:text-xl    
+
+               placeholder:text-xl
                placeholder:font-[400]
                placeholder:text-slate-300
                focus:border-none

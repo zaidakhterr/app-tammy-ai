@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
@@ -8,9 +10,9 @@ module.exports = {
       maxWidth: {
         desktop: "1440px",
       },
-      fontFamily:{
-        Monsterrat :" Montserrat, sans-serif"
-      }
+      fontFamily: {
+        sans: ["'var(--font-inter)'", ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
