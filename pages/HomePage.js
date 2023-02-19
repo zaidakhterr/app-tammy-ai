@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { Header } from "@/components/Header";
 import { InputBox } from "@/components/InputBox";
 import React, { useEffect, useState } from "react";
 
@@ -9,6 +10,7 @@ const Homepage = () => {
 
   return (
     <>
+    <Header/>
       <div className="my-5  md:flex  md:justify-center">
         <div className="sm:w-screen  md:w-1/2">
           <InputBox isValidProp={setvalid} />
