@@ -2,6 +2,7 @@ import Head from "next/head";
 import Header from "@/components/Header";
 import { Inter } from "@next/font/google";
 import "@/styles/globals.css";
+import { useRouter } from "next/router";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -9,6 +10,10 @@ const inter = Inter({
 });
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  const isAuthPage = router.pathname.startsWith("/auth");
+
   return (
     <>
       <style jsx global>
@@ -27,7 +32,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header />
+      {!isAuthPage && <Header />}
       <Component {...pageProps} />
     </>
   );
