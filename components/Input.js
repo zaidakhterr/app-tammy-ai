@@ -12,7 +12,7 @@ const Input = ({
     <div className={classNames("relative", containerClassName)}>
       <input
         className={classNames(
-          "h-12 w-full rounded-md border-slate-300 bg-transparent px-2 focus:border-blue-800 dark:border-slate-700 dark:text-white",
+          "h-12 w-full rounded-md border-slate-300 bg-transparent px-2 focus:border-blue-800 dark:border-slate-700",
           className
         )}
         type={type}
