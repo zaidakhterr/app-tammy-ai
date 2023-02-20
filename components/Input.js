@@ -12,7 +12,7 @@ const Input = ({
     <div className={classNames("relative shadow-sm", containerClassName)}>
       <input
         className={classNames(
-          "h-12 w-full rounded-md border-slate-300 bg-transparent px-4 focus:border-blue-800 dark:border-slate-700",
+          "h-12 w-full rounded-md border-slate-300 bg-transparent px-4 focus:border-blue-500 dark:border-slate-700",
           className
         )}
         type={type}

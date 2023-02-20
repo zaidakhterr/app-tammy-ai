@@ -17,9 +17,9 @@ function Header() {
         <div className="flex items-center">
           <Link
             href="/subscription"
-            className="mr-2 flex items-center justify-center rounded-md py-2 px-3 text-xs font-semibold text-blue-800 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
+            className="mr-2 flex items-center justify-center rounded-md py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
           >
-            <BoltIcon className="mr-2 h-5 w-5 stroke-blue-800 stroke-2 dark:stroke-blue-500" />
+            <BoltIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
             Upgrade
           </Link>
           <Menu as="div" className="relative ml-3">

@@ -11,9 +11,9 @@ export default function NotFound() {
       <p className="my-4 text-2xl">Page Not Found</p>
       <Link
         href="/"
-        className="mr-2 flex items-center justify-center rounded-md py-2 px-3 text-xs font-semibold text-blue-800 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
+        className="mr-2 flex items-center justify-center rounded-md py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
       >
-        <ArrowLeftIcon className="mr-2 h-5 w-5 stroke-blue-800 stroke-2 dark:stroke-blue-500" />
+        <ArrowLeftIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
         Go Home
       </Link>
     </Container>
