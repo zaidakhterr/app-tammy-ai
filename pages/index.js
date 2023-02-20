@@ -117,7 +117,8 @@ const CreateFolderButton = () => {
 const MY_SUMMARIES = [
   {
     id: 1,
-    title: "How to make a website",
+    title:
+      "How to make a websiteHow to make a websiteHow to make a websiteHow to make a website",
     thumbnail: "https://picsum.photos/150/100",
     viewCount: 100,
     videoLength: 10,
@@ -362,7 +363,7 @@ const MoveToFolderButton = ({ summaryId }) => {
         <FolderIcon className="h-6 w-6 stroke-blue-500 dark:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -447,7 +448,7 @@ const DeleteButton = ({ summaryId, type }) => {
         <TrashIcon className="h-6 w-6 stroke-blue-500 dark:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
