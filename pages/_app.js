@@ -1,8 +1,9 @@
 import Head from "next/head";
-import Header from "@/components/Header";
-import { Inter } from "@next/font/google";
-import "@/styles/globals.css";
 import { useRouter } from "next/router";
+import { Inter } from "@next/font/google";
+import { ThemeProvider } from "next-themes";
+import Header from "@/components/Header";
+import "@/styles/globals.css";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -32,8 +33,12 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {!isAuthPage && <Header />}
-      <Component {...pageProps} />
+      <ThemeProvider enableSystem={false}>
+        <>
+          {!isAuthPage && <Header />}
+          <Component {...pageProps} />
+        </>
+      </ThemeProvider>
     </>
   );
 }

@@ -1,5 +1,3 @@
-import Image from "next/image";
-import pattern from "@/assets/auth-pattern-2.svg";
 import { Button } from "@/components/Button";
 import { useRouter } from "next/router";
 import Input from "@/components/Input";
@@ -25,8 +23,8 @@ const ForgotPasswordForm = () => {
 
 export default function ForgotPassword() {
   return (
-    <div className="grid h-screen grid-cols-1 lg:grid-cols-2 lg:overflow-clip">
-      <div className="fixed top-0 py-3 px-4 md:px-8">
+    <>
+      <div className="mb-10 py-3 px-4 md:px-8">
         <Link href="/">
           <Logo />
         </Link>
@@ -35,11 +33,6 @@ export default function ForgotPassword() {
         <h1 className="mb-6 text-3xl font-black">Forgot password</h1>
         <ForgotPasswordForm />
       </div>
-      <Image
-        src={pattern}
-        alt="Pattern"
-        className="hidden h-screen w-full object-cover lg:block"
-      />
-    </div>
+    </>
   );
 }

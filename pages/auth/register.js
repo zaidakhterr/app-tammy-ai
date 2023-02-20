@@ -1,5 +1,4 @@
 import Image from "next/image";
-import pattern from "@/assets/auth-pattern-2.svg";
 import google from "@/assets/google.svg";
 import facebook from "@/assets/facebook.svg";
 import { Button } from "@/components/Button";
@@ -7,6 +6,7 @@ import { useRouter } from "next/router";
 import Input from "@/components/Input";
 import Link from "next/link";
 import Logo from "@/components/Logo";
+import AuthScreenBanner from "@/components/AuthScreenBanner";
 
 const GoogleButton = () => {
   return (
@@ -58,7 +58,7 @@ export default function Register() {
       <div className="fixed top-0 py-3 px-4 md:px-8">
         <Logo />
       </div>
-      <div className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4 p-4">
+      <div className="mx-auto flex w-full max-w-sm flex-col items-center justify-center gap-4 p-4 pt-14">
         <h1 className="mb-6 text-3xl font-black">Get started for free</h1>
         <GoogleButton />
         <FacebookButton />
@@ -77,11 +77,7 @@ export default function Register() {
           </Link>
         </p>
       </div>
-      <Image
-        src={pattern}
-        alt="Pattern"
-        className="hidden h-screen w-full object-cover lg:block"
-      />
+      <AuthScreenBanner />
     </div>
   );
 }
