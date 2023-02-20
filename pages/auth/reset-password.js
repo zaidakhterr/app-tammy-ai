@@ -1,4 +1,4 @@
-import { Button } from "@/components/Button";
+import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import Input from "@/components/Input";
 import Logo from "@/components/Logo";

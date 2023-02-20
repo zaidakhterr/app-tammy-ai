@@ -1,7 +1,7 @@
 import Image from "next/image";
 import google from "@/assets/google.svg";
 import facebook from "@/assets/facebook.svg";
-import { Button } from "@/components/Button";
+import Button from "@/components/Button";
 import { useRouter } from "next/router";
 import Input from "@/components/Input";
 import Link from "next/link";
