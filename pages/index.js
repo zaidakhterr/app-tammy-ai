@@ -319,11 +319,11 @@ const MySummariesTable = () => {
             return (
               <div className="flex w-full items-center">
                 <Image
-                  src={isFolder ? folder : youtube}
-                  width={48}
-                  height={40}
+                  src={isFolder ? folder : row.thumbnail}
+                  width={112}
+                  height={80}
                   alt={row.title}
-                  className="h-10 w-12 object-contain"
+                  className="h-20 w-28 object-contain"
                 />
                 <p className="ml-2">{row.title}</p>
               </div>
@@ -416,16 +416,15 @@ const DiscoverTable = () => {
           accessorKey: "title",
           cell: info => {
             const row = info.row.original;
-            const isFolder = row.type === "folder";
 
             return (
               <div className="flex w-full items-center">
                 <Image
-                  src={isFolder ? folder : youtube}
-                  width={48}
-                  height={40}
+                  src={row.thumbnail}
+                  width={112}
+                  height={80}
                   alt={row.title}
-                  className="h-10 w-12 object-contain"
+                  className="h-20 w-28 object-contain"
                 />
                 <p className="ml-2">{row.title}</p>
               </div>
