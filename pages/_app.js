@@ -2,13 +2,13 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Sofia_Sans } from "@next/font/google";
+import { Anek_Bangla } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 
-const sans = Sofia_Sans({
+const sans = Anek_Bangla({
   subsets: ["latin"],
   display: "swap",
 });

@@ -345,7 +345,7 @@ const MySummariesTable = () => {
                 />
                 <Link
                   href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
-                  className="ml-3 font-semibold hover:underline"
+                  className="ml-3 font-medium hover:underline"
                 >
                   {row.title}
                 </Link>
@@ -453,7 +453,7 @@ const DiscoverTable = () => {
                   alt={row.title}
                   className="h-20 w-28 object-contain"
                 />
-                <p className="ml-3 font-semibold">{row.title}</p>
+                <p className="ml-3 font-medium">{row.title}</p>
               </div>
             );
           },
