@@ -1,19 +1,22 @@
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { FolderIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
+import classNames from "classnames";
 import Container from "@/components/Container";
+import Link from "next/link";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import Button, { DangerButton, SecondaryButton } from "@/components/Button";
 import Input from "@/components/Input";
+import Select from "@/components/Select";
 import youtubeLogo from "@/assets/youtube.png";
 import Pagination from "@/components/Pagination";
 import folder from "@/assets/folder.svg";
-import classNames from "classnames";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
-import Link from "next/link";
-import Select from "@/components/Select";
+import Table from "@/components/Table";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSummaryData } from "@/api";
 
 dayjs.extend(relativeTime);
 
@@ -407,6 +410,7 @@ const MoveToFolderButton = ({ summaryId }) => {
                         { value: "Folder 3", label: "Folder 3" },
                       ]}
                     />
+
                     <Button type="submit">Move</Button>
                   </form>
                 </Dialog.Panel>
@@ -495,119 +499,147 @@ const DeleteButton = ({ summaryId, type }) => {
   );
 };
 
-const MySummariesTable = ({ summaries }) => {
-  const [pages] = useState(() => {
-    const pages = [];
-    for (let i = 0; i < summaries.length; i += PAGE_SIZE) {
-      pages.push(summaries.slice(i, i + PAGE_SIZE));
-    }
-    return pages;
-  });
-  const [page, setPage] = useState(1);
-  const activePage = pages[page - 1];
+// const MySummariesTable = ({ summaries }) => {
+//   const [pages] = useState(() => {
+//     const pages = [];
+//     for (let i = 0; i < summaries.length; i += PAGE_SIZE) {
+//       pages.push(summaries.slice(i, i + PAGE_SIZE));
+//     }
+//     return pages;
+//   });
+//   const [page, setPage] = useState(1);
+//   const activePage = pages[page - 1];
 
-  const totalCount = summaries.length;
-  const totalPageCount = pages.length;
+//   const totalCount = summaries.length;
+//   const totalPageCount = pages.length;
+
+//   return (
+//     <>
+//       <div className="mt-4 w-full overflow-clip rounded-md border dark:border-slate-700">
+//         <table className="w-full">
+//           <tbody>
+//             {activePage.map((summary, idx) => {
+//               const isFolder = summary.type === "folder";
+
+//               return (
+//                 <tr key={summary.id} className="table-row">
+//                   <td
+//                     className={classNames(
+//                       "table-cell p-4",
+//                       idx !== 0 && "border-t dark:border-slate-700"
+//                     )}
+//                   >
+//                     <Link
+//                       href={
+//                         isFolder
+//                           ? `/folder/${summary.id}`
+//                           : `/summary/${summary.id}`
+//                       }
+//                       className="group flex flex-col gap-2 sm:flex-row sm:items-center"
+//                     >
+//                       <Image
+//                         src={isFolder ? folder : summary.thumbnail}
+//                         width={128}
+//                         height={80}
+//                         alt={summary.title}
+//                         className={classNames(
+//                           "h-20 w-32",
+//                           isFolder
+//                             ? "object-contain object-left"
+//                             : "object-cover"
+//                         )}
+//                       />
+//                       <p className="group-hover:underline">{summary.title}</p>
+//                     </Link>
+//                   </td>
+//                   <td
+//                     className={classNames(
+//                       "hidden p-4 md:table-cell",
+//                       idx !== 0 && "border-t dark:border-slate-700"
+//                     )}
+//                   >
+//                     {isFolder
+//                       ? `${summary.videoCount} videos`
+//                       : `${summary.videoLength} mins`}
+//                   </td>
+//                   <td
+//                     className={classNames(
+//                       "hidden p-4 md:table-cell",
+//                       idx !== 0 && "border-t dark:border-slate-700"
+//                     )}
+//                   >
+//                     Viewed {dayjs(summary.lastViewed).fromNow()}
+//                   </td>
+//                   <td
+//                     className={classNames(
+//                       "table-cell p-4",
+//                       idx !== 0 && "border-t dark:border-slate-700"
+//                     )}
+//                   >
+//                     <div className="flex flex-col items-center justify-end gap-2 sm:flex-row">
+//                       {!isFolder && (
+//                         <MoveToFolderButton summaryId={summary.id} />
+//                       )}
+//                       <DeleteButton
+//                         summaryId={summary.id}
+//                         type={summary.type}
+//                       />
+//                     </div>
+//                   </td>
+//                 </tr>
+//               );
+//             })}
+//           </tbody>
+//         </table>
+//       </div>
+
+//       <Pagination
+//         className="ml-auto mt-2"
+//         pageSize={PAGE_SIZE}
+//         currentPage={page}
+//         totalCount={totalCount}
+//         onPageChange={page => {
+//           console.log(page);
+//           setPage(page);
+//         }}
+//         onPrev={() => {
+//           console.log("prev");
+//           setPage(page => Math.max(1, page - 1));
+//         }}
+//         onNext={() => {
+//           console.log("next");
+//           setPage(page => Math.min(totalPageCount, page + 1));
+//         }}
+//       />
+//     </>
+//   );
+// };
+
+const MySummariesTable = () => {
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
+  });
+
+  const fetchDataOptions = {
+    pageIndex: pagination.pageIndex,
+    pageSize: pagination.pageSize,
+  };
+
+  const dataQuery = useQuery(
+    ["/summary", fetchDataOptions],
+    () => fetchSummaryData(fetchDataOptions),
+    { keepPreviousData: true }
+  );
 
   return (
-    <>
-      <div className="mt-4 w-full overflow-clip rounded-md border dark:border-slate-700">
-        <table className="w-full">
-          <tbody>
-            {activePage.map((summary, idx) => {
-              const isFolder = summary.type === "folder";
-
-              return (
-                <tr key={summary.id} className="table-row">
-                  <td
-                    className={classNames(
-                      "table-cell p-4",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    <Link
-                      href={
-                        isFolder
-                          ? `/folder/${summary.id}`
-                          : `/summary/${summary.id}`
-                      }
-                      className="group flex flex-col gap-2 sm:flex-row sm:items-center"
-                    >
-                      <Image
-                        src={isFolder ? folder : summary.thumbnail}
-                        width={128}
-                        height={80}
-                        alt={summary.title}
-                        className={classNames(
-                          "h-20 w-32",
-                          isFolder
-                            ? "object-contain object-left"
-                            : "object-cover"
-                        )}
-                      />
-                      <p className="group-hover:underline">{summary.title}</p>
-                    </Link>
-                  </td>
-                  <td
-                    className={classNames(
-                      "hidden p-4 md:table-cell",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    {isFolder
-                      ? `${summary.videoCount} videos`
-                      : `${summary.videoLength} mins`}
-                  </td>
-                  <td
-                    className={classNames(
-                      "hidden p-4 md:table-cell",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    Viewed {dayjs(summary.lastViewed).fromNow()}
-                  </td>
-                  <td
-                    className={classNames(
-                      "table-cell p-4",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    <div className="flex flex-col items-center justify-end gap-2 sm:flex-row">
-                      {!isFolder && (
-                        <MoveToFolderButton summaryId={summary.id} />
-                      )}
-                      <DeleteButton
-                        summaryId={summary.id}
-                        type={summary.type}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
-
-      <Pagination
-        className="ml-auto mt-2"
-        pageSize={PAGE_SIZE}
-        currentPage={page}
-        totalCount={totalCount}
-        onPageChange={page => {
-          console.log(page);
-          setPage(page);
-        }}
-        onPrev={() => {
-          console.log("prev");
-          setPage(page => Math.max(1, page - 1));
-        }}
-        onNext={() => {
-          console.log("next");
-          setPage(page => Math.min(totalPageCount, page + 1));
-        }}
-      />
-    </>
+    <Table
+      columns={[{ accessorKey: "id" }, { accessorKey: "title" }]}
+      data={dataQuery.data?.rows}
+      pageCount={dataQuery.data?.pageCount}
+      pagination={pagination}
+      setPagination={setPagination}
+    />
   );
 };
 

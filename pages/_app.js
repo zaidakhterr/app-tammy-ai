@@ -1,5 +1,7 @@
+import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Inter } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
@@ -12,7 +14,7 @@ const inter = Inter({
 
 function MyApp({ Component, pageProps }) {
   const router = useRouter();
-
+  const [queryClient] = React.useState(() => new QueryClient());
   const isAuthPage = router.pathname.startsWith("/auth");
 
   return (
@@ -33,12 +35,14 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <ThemeProvider enableSystem={false}>
-        <>
-          {!isAuthPage && <Header />}
-          <Component {...pageProps} />
-        </>
-      </ThemeProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider enableSystem={false}>
+          <>
+            {!isAuthPage && <Header />}
+            <Component {...pageProps} />
+          </>
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   );
 }

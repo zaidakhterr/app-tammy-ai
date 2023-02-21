@@ -8,54 +8,44 @@ const range = (start, end) => {
   return Array.from({ length: end - start + 1 }, (_, idx) => idx + start);
 };
 
-const usePagination = ({
-  totalCount,
-  pageSize,
-  siblingCount = 1,
-  currentPage,
-}) => {
+const usePagination = ({ pageCount, siblingCount = 1, currentPage }) => {
   const paginationRange = useMemo(() => {
-    const totalPageCount = Math.ceil(totalCount / pageSize);
-
     const totalPageNumbers = siblingCount + 5;
 
-    if (totalPageNumbers >= totalPageCount) {
-      return range(1, totalPageCount);
+    if (totalPageNumbers >= pageCount) {
+      return range(1, pageCount);
     }
 
-    const leftSiblingIndex = Math.max(currentPage - siblingCount, 1);
+    const leftSiblingIndex = Math.max(currentPage - siblingCount + 1, 1);
     const rightSiblingIndex = Math.min(
-      currentPage + siblingCount,
-      totalPageCount
+      currentPage + siblingCount + 1,
+      pageCount - 1
     );
 
     const shouldShowLeftDots = leftSiblingIndex > 2;
-    const shouldShowRightDots = rightSiblingIndex < totalPageCount - 2;
+    const shouldShowRightDots = rightSiblingIndex < pageCount - 2;
 
     const firstPageIndex = 1;
-    const lastPageIndex = totalPageCount;
+    const lastPageIndex = pageCount;
 
     if (!shouldShowLeftDots && shouldShowRightDots) {
-      let leftItemCount = 3 + 2 * siblingCount;
-      let leftRange = range(1, leftItemCount);
+      const leftItemCount = 3 + 2 * siblingCount;
+      const leftRange = range(1, leftItemCount);
 
-      return [...leftRange, DOTS, totalPageCount];
+      return [...leftRange, DOTS, pageCount];
     }
 
     if (shouldShowLeftDots && !shouldShowRightDots) {
-      let rightItemCount = 3 + 2 * siblingCount;
-      let rightRange = range(
-        totalPageCount - rightItemCount + 1,
-        totalPageCount
-      );
+      const rightItemCount = 3 + 2 * siblingCount;
+      const rightRange = range(pageCount - rightItemCount + 1, pageCount);
       return [firstPageIndex, DOTS, ...rightRange];
     }
 
     if (shouldShowLeftDots && shouldShowRightDots) {
-      let middleRange = range(leftSiblingIndex, rightSiblingIndex);
+      const middleRange = range(leftSiblingIndex, rightSiblingIndex);
       return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
     }
-  }, [totalCount, pageSize, siblingCount, currentPage]);
+  }, [siblingCount, pageCount, currentPage]);
 
   return paginationRange;
 };
@@ -69,19 +59,18 @@ const PaginationButton = ({ active, ...props }) => {
     <button
       {...props}
       className={classNames(
-        "flex h-8 w-8 items-center justify-center rounded border p-1 text-sm transition-colors disabled:cursor-not-allowed",
+        "flex h-8 w-8 items-center justify-center rounded border p-1 text-sm transition-colors disabled:cursor-not-allowed disabled:bg-slate-200 dark:disabled:bg-slate-800",
         active
           ? "border-blue-500 bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500"
-          : "hover:bg-slate-100 dark:border-slate-700 dark:hover:bg-slate-800"
+          : "stroke-slate-900 hover:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-700 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:stroke-slate-600"
       )}
     />
   );
 };
 
 const Pagination = ({
-  currentPage = 1,
-  totalCount = 100,
-  pageSize = 10,
+  currentPage = 0,
+  pageCount = 10,
   onPageChange = () => {},
   onPrev = () => {},
   onNext = () => {},
@@ -89,27 +78,25 @@ const Pagination = ({
 }) => {
   const paginationRange = usePagination({
     currentPage,
-    pageSize,
-    totalCount,
+    pageCount,
   });
-  const totalPageCount = Math.ceil(totalCount / pageSize);
-  const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = currentPage === totalPageCount;
+  const isPrevDisabled = currentPage === 0;
+  const isNextDisabled = currentPage === pageCount - 1;
 
-  if (totalPageCount === 1) return null;
+  if (pageCount === 1) return null;
 
   return (
     <div className={classNames("flex w-fit gap-2", className)}>
       <PaginationButton onClick={onPrev} disabled={isPrevDisabled}>
-        <ChevronLeftIcon className="h-4 w-4" />
+        <ChevronLeftIcon className="h-4 w-4 stroke-inherit" />
       </PaginationButton>
       {paginationRange.map((pageNumber, idx) => {
         if (pageNumber === DOTS) return <Dots key={idx} />;
         return (
           <PaginationButton
             key={idx}
-            onClick={() => onPageChange(pageNumber)}
-            active={currentPage === pageNumber}
+            onClick={() => onPageChange(pageNumber - 1)}
+            active={currentPage === pageNumber - 1}
           >
             {pageNumber}
           </PaginationButton>
@@ -117,7 +104,7 @@ const Pagination = ({
       })}
 
       <PaginationButton onClick={onNext} disabled={isNextDisabled}>
-        <ChevronRightIcon className="h-4 w-4" />
+        <ChevronRightIcon className="h-4 w-4 stroke-inherit" />
       </PaginationButton>
     </div>
   );

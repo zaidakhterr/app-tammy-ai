@@ -33,7 +33,7 @@ export const SecondaryButton = ({ children, className, ...props }) => {
   return (
     <button
       className={classNames(
-        "flex h-10 items-center justify-center rounded border py-2 px-3 text-center shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800 md:h-12 md:px-6",
+        "flex h-10 items-center justify-center rounded border py-2 px-3 text-center shadow-sm transition-colors hover:bg-slate-600/5 dark:border-slate-700 md:h-12 md:px-6",
         className
       )}
       {...props}
