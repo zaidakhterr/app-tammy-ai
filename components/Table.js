@@ -55,7 +55,11 @@ const Table = React.memo(
                       e.stopPropagation();
                       onRowClick && onRowClick(row);
                     }}
-                    className="group"
+                    className={classNames(
+                      "group",
+                      onRowClick &&
+                        "cursor-pointer transition-colors hover:bg-slate-50/75 dark:hover:bg-slate-800/25"
+                    )}
                   >
                     {row.getVisibleCells().map(cell => {
                       return (
@@ -63,15 +67,15 @@ const Table = React.memo(
                           key={cell.id}
                           className={classNames(
                             "p-3 text-sm md:text-base",
-                            idx !== 0 && "border-t dark:border-slate-700",
-                            onRowClick &&
-                              "cursor-pointer transition-colors group-hover:bg-slate-50 dark:group-hover:bg-slate-800/50"
+                            idx !== 0 && "border-t dark:border-slate-700"
                           )}
                         >
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext()
-                          )}
+                          <a>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
+                          </a>
                         </td>
                       );
                     })}

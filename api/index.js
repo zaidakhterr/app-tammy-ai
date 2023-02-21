@@ -66,7 +66,7 @@ const makeDiscoverData = (...lens) => {
 };
 
 const summaryData = makeSummaryData(100);
-const discoverData = makeDiscoverData(100);
+const discoverData = makeDiscoverData(8);
 
 export const fetchSummaryData = async options => {
   await new Promise(r => setTimeout(r, 500));

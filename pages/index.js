@@ -16,6 +16,8 @@ import youtube from "@/assets/youtube.png";
 import folder from "@/assets/folder.svg";
 import { fetchDiscoverData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
+import classNames from "classnames";
+import useAuth from "@/utils/useAuth";
 
 dayjs.extend(relativeTime);
 
@@ -105,7 +107,7 @@ const CreateFolderButton = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -120,11 +122,11 @@ const CreateFolderButton = () => {
                       placeholder="Enter folder name"
                       containerClassName="w-full"
                     />
-                    <div className="flex gap-3">
-                      <Button type="submit">Create</Button>
+                    <div className="flex w-full items-center justify-end gap-3">
                       <SecondaryButton type="button" onClick={closeModal}>
                         Cancel
                       </SecondaryButton>
+                      <Button type="submit">Create</Button>
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -157,13 +159,12 @@ const MoveToFolderButton = ({ summaryId }) => {
   return (
     <>
       <button
-        onClick={e => {
-          e.stopPropagation();
+        onClick={() => {
           openModal();
         }}
-        className="flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-blue-50 dark:hover:bg-slate-800"
+        className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
-        <FolderIcon className="h-6 w-6 stroke-blue-500 dark:stroke-blue-600" />
+        <FolderIcon className="h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -190,7 +191,7 @@ const MoveToFolderButton = ({ summaryId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
@@ -211,11 +212,11 @@ const MoveToFolderButton = ({ summaryId }) => {
                       ]}
                     />
 
-                    <div className="flex gap-3">
-                      <Button type="submit">Move</Button>
+                    <div className="flex w-full items-center justify-end gap-3">
                       <SecondaryButton type="button" onClick={closeModal}>
                         Cancel
                       </SecondaryButton>
+                      <Button type="submit">Move</Button>
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -248,13 +249,12 @@ const DeleteButton = ({ summaryId, type }) => {
   return (
     <>
       <button
-        onClick={e => {
-          e.stopPropagation();
+        onClick={() => {
           openModal();
         }}
-        className="flex h-10 w-10 items-center justify-center rounded-md transition-colors hover:bg-blue-50 dark:hover:bg-slate-800"
+        className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
-        <TrashIcon className="h-6 w-6 stroke-blue-500 dark:stroke-blue-600" />
+        <TrashIcon className="h-5 w-5 stroke-red-500 dark:stroke-red-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -281,19 +281,18 @@ const DeleteButton = ({ summaryId, type }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
                     Are you sure you want to delete this {type}?
                   </Dialog.Title>
-                  <p className="mt-4">This action is irreversible.</p>
-                  <div className="mt-4 flex gap-3">
-                    <DangerButton onClick={onDelete}>Yes, Delete</DangerButton>
+                  <div className="mt-4 flex w-full items-center justify-end gap-3">
                     <SecondaryButton onClick={closeModal}>
                       No, Cancel
                     </SecondaryButton>
+                    <DangerButton onClick={onDelete}>Yes, Delete</DangerButton>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -335,13 +334,21 @@ const MySummariesTable = () => {
             return (
               <div className="flex w-full items-center">
                 <Image
-                  src={isFolder ? folder : row.thumbnail}
-                  width={112}
-                  height={80}
+                  src={isFolder ? folder : youtube}
+                  width={32}
+                  height={isFolder ? 28 : 24}
                   alt={row.title}
-                  className="h-20 w-28 object-contain"
+                  className={classNames(
+                    "w-8 object-contain",
+                    isFolder ? "h-7" : "h-6"
+                  )}
                 />
-                <p className="ml-2">{row.title}</p>
+                <Link
+                  href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
+                  className="ml-3 font-semibold hover:underline"
+                >
+                  {row.title}
+                </Link>
               </div>
             );
           },
@@ -353,7 +360,7 @@ const MySummariesTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div>
+              <div className="text-sm font-light">
                 {isFolder
                   ? `${row.videoCount} items`
                   : `${row.videoLength} mins`}
@@ -366,7 +373,11 @@ const MySummariesTable = () => {
           cell: info => {
             const row = info.row.original;
 
-            return <div>{dayjs(row.lastViewed).fromNow()}</div>;
+            return (
+              <div className="text-sm font-light">
+                {dayjs(row.lastViewed).fromNow()}
+              </div>
+            );
           },
         },
         {
@@ -442,7 +453,7 @@ const DiscoverTable = () => {
                   alt={row.title}
                   className="h-20 w-28 object-contain"
                 />
-                <p className="ml-2">{row.title}</p>
+                <p className="ml-3 font-semibold">{row.title}</p>
               </div>
             );
           },
@@ -454,7 +465,7 @@ const DiscoverTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div>
+              <div className="text-sm font-light">
                 {isFolder
                   ? `${row.videoCount} items`
                   : `${row.videoLength} mins`}
@@ -467,7 +478,11 @@ const DiscoverTable = () => {
           cell: info => {
             const row = info.row.original;
 
-            return <div>Viewed {abbreviateNumber(row.viewCount)} times</div>;
+            return (
+              <div className="text-sm font-light">
+                Viewed {abbreviateNumber(row.viewCount)} times
+              </div>
+            );
           },
         },
         {
@@ -479,12 +494,13 @@ const DiscoverTable = () => {
               <div
                 className="flex flex-col items-center justify-end gap-2 sm:flex-row"
                 onClick={e => {
+                  console.log(e.target, e.currentTarget);
                   e.stopPropagation();
                 }}
               >
                 <Link
                   href={`/summary/${row.id}`}
-                  className="flex h-10 items-center justify-center rounded-md bg-blue-500/10 px-3 text-blue-500 transition-colors hover:bg-blue-500/20 dark:text-blue-600 "
+                  className="flex h-10 items-center justify-center rounded px-3 text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
                 >
                   Summarize
                 </Link>
@@ -503,19 +519,25 @@ const DiscoverTable = () => {
 };
 
 export default function Home() {
+  const { user } = useAuth();
+
   return (
     <Container className="pb-40">
-      <div className="flex min-h-[50vh] flex-col items-center justify-center">
+      <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
         <h1 className="mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl lg:text-8xl">
           AI Powered Summaries
         </h1>
         <CreateSummaryForm />
       </div>
-      <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-        <h2 className="text-xl font-bold">My Summaries</h2>
-        <CreateFolderButton />
-      </div>
-      <MySummariesTable />
+      {user && (
+        <>
+          <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
+            <h2 className="text-xl font-bold">My Summaries</h2>
+            <CreateFolderButton />
+          </div>
+          <MySummariesTable />
+        </>
+      )}
       <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
         <h2 className="text-xl font-bold">Discover</h2>
       </div>
