@@ -13,7 +13,7 @@ const AuthScreenBanner = () => {
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center p-8">
         <LargeLogo />
-        <p className="mt-6 flex items-center text-lg">
+        <p className="mt-6 flex items-center text-lg text-white">
           <Image
             src={youtubeLogo}
             alt="YouTube Logo"

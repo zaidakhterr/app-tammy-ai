@@ -24,23 +24,23 @@ function Header() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 bg-white/50 py-3 backdrop-blur-md dark:bg-slate-900/50">
+    <header className="sticky top-0 z-50 border-b bg-white py-3 shadow-2xl shadow-slate-600/10 dark:border-slate-800 dark:bg-slate-900">
       <Container className="flex items-center justify-between ">
         <Link href="/">
           <Logo />
         </Link>
         {user ? (
-          <div className="flex items-center">
+          <div className="flex items-center gap-2">
             {user.plan !== "Pro" && (
               <Link
                 href="/subscription"
-                className="mr-2 flex items-center justify-center rounded-md py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
+                className="flex items-center justify-center rounded py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm"
               >
                 <SparklesIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
                 Upgrade
               </Link>
             )}
-            <Menu as="div" className="relative ml-3">
+            <Menu as="div" className="relative">
               <Menu.Button className="flex rounded-full">
                 <Avatar name={user.name} />
               </Menu.Button>
@@ -117,7 +117,7 @@ function Header() {
           <div className="flex items-center gap-2">
             <Link
               href="/auth/login"
-              className="flex items-center justify-center rounded-md border border-blue-500 py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-slate-800 md:text-sm"
+              className="flex items-center justify-center rounded py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm"
             >
               <ArrowRightOnRectangleIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
               Login

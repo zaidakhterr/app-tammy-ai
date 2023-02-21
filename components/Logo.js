@@ -3,7 +3,7 @@ import React from "react";
 
 const Logo = () => {
   return (
-    <p className="flex items-center text-lg font-black text-blue-500 dark:text-blue-500 md:text-xl">
+    <p className="flex items-center text-xl font-black text-blue-500 dark:text-blue-500 md:text-2xl">
       <PaintBrushIcon className="mr-2 h-6 w-6 stroke-blue-500" />
       tammy
       <span className="font-normal text-blue-500 dark:text-blue-500">.ai</span>

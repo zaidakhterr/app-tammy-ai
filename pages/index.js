@@ -31,10 +31,26 @@ const CreateSummaryForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="mx-auto my-6 flex w-full max-w-2xl flex-row gap-2 md:my-10"
+      className="relative mx-auto my-6 w-full max-w-xl gap-2 sm:flex-row md:my-10 md:flex md:items-center lg:max-w-2xl"
     >
-      <Input placeholder="Enter a youtube url" containerClassName="w-full" />
-      <Button type="submit">Summarize</Button>
+      <Input
+        placeholder="Paste a youtube url"
+        containerClassName="w-full"
+        leftIcon={
+          <Image
+            src={youtube}
+            alt="YouTube Logo"
+            className="ml-2 h-6 w-auto md:mr-4 md:h-7"
+          />
+        }
+        className="pl-12 pr-28 md:pr-4 md:pl-14"
+      />
+      <Button
+        type="submit"
+        className="absolute right-0 top-0 w-fit md:relative"
+      >
+        Summarize
+      </Button>
     </form>
   );
 };
@@ -489,15 +505,12 @@ const DiscoverTable = () => {
 export default function Home() {
   return (
     <Container className="pb-40">
-      <h1 className="mx-auto mt-6 flex w-fit items-center text-2xl font-bold md:mt-10 md:text-3xl">
-        <Image
-          src={youtube}
-          alt="YouTube Logo"
-          className="mr-2 h-auto w-12 md:mr-4 md:w-14"
-        />
-        AI powered summaries
-      </h1>
-      <CreateSummaryForm />
+      <div className="flex min-h-[50vh] flex-col items-center justify-center">
+        <h1 className="mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl lg:text-8xl">
+          AI Powered Summaries
+        </h1>
+        <CreateSummaryForm />
+      </div>
       <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
         <h2 className="text-xl font-bold">My Summaries</h2>
         <CreateFolderButton />
