@@ -7,6 +7,7 @@ import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
+import { AuthProvider } from "@/utils/useAuth";
 
 const sans = Anek_Bangla({
   subsets: ["latin"],
@@ -36,15 +37,17 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider enableSystem={false}>
-          <>
-            {!isAuthPage && <Header />}
-            <Component {...pageProps} />
-            {!isAuthPage && <Footer />}
-          </>
-        </ThemeProvider>
-      </QueryClientProvider>
+      <AuthProvider>
+        <QueryClientProvider client={queryClient}>
+          <ThemeProvider enableSystem={false}>
+            <>
+              {!isAuthPage && <Header />}
+              <Component {...pageProps} />
+              {!isAuthPage && <Footer />}
+            </>
+          </ThemeProvider>
+        </QueryClientProvider>
+      </AuthProvider>
     </>
   );
 }

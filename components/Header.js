@@ -16,7 +16,7 @@ import Logo from "./Logo";
 
 function Header() {
   const { theme, setTheme } = useTheme();
-  const { user } = useAuth();
+  const { user, login, logout } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 border-b bg-white py-3 shadow-2xl shadow-slate-600/10 dark:border-slate-800 dark:bg-slate-900">
@@ -93,6 +93,7 @@ function Header() {
                     <Menu.Item>
                       {({ active }) => (
                         <button
+                          onClick={logout}
                           className={classNames(
                             active &&
                               "bg-red-500/10 text-red-500 dark:text-red-500",
@@ -111,7 +112,9 @@ function Header() {
         ) : (
           <div className="flex items-center gap-2">
             <Link
-              href="/auth/login"
+              onClick={login}
+              // href="/auth/login"
+              href="#"
               className="flex items-center justify-center rounded py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm"
             >
               <ArrowRightOnRectangleIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
