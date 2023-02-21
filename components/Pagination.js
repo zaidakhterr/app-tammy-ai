@@ -86,7 +86,7 @@ const Pagination = ({
   if (pageCount === 1) return null;
 
   return (
-    <div className={classNames("flex w-fit gap-2", className)}>
+    <div className={classNames("flex w-fit gap-1.5 sm:gap-2", className)}>
       <PaginationButton onClick={onPrev} disabled={isPrevDisabled}>
         <ChevronLeftIcon className="h-4 w-4 stroke-inherit" />
       </PaginationButton>

@@ -51,7 +51,22 @@ const makeSummaryData = (...lens) => {
   return makeDataLevel();
 };
 
+const makeDiscoverData = (...lens) => {
+  const makeDataLevel = (depth = 0) => {
+    const len = lens[depth];
+    return range(len).map(() => {
+      return {
+        ...newSummary(),
+        subRows: lens[depth + 1] ? makeDataLevel(depth + 1) : undefined,
+      };
+    });
+  };
+
+  return makeDataLevel();
+};
+
 const summaryData = makeSummaryData(100);
+const discoverData = makeDiscoverData(100);
 
 export const fetchSummaryData = async options => {
   await new Promise(r => setTimeout(r, 500));
@@ -62,5 +77,17 @@ export const fetchSummaryData = async options => {
       (options.pageIndex + 1) * options.pageSize
     ),
     pageCount: Math.ceil(summaryData.length / options.pageSize),
+  };
+};
+
+export const fetchDiscoverData = async options => {
+  await new Promise(r => setTimeout(r, 500));
+
+  return {
+    rows: discoverData.slice(
+      options.pageIndex * options.pageSize,
+      (options.pageIndex + 1) * options.pageSize
+    ),
+    pageCount: Math.ceil(discoverData.length / options.pageSize),
   };
 };

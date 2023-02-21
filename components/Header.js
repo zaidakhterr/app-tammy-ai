@@ -24,7 +24,7 @@ function Header() {
   const { theme, setTheme } = useTheme();
 
   return (
-    <header className="sticky top-0 z-50 border-b bg-white py-3 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+    <header className="sticky top-0 z-50 bg-white/50 py-3 backdrop-blur-md dark:bg-slate-900/50">
       <Container className="flex items-center justify-between ">
         <Link href="/">
           <Logo />

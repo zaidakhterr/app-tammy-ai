@@ -1,22 +1,21 @@
 import React, { Fragment, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FolderIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
-import classNames from "classnames";
 import Container from "@/components/Container";
-import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Button, { DangerButton, SecondaryButton } from "@/components/Button";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
-import youtubeLogo from "@/assets/youtube.png";
-import Pagination from "@/components/Pagination";
-import folder from "@/assets/folder.svg";
 import Table from "@/components/Table";
-import { useQuery } from "@tanstack/react-query";
-import { fetchSummaryData } from "@/api";
+import youtube from "@/assets/youtube.png";
+import folder from "@/assets/folder.svg";
+import { fetchDiscoverData, fetchSummaryData } from "@/api";
+import { abbreviateNumber } from "@/utils";
 
 dayjs.extend(relativeTime);
 
@@ -66,7 +65,7 @@ const CreateFolderButton = () => {
         Create Folder
       </Button>
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -105,7 +104,12 @@ const CreateFolderButton = () => {
                       placeholder="Enter folder name"
                       containerClassName="w-full"
                     />
-                    <Button type="submit">Create</Button>
+                    <div className="flex gap-3">
+                      <Button type="submit">Create</Button>
+                      <SecondaryButton type="button" onClick={closeModal}>
+                        Cancel
+                      </SecondaryButton>
+                    </div>
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
@@ -116,226 +120,6 @@ const CreateFolderButton = () => {
     </>
   );
 };
-
-const MY_SUMMARIES = [
-  {
-    id: 1,
-    title:
-      "How to make a websiteHow to make a websiteHow to make a websiteHow to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 2,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 3,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 4,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 5,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-
-  {
-    id: 6,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 7,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 8,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-
-  {
-    id: 101,
-    title: "My Videos",
-    videoCount: 50,
-    lastViewed: "2023-01-01",
-    type: "folder",
-  },
-  {
-    id: 9,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 10,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 102,
-    title: "My Videos",
-    videoCount: 50,
-    lastViewed: "2023-01-01",
-    type: "folder",
-  },
-  {
-    id: 103,
-    title: "My Videos",
-    videoCount: 50,
-    lastViewed: "2023-01-01",
-    type: "folder",
-  },
-  {
-    id: 104,
-    title: "My Videos",
-    videoCount: 50,
-    lastViewed: "2023-01-01",
-    type: "folder",
-  },
-  {
-    id: 11,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 12,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-];
-
-const DISCOVER_SUMMARIES = [
-  {
-    id: 1,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 2,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 3,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 4,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 5,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-
-  {
-    id: 6,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 7,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-  {
-    id: 8,
-    title: "How to make a website",
-    thumbnail: "https://picsum.photos/150/100",
-    viewCount: 100,
-    videoLength: 10,
-    lastViewed: "2023-01-01",
-    type: "video",
-  },
-];
-
-const PAGE_SIZE = 5;
 
 const MoveToFolderButton = ({ summaryId }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -411,7 +195,12 @@ const MoveToFolderButton = ({ summaryId }) => {
                       ]}
                     />
 
-                    <Button type="submit">Move</Button>
+                    <div className="flex gap-3">
+                      <Button type="submit">Move</Button>
+                      <SecondaryButton type="button" onClick={closeModal}>
+                        Cancel
+                      </SecondaryButton>
+                    </div>
                   </form>
                 </Dialog.Panel>
               </Transition.Child>
@@ -483,6 +272,7 @@ const DeleteButton = ({ summaryId, type }) => {
                   >
                     Are you sure you want to delete this {type}?
                   </Dialog.Title>
+                  <p className="mt-4">This action is irreversible.</p>
                   <div className="mt-4 flex gap-3">
                     <DangerButton onClick={onDelete}>Yes, Delete</DangerButton>
                     <SecondaryButton onClick={closeModal}>
@@ -499,123 +289,8 @@ const DeleteButton = ({ summaryId, type }) => {
   );
 };
 
-// const MySummariesTable = ({ summaries }) => {
-//   const [pages] = useState(() => {
-//     const pages = [];
-//     for (let i = 0; i < summaries.length; i += PAGE_SIZE) {
-//       pages.push(summaries.slice(i, i + PAGE_SIZE));
-//     }
-//     return pages;
-//   });
-//   const [page, setPage] = useState(1);
-//   const activePage = pages[page - 1];
-
-//   const totalCount = summaries.length;
-//   const totalPageCount = pages.length;
-
-//   return (
-//     <>
-//       <div className="mt-4 w-full overflow-clip rounded-md border dark:border-slate-700">
-//         <table className="w-full">
-//           <tbody>
-//             {activePage.map((summary, idx) => {
-//               const isFolder = summary.type === "folder";
-
-//               return (
-//                 <tr key={summary.id} className="table-row">
-//                   <td
-//                     className={classNames(
-//                       "table-cell p-4",
-//                       idx !== 0 && "border-t dark:border-slate-700"
-//                     )}
-//                   >
-//                     <Link
-//                       href={
-//                         isFolder
-//                           ? `/folder/${summary.id}`
-//                           : `/summary/${summary.id}`
-//                       }
-//                       className="group flex flex-col gap-2 sm:flex-row sm:items-center"
-//                     >
-//                       <Image
-//                         src={isFolder ? folder : summary.thumbnail}
-//                         width={128}
-//                         height={80}
-//                         alt={summary.title}
-//                         className={classNames(
-//                           "h-20 w-32",
-//                           isFolder
-//                             ? "object-contain object-left"
-//                             : "object-cover"
-//                         )}
-//                       />
-//                       <p className="group-hover:underline">{summary.title}</p>
-//                     </Link>
-//                   </td>
-//                   <td
-//                     className={classNames(
-//                       "hidden p-4 md:table-cell",
-//                       idx !== 0 && "border-t dark:border-slate-700"
-//                     )}
-//                   >
-//                     {isFolder
-//                       ? `${summary.videoCount} videos`
-//                       : `${summary.videoLength} mins`}
-//                   </td>
-//                   <td
-//                     className={classNames(
-//                       "hidden p-4 md:table-cell",
-//                       idx !== 0 && "border-t dark:border-slate-700"
-//                     )}
-//                   >
-//                     Viewed {dayjs(summary.lastViewed).fromNow()}
-//                   </td>
-//                   <td
-//                     className={classNames(
-//                       "table-cell p-4",
-//                       idx !== 0 && "border-t dark:border-slate-700"
-//                     )}
-//                   >
-//                     <div className="flex flex-col items-center justify-end gap-2 sm:flex-row">
-//                       {!isFolder && (
-//                         <MoveToFolderButton summaryId={summary.id} />
-//                       )}
-//                       <DeleteButton
-//                         summaryId={summary.id}
-//                         type={summary.type}
-//                       />
-//                     </div>
-//                   </td>
-//                 </tr>
-//               );
-//             })}
-//           </tbody>
-//         </table>
-//       </div>
-
-//       <Pagination
-//         className="ml-auto mt-2"
-//         pageSize={PAGE_SIZE}
-//         currentPage={page}
-//         totalCount={totalCount}
-//         onPageChange={page => {
-//           console.log(page);
-//           setPage(page);
-//         }}
-//         onPrev={() => {
-//           console.log("prev");
-//           setPage(page => Math.max(1, page - 1));
-//         }}
-//         onNext={() => {
-//           console.log("next");
-//           setPage(page => Math.min(totalPageCount, page + 1));
-//         }}
-//       />
-//     </>
-//   );
-// };
-
 const MySummariesTable = () => {
+  const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 10,
@@ -634,124 +309,181 @@ const MySummariesTable = () => {
 
   return (
     <Table
-      columns={[{ accessorKey: "id" }, { accessorKey: "title" }]}
+      columns={[
+        {
+          accessorKey: "title",
+          cell: info => {
+            const row = info.row.original;
+            const isFolder = row.type === "folder";
+
+            return (
+              <div className="flex w-full items-center">
+                <Image
+                  src={isFolder ? folder : youtube}
+                  width={48}
+                  height={40}
+                  alt={row.title}
+                  className="h-10 w-12 object-contain"
+                />
+                <p className="ml-2">{row.title}</p>
+              </div>
+            );
+          },
+        },
+        {
+          accessorKey: "videoLength",
+          cell: info => {
+            const row = info.row.original;
+            const isFolder = row.type === "folder";
+
+            return (
+              <div>
+                {isFolder
+                  ? `${row.videoCount} items`
+                  : `${row.videoLength} mins`}
+              </div>
+            );
+          },
+        },
+        {
+          accessorKey: "lastViewed",
+          cell: info => {
+            const row = info.row.original;
+
+            return <div>{dayjs(row.lastViewed).fromNow()}</div>;
+          },
+        },
+        {
+          accessorKey: "actions",
+          cell: info => {
+            const row = info.row.original;
+            const isFolder = row.type === "folder";
+
+            return (
+              <div
+                className="flex flex-col items-center justify-end gap-2 sm:flex-row"
+                onClick={e => {
+                  e.stopPropagation();
+                }}
+              >
+                {!isFolder && <MoveToFolderButton summaryId={row.id} />}
+                <DeleteButton summaryId={row.id} type={row.type} />
+              </div>
+            );
+          },
+        },
+      ]}
+      onRowClick={row => {
+        const original = row.original;
+        const isFolder = original.type === "folder";
+
+        if (isFolder) {
+          router.push(`/folder/${original.id}`);
+        } else {
+          router.push(`/summary/${original.id}`);
+        }
+      }}
       data={dataQuery.data?.rows}
       pageCount={dataQuery.data?.pageCount}
       pagination={pagination}
       setPagination={setPagination}
+      loading={dataQuery.isFetching}
     />
   );
 };
 
-const DiscoverTable = ({ summaries }) => {
-  const [pages] = useState(() => {
-    const pages = [];
-    for (let i = 0; i < summaries.length; i += PAGE_SIZE) {
-      pages.push(summaries.slice(i, i + PAGE_SIZE));
-    }
-    return pages;
+const DiscoverTable = () => {
+  const [pagination, setPagination] = React.useState({
+    pageIndex: 0,
+    pageSize: 10,
   });
-  const [page, setPage] = useState(1);
-  const activePage = pages[page - 1];
 
-  const totalCount = summaries.length;
-  const totalPageCount = pages.length;
+  const fetchDataOptions = {
+    pageIndex: pagination.pageIndex,
+    pageSize: pagination.pageSize,
+  };
+
+  const dataQuery = useQuery(
+    ["/discover", fetchDataOptions],
+    () => fetchDiscoverData(fetchDataOptions),
+    { keepPreviousData: true }
+  );
 
   return (
-    <>
-      <div className="mt-4 w-full overflow-clip rounded-md border dark:border-slate-700">
-        <table className="w-full">
-          <tbody>
-            {activePage.map((summary, idx) => {
-              const isFolder = summary.type === "folder";
+    <Table
+      columns={[
+        {
+          accessorKey: "title",
+          cell: info => {
+            const row = info.row.original;
+            const isFolder = row.type === "folder";
 
-              return (
-                <tr key={summary.id} className="table-row">
-                  <td
-                    className={classNames(
-                      "table-cell p-4",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    <Link
-                      href={
-                        isFolder
-                          ? `/folder/${summary.id}`
-                          : `/summary/${summary.id}`
-                      }
-                      className="group flex flex-col gap-2 sm:flex-row sm:items-center"
-                    >
-                      <Image
-                        src={isFolder ? folder : summary.thumbnail}
-                        width={128}
-                        height={80}
-                        alt={summary.title}
-                        className={classNames(
-                          "h-20 w-32",
-                          isFolder
-                            ? "object-contain object-left"
-                            : "object-cover"
-                        )}
-                      />
-                      <p className="group-hover:underline">{summary.title}</p>
-                    </Link>
-                  </td>
-                  <td
-                    className={classNames(
-                      "hidden p-4 md:table-cell",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    {isFolder
-                      ? `${summary.videoCount} videos`
-                      : `${summary.videoLength} mins`}
-                  </td>
-                  <td
-                    className={classNames(
-                      "hidden p-4 md:table-cell",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    Viewed {summary.viewCount} times
-                  </td>
-                  <td
-                    className={classNames(
-                      "table-cell p-4",
-                      idx !== 0 && "border-t dark:border-slate-700"
-                    )}
-                  >
-                    <div className="flex flex-col items-center justify-end gap-2 sm:flex-row">
-                      <button className="flex items-center justify-center rounded bg-blue-500 py-2 px-3 text-center text-sm text-white transition-colors hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 md:px-4">
-                        Summarize
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
-      </div>
+            return (
+              <div className="flex w-full items-center">
+                <Image
+                  src={isFolder ? folder : youtube}
+                  width={48}
+                  height={40}
+                  alt={row.title}
+                  className="h-10 w-12 object-contain"
+                />
+                <p className="ml-2">{row.title}</p>
+              </div>
+            );
+          },
+        },
+        {
+          accessorKey: "videoLength",
+          cell: info => {
+            const row = info.row.original;
+            const isFolder = row.type === "folder";
 
-      <Pagination
-        className="ml-auto mt-2"
-        pageSize={PAGE_SIZE}
-        currentPage={page}
-        totalCount={totalCount}
-        onPageChange={page => {
-          console.log(page);
-          setPage(page);
-        }}
-        onPrev={() => {
-          console.log("prev");
-          setPage(page => Math.max(1, page - 1));
-        }}
-        onNext={() => {
-          console.log("next");
-          setPage(page => Math.min(totalPageCount, page + 1));
-        }}
-      />
-    </>
+            return (
+              <div>
+                {isFolder
+                  ? `${row.videoCount} items`
+                  : `${row.videoLength} mins`}
+              </div>
+            );
+          },
+        },
+        {
+          accessorKey: "viewCount",
+          cell: info => {
+            const row = info.row.original;
+
+            return <div>Viewed {abbreviateNumber(row.viewCount)} times</div>;
+          },
+        },
+        {
+          accessorKey: "actions",
+          cell: info => {
+            const row = info.row.original;
+
+            return (
+              <div
+                className="flex flex-col items-center justify-end gap-2 sm:flex-row"
+                onClick={e => {
+                  e.stopPropagation();
+                }}
+              >
+                <Link
+                  href={`/summary/${row.id}`}
+                  className="flex h-10 items-center justify-center rounded-md bg-blue-500/10 px-3 text-blue-500 transition-colors hover:bg-blue-500/20 dark:text-blue-600 "
+                >
+                  Summarize
+                </Link>
+              </div>
+            );
+          },
+        },
+      ]}
+      data={dataQuery.data?.rows}
+      pageCount={dataQuery.data?.pageCount}
+      pagination={pagination}
+      setPagination={setPagination}
+      loading={dataQuery.isFetching}
+    />
   );
 };
 
@@ -760,22 +492,22 @@ export default function Home() {
     <Container className="pb-40">
       <h1 className="mx-auto mt-6 flex w-fit items-center text-2xl font-bold md:mt-10 md:text-3xl">
         <Image
-          src={youtubeLogo}
+          src={youtube}
           alt="YouTube Logo"
           className="mr-2 h-auto w-12 md:mr-4 md:w-14"
         />
         AI powered summaries
       </h1>
       <CreateSummaryForm />
-      <div className="mt-10 flex items-center justify-between md:mt-16">
+      <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
         <h2 className="text-xl font-bold">My Summaries</h2>
         <CreateFolderButton />
       </div>
-      <MySummariesTable summaries={MY_SUMMARIES} />
-      <div className="mt-10 flex items-center justify-between md:mt-16">
+      <MySummariesTable />
+      <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
         <h2 className="text-xl font-bold">Discover</h2>
       </div>
-      <DiscoverTable summaries={DISCOVER_SUMMARIES} />
+      <DiscoverTable />
     </Container>
   );
 }

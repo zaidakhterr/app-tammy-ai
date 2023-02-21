@@ -6,6 +6,7 @@ import { Inter } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
+import Footer from "@/components/Footer";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps }) {
           <>
             {!isAuthPage && <Header />}
             <Component {...pageProps} />
+            {!isAuthPage && <Footer />}
           </>
         </ThemeProvider>
       </QueryClientProvider>
