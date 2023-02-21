@@ -59,7 +59,7 @@ const PaginationButton = ({ active, ...props }) => {
     <button
       {...props}
       className={classNames(
-        "flex h-8 w-8 items-center justify-center rounded border p-1 text-sm transition-colors disabled:cursor-not-allowed disabled:bg-slate-200 dark:disabled:bg-slate-800",
+        "flex h-8 w-8 items-center justify-center rounded-sm border p-1 text-sm transition-colors disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-slate-800",
         active
           ? "border-blue-500 bg-blue-500 text-white hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500"
           : "stroke-slate-900 hover:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-700 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:stroke-slate-600"

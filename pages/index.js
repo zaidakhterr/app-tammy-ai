@@ -2,7 +2,12 @@ import React, { Fragment, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { FolderIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowRightIcon,
+  FolderIcon,
+  PlusIcon,
+  TrashIcon,
+} from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
 import { useQuery } from "@tanstack/react-query";
@@ -503,6 +508,7 @@ const DiscoverTable = () => {
                   className="flex h-10 items-center justify-center rounded px-3 text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
                 >
                   Summarize
+                  <ArrowRightIcon className="ml-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
                 </Link>
               </div>
             );
