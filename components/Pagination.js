@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import classNames from "classnames";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
 const DOTS = "DOTS";
 
@@ -88,7 +88,7 @@ const Pagination = ({
   return (
     <div className={classNames("flex w-fit gap-1.5 sm:gap-2", className)}>
       <PaginationButton onClick={onPrev} disabled={isPrevDisabled}>
-        <ChevronLeftIcon className="h-4 w-4 stroke-inherit" />
+        <IconChevronLeft className="h-4 w-4 stroke-inherit" />
       </PaginationButton>
       {paginationRange.map((pageNumber, idx) => {
         if (pageNumber === DOTS) return <Dots key={idx} />;
@@ -104,7 +104,7 @@ const Pagination = ({
       })}
 
       <PaginationButton onClick={onNext} disabled={isNextDisabled}>
-        <ChevronRightIcon className="h-4 w-4 stroke-inherit" />
+        <IconChevronRight className="h-4 w-4 stroke-inherit" />
       </PaginationButton>
     </div>
   );
