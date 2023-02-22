@@ -67,13 +67,14 @@ const Table = React.memo(
                         "cursor-pointer transition-colors hover:bg-slate-50/75 dark:hover:bg-slate-800/25"
                     )}
                   >
-                    {row.getVisibleCells().map(cell => {
+                    {row.getVisibleCells().map((cell, cellIdx) => {
                       return (
                         <td
                           key={cell.id}
                           className={classNames(
                             "p-3 text-sm md:text-base",
-                            idx !== 0 && "border-t dark:border-slate-700"
+                            idx !== 0 && "border-t dark:border-slate-700",
+                            cellIdx !== 0 && "hidden md:table-cell"
                           )}
                         >
                           <a>

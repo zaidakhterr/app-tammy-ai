@@ -50,12 +50,9 @@ const CreateSummaryForm = () => {
             className="ml-2 h-5 w-auto md:mr-4 md:h-6"
           />
         }
-        className="bg-white pl-11 pr-28 md:pr-4 md:pl-12"
+        className="bg-white pl-11 pr-28 md:pr-44 md:pl-12"
       />
-      <Button
-        type="submit"
-        className="absolute right-0 top-0 w-fit md:relative"
-      >
+      <Button type="submit" className="absolute right-0 top-0 w-fit">
         <SparklesIcon className="mr-2 h-5 w-5 stroke-white" />
         Summarise
       </Button>
@@ -533,7 +530,7 @@ export default function Home() {
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
         <h1 className="relative mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl">
           AI-powered Summaries
-          <span className="absolute bottom-0 left-1/2 h-10 w-1/2 -translate-x-1/2 bg-blue-600/40 blur-3xl dark:bg-blue-600/30" />
+          <span className="absolute top-0 left-1/2 h-16 w-1/2 -translate-x-1/2 bg-blue-600/40 blur-3xl dark:bg-blue-600/30" />
         </h1>
         <CreateSummaryForm />
       </div>
