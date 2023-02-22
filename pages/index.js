@@ -40,7 +40,7 @@ const CreateSummaryForm = () => {
       className="relative mx-auto my-6 w-full max-w-xl gap-2 rounded-md sm:flex-row md:my-10 md:flex md:items-center lg:max-w-2xl"
     >
       <Input
-        placeholder="Paste a youtube url"
+        placeholder="Enter a YouTube URL"
         containerClassName="w-full"
         leftIcon={
           <Image
