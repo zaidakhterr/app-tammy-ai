@@ -3,9 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
-  ArrowRightIcon,
   FolderIcon,
   PlusIcon,
+  SparklesIcon,
   TrashIcon,
 } from "@heroicons/react/24/outline";
 import { Dialog, Transition } from "@headlessui/react";
@@ -505,10 +505,10 @@ const DiscoverTable = () => {
               >
                 <Link
                   href={`/summary/${row.id}`}
-                  className="flex h-10 items-center justify-center rounded px-3 text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
+                  className="flex h-9 items-center justify-center rounded px-3 text-sm text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
                 >
-                  Summarize
-                  <ArrowRightIcon className="ml-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
+                  <SparklesIcon className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
+                  Summarise
                 </Link>
               </div>
             );
@@ -535,19 +535,21 @@ export default function Home() {
         </h1>
         <CreateSummaryForm />
       </div>
-      {user && (
-        <>
-          <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-            <h2 className="text-xl font-bold">My Summaries</h2>
-            <CreateFolderButton />
-          </div>
-          <MySummariesTable />
-        </>
-      )}
-      <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-        <h2 className="text-xl font-bold">Discover</h2>
+      <div className="mx-auto w-full max-w-6xl">
+        {user && (
+          <>
+            <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
+              <h2 className="text-xl font-bold">My Summaries</h2>
+              <CreateFolderButton />
+            </div>
+            <MySummariesTable />
+          </>
+        )}
+        <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
+          <h2 className="text-xl font-bold">Discover</h2>
+        </div>
+        <DiscoverTable />
       </div>
-      <DiscoverTable />
     </Container>
   );
 }

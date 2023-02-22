@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 * {
-  @apply font-sans text-slate-900 dark:text-white;
+  @apply font-sans text-slate-900 dark:text-slate-200;
 }
 
 body {

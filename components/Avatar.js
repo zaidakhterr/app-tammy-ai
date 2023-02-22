@@ -18,7 +18,7 @@ const Avatar = ({ src, name }) => {
   return (
     <div
       title={name}
-      className="flex h-10 w-10 items-center justify-center rounded-full border border-emerald-600 bg-emerald-500 text-lg font-semibold uppercase text-white"
+      className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500 text-lg font-semibold uppercase text-white"
     >
       {name.charAt(0)}
     </div>
