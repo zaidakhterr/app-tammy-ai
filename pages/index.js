@@ -3,11 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import {
-  FolderIcon,
-  PlusIcon,
-  SparklesIcon,
-  TrashIcon,
-} from "@heroicons/react/24/outline";
+  IconTrash,
+  IconPlus,
+  IconFolderFilled,
+  IconFileArrowRight,
+  IconSparkles,
+} from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
 import { useQuery } from "@tanstack/react-query";
@@ -18,10 +19,8 @@ import Input from "@/components/Input";
 import Select from "@/components/Select";
 import Table from "@/components/Table";
 import youtube from "@/assets/youtube.png";
-import folder from "@/assets/folder.svg";
 import { fetchDiscoverData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
-import classNames from "classnames";
 import useAuth from "@/utils/useAuth";
 
 dayjs.extend(relativeTime);
@@ -50,10 +49,13 @@ const CreateSummaryForm = () => {
             className="ml-2 h-5 w-auto md:mr-4 md:h-6"
           />
         }
-        className="bg-white pl-11 pr-28 md:pr-44 md:pl-12"
+        className="bg-white pl-11 pr-28 md:pl-12"
       />
-      <Button type="submit" className="absolute right-0 top-0 w-fit">
-        <SparklesIcon className="mr-2 h-5 w-5 stroke-white" />
+      <Button
+        type="submit"
+        className="absolute right-0 top-0 w-fit sm:relative"
+      >
+        <IconSparkles className="mr-2 h-5 w-5 stroke-white" />
         Summarise
       </Button>
     </form>
@@ -82,7 +84,7 @@ const CreateFolderButton = () => {
   return (
     <>
       <Button onClick={openModal} className="ml-auto">
-        <PlusIcon className="mr-2 h-5 w-5 stroke-white" />
+        <IconPlus className="mr-2 h-5 w-5 stroke-white" />
         Create Folder
       </Button>
       <Transition appear show={isOpen} as={Fragment}>
@@ -113,7 +115,7 @@ const CreateFolderButton = () => {
                 <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6"
                   >
                     Create Folder
                   </Dialog.Title>
@@ -167,7 +169,7 @@ const MoveToFolderButton = ({ summaryId }) => {
         }}
         className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
-        <FolderIcon className="h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
+        <IconFileArrowRight className="h-5 w-5 stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -197,7 +199,7 @@ const MoveToFolderButton = ({ summaryId }) => {
                 <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6"
                   >
                     Move to folder
                   </Dialog.Title>
@@ -257,7 +259,7 @@ const DeleteButton = ({ summaryId, type }) => {
         }}
         className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
-        <TrashIcon className="h-5 w-5 stroke-red-500 dark:stroke-red-600" />
+        <IconTrash className="h-5 w-5 stroke-red-500" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -287,7 +289,7 @@ const DeleteButton = ({ summaryId, type }) => {
                 <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="text-lg font-medium leading-6"
                   >
                     Are you sure you want to delete this {type}?
                   </Dialog.Title>
@@ -336,16 +338,11 @@ const MySummariesTable = () => {
 
             return (
               <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
-                <Image
-                  src={isFolder ? folder : youtube}
-                  width={32}
-                  height={isFolder ? 28 : 20}
-                  alt={row.title}
-                  className={classNames(
-                    "w-8 object-contain",
-                    isFolder ? "h-7" : "h-5"
-                  )}
-                />
+                {isFolder ? (
+                  <IconFolderFilled className="h-7 w-7 text-blue-700" />
+                ) : (
+                  <Image src={youtube} width={28} height={28} alt={row.title} />
+                )}
                 <Link
                   href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
                   className="text-sm font-medium hover:underline md:text-base"
@@ -505,7 +502,7 @@ const DiscoverTable = () => {
                   href={`/summary/${row.id}`}
                   className="flex h-9 items-center justify-center rounded px-3 text-sm text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
                 >
-                  <SparklesIcon className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
+                  <IconSparkles className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
                   Summarise
                 </Link>
               </div>
@@ -528,9 +525,9 @@ export default function Home() {
   return (
     <Container className="pb-40">
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
-        <h1 className="relative mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl">
+        <h1 className="relative mx-auto mt-6 text-center text-5xl font-bold sm:text-6xl md:mt-10 md:text-7xl">
           AI-powered Summaries
-          <span className="absolute top-0 left-1/2 h-16 w-1/2 -translate-x-1/2 bg-blue-600/40 blur-3xl dark:bg-blue-600/30" />
+          <span className="absolute top-0 left-1/2 h-16 w-1/2 -translate-x-1/2 bg-blue-600/30 blur-3xl dark:bg-blue-600/20" />
         </h1>
         <CreateSummaryForm />
       </div>

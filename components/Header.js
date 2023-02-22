@@ -4,11 +4,12 @@ import Link from "next/link";
 import classNames from "classnames";
 import { Menu, Transition } from "@headlessui/react";
 import {
-  MoonIcon,
-  SunIcon,
-  ArrowRightOnRectangleIcon,
-} from "@heroicons/react/24/outline";
-import { BoltIcon } from "@heroicons/react/24/solid";
+  IconDiamond,
+  IconMoon,
+  IconLogout,
+  IconSun,
+} from "@tabler/icons-react";
+import { OutlineLink } from "./Button";
 import useAuth from "@/utils/useAuth";
 import Container from "./Container";
 import Avatar from "./Avatar";
@@ -19,7 +20,7 @@ function Header() {
   const { user, login, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-40 border-b bg-white py-3 shadow-2xl shadow-slate-600/10 dark:border-slate-800 dark:bg-slate-900">
+    <header className="sticky top-0 z-40 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
       <Container className="flex items-center justify-between ">
         <Link href="/">
           <Logo />
@@ -27,13 +28,10 @@ function Header() {
         {user ? (
           <div className="flex items-center gap-3">
             {user.plan !== "Pro" && (
-              <Link
-                href="/subscription"
-                className="flex items-center justify-center rounded py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm"
-              >
-                <BoltIcon className="mr-2 h-4 w-4 fill-blue-500 dark:fill-blue-500" />
+              <OutlineLink href="/subscription">
+                <IconDiamond className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-500" />
                 Upgrade
-              </Link>
+              </OutlineLink>
             )}
             <Menu as="div" className="relative">
               <Menu.Button className="flex rounded-full">
@@ -86,12 +84,12 @@ function Header() {
                           {theme === "dark" ? (
                             <>
                               Light Mode{" "}
-                              <SunIcon className="ml-2 h-4 w-4 stroke-2" />
+                              <IconSun className="ml-2 h-4 w-4 stroke-2" />
                             </>
                           ) : (
                             <>
                               Dark Mode{" "}
-                              <MoonIcon className="ml-2 h-4 w-4 stroke-2" />
+                              <IconMoon className="ml-2 h-4 w-4 stroke-2" />
                             </>
                           )}
                         </button>
@@ -120,15 +118,10 @@ function Header() {
           </div>
         ) : (
           <div className="flex items-center gap-2">
-            <Link
-              onClick={login}
-              // href="/auth/login"
-              href="#"
-              className="flex items-center justify-center rounded py-2 px-3 text-xs font-semibold text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm"
-            >
-              <ArrowRightOnRectangleIcon className="mr-2 h-5 w-5 stroke-blue-500 stroke-2 dark:stroke-blue-500" />
+            <OutlineLink href="#" onClick={login}>
+              <IconLogout className="mr-2 h-4 w-4 stroke-blue-600 stroke-2" />
               Login
-            </Link>
+            </OutlineLink>
           </div>
         )}
       </Container>

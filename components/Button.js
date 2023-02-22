@@ -1,4 +1,5 @@
 import classNames from "classnames";
+import Link from "next/link";
 import React from "react";
 
 const Button = ({ children, className, ...props }) => {
@@ -41,6 +42,21 @@ export const SecondaryButton = ({ children, className, ...props }) => {
       {children}
     </button>
   );
+};
+
+export const OutlineLink = ({ children, className, href = "", ...props }) => {
+  return (
+    <Link
+      href={href}
+      className={classNames(
+        "flex items-center justify-center rounded border border-blue-500 py-1.5 px-3 text-xs text-blue-600 transition-colors hover:bg-blue-50 dark:border-blue-600 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </Link>
+  ); // return Link element, with props children and className
 };
 
 export default Button;
