@@ -50,7 +50,7 @@ const Table = React.memo(
 
     return (
       <>
-        <div className="relative mb-4 min-h-[4rem] w-full overflow-clip rounded-md border dark:border-slate-700">
+        <div className="relative mb-4 min-h-[4rem] w-full overflow-clip">
           <table ref={tableRef} className="w-full scroll-m-20">
             <tbody>
               {table.getRowModel().rows.map((row, idx) => {
