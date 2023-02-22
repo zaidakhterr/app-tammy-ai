@@ -38,7 +38,7 @@ const CreateSummaryForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative mx-auto my-6 w-full max-w-xl gap-2 sm:flex-row md:my-10 md:flex md:items-center lg:max-w-2xl"
+      className="relative mx-auto my-6 w-full max-w-xl gap-2 rounded-md sm:flex-row md:my-10 md:flex md:items-center lg:max-w-2xl"
     >
       <Input
         placeholder="Paste a youtube url"
@@ -47,10 +47,10 @@ const CreateSummaryForm = () => {
           <Image
             src={youtube}
             alt="YouTube Logo"
-            className="ml-2 h-6 w-auto md:mr-4 md:h-7"
+            className="ml-2 h-5 w-auto md:mr-4 md:h-6"
           />
         }
-        className="pl-12 pr-28 md:pr-4 md:pl-14"
+        className="bg-white pl-10 pr-28 md:pr-4 md:pl-12"
       />
       <Button
         type="submit"
@@ -531,8 +531,8 @@ export default function Home() {
   return (
     <Container className="pb-40">
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
-        <h1 className="mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl lg:text-8xl">
-          AI Powered Summaries
+        <h1 className="mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl">
+          AI-powered Summaries
         </h1>
         <CreateSummaryForm />
       </div>

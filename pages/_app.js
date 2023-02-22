@@ -2,14 +2,14 @@ import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Anek_Bangla } from "@next/font/google";
+import { Inter } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
 import Header from "@/components/Header";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
 
-const sans = Anek_Bangla({
+const sans = Inter({
   subsets: ["latin"],
   display: "swap",
 });
