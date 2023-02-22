@@ -18,6 +18,7 @@ const Table = React.memo(
     onRowClick,
     loading,
   }) => {
+    const tableRef = React.useRef(null);
     const columns = React.useMemo(() => _columns, [_columns]);
     const defaultData = React.useMemo(() => [], []);
     const data = React.useMemo(() => _data, [_data]);
@@ -37,7 +38,12 @@ const Table = React.memo(
       state: {
         pagination,
       },
-      onPaginationChange: setPagination,
+      onPaginationChange: (...args) => {
+        setPagination(...args);
+        if (tableRef.current) {
+          tableRef.current.scrollIntoView({ behavior: "smooth" });
+        }
+      },
       getCoreRowModel: getCoreRowModel(),
       manualPagination: true,
     });
@@ -45,7 +51,7 @@ const Table = React.memo(
     return (
       <>
         <div className="relative mb-4 min-h-[4rem] w-full overflow-clip rounded-md border dark:border-slate-700">
-          <table className="w-full">
+          <table ref={tableRef} className="w-full scroll-m-20">
             <tbody>
               {table.getRowModel().rows.map((row, idx) => {
                 return (
@@ -85,8 +91,8 @@ const Table = React.memo(
             </tbody>
           </table>
           {loading && (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-500/10">
-              <Loader />
+            <div className="absolute inset-0 z-10 flex items-center justify-center bg-slate-500/10 ">
+              <Loader size={40} />
             </div>
           )}
         </div>

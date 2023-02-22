@@ -50,7 +50,7 @@ const CreateSummaryForm = () => {
             className="ml-2 h-5 w-auto md:mr-4 md:h-6"
           />
         }
-        className="bg-white pl-10 pr-28 md:pr-4 md:pl-12"
+        className="bg-white pl-11 pr-28 md:pr-4 md:pl-12"
       />
       <Button
         type="submit"
@@ -338,20 +338,20 @@ const MySummariesTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div className="flex w-full items-center">
+              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
                 <Image
                   src={isFolder ? folder : youtube}
                   width={32}
-                  height={isFolder ? 28 : 24}
+                  height={isFolder ? 28 : 20}
                   alt={row.title}
                   className={classNames(
                     "w-8 object-contain",
-                    isFolder ? "h-7" : "h-6"
+                    isFolder ? "h-7" : "h-5"
                   )}
                 />
                 <Link
                   href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
-                  className="ml-3 font-medium hover:underline"
+                  className="text-sm font-medium hover:underline md:text-base"
                 >
                   {row.title}
                 </Link>
@@ -366,7 +366,7 @@ const MySummariesTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div className="text-sm font-light">
+              <div className="hidden whitespace-nowrap text-sm font-light sm:block">
                 {isFolder
                   ? `${row.videoCount} items`
                   : `${row.videoLength} mins`}
@@ -380,7 +380,7 @@ const MySummariesTable = () => {
             const row = info.row.original;
 
             return (
-              <div className="text-sm font-light">
+              <div className="hidden whitespace-nowrap text-sm font-light md:block">
                 {dayjs(row.lastViewed).fromNow()}
               </div>
             );
@@ -531,8 +531,9 @@ export default function Home() {
   return (
     <Container className="pb-40">
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
-        <h1 className="mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl">
+        <h1 className="relative mx-auto mt-6 text-center text-5xl font-black sm:text-6xl md:mt-10 md:text-7xl">
           AI-powered Summaries
+          <span className="absolute bottom-0 left-1/2 h-10 w-1/2 -translate-x-1/2 bg-blue-600/40 blur-3xl dark:bg-blue-600/30" />
         </h1>
         <CreateSummaryForm />
       </div>
