@@ -451,7 +451,7 @@ const DiscoverTable = () => {
             const row = info.row.original;
 
             return (
-              <div className="flex w-full items-center">
+              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
                 <Image
                   src={row.thumbnail}
                   width={112}
@@ -459,7 +459,7 @@ const DiscoverTable = () => {
                   alt={row.title}
                   className="h-20 w-28 object-contain"
                 />
-                <p className="ml-3 font-medium">{row.title}</p>
+                <p className="font-medium">{row.title}</p>
               </div>
             );
           },
@@ -471,7 +471,7 @@ const DiscoverTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div className="text-sm font-light">
+              <div className="hidden whitespace-nowrap text-sm font-light md:block">
                 {isFolder
                   ? `${row.videoCount} items`
                   : `${row.videoLength} mins`}
@@ -485,7 +485,7 @@ const DiscoverTable = () => {
             const row = info.row.original;
 
             return (
-              <div className="text-sm font-light">
+              <div className="hidden whitespace-nowrap text-sm font-light sm:block">
                 Viewed {abbreviateNumber(row.viewCount)} times
               </div>
             );
