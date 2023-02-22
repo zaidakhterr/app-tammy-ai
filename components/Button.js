@@ -20,7 +20,7 @@ export const DangerButton = ({ children, className, ...props }) => {
   return (
     <button
       className={classNames(
-        "flex h-10 items-center justify-center rounded bg-red-500 py-2 px-3 text-center text-white shadow-sm shadow-red-600/20 transition-shadow hover:shadow-lg hover:shadow-red-600/20 dark:bg-red-600 md:h-11 md:px-6",
+        "flex h-10 items-center justify-center rounded bg-red-500 py-2 px-3 text-center text-white shadow-sm shadow-red-600/20 transition-shadow hover:shadow-md hover:shadow-red-600/20 dark:bg-red-600 md:h-11 md:px-6",
         className
       )}
       {...props}
@@ -34,7 +34,21 @@ export const SecondaryButton = ({ children, className, ...props }) => {
   return (
     <button
       className={classNames(
-        "flex h-10 items-center justify-center rounded border border-slate-200 py-2 px-3 text-center shadow-sm transition-shadow hover:shadow-lg dark:border-slate-700 md:h-11 md:px-6",
+        "flex h-10 items-center justify-center rounded border border-slate-200 py-2 px-3 text-center shadow-sm transition-shadow hover:shadow-md dark:border-slate-700 md:h-11 md:px-6",
+        className
+      )}
+      {...props}
+    >
+      {children}
+    </button>
+  );
+};
+
+export const OutlineButton = ({ children, className, ...props }) => {
+  return (
+    <button
+      className={classNames(
+        "flex h-10 items-center justify-center rounded border border-blue-500 py-2 px-3 text-center text-blue-500 shadow-sm transition-colors hover:bg-blue-50  dark:border-blue-600 dark:text-blue-600 dark:hover:bg-blue-500/10 md:h-11 md:px-6",
         className
       )}
       {...props}
@@ -49,7 +63,7 @@ export const OutlineLink = ({ children, className, href = "", ...props }) => {
     <Link
       href={href}
       className={classNames(
-        "flex items-center justify-center rounded border border-blue-500 py-1.5 px-3 text-xs text-blue-600 transition-colors hover:bg-blue-50 dark:border-blue-600 dark:text-blue-500 dark:hover:bg-blue-500/10 md:text-sm",
+        "flex items-center justify-center rounded border border-blue-500 py-1.5 px-3 text-xs text-blue-500 transition-colors hover:bg-blue-50 dark:border-blue-600 dark:text-blue-600 dark:hover:bg-blue-500/10 md:text-sm",
         className
       )}
       {...props}

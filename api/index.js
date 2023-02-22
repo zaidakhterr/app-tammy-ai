@@ -51,7 +51,7 @@ const makeSummaryData = (...lens) => {
   return makeDataLevel();
 };
 
-const makeDiscoverData = (...lens) => {
+const makeExploreData = (...lens) => {
   const makeDataLevel = (depth = 0) => {
     const len = lens[depth];
     return range(len).map(() => {
@@ -66,7 +66,7 @@ const makeDiscoverData = (...lens) => {
 };
 
 const summaryData = makeSummaryData(100);
-const discoverData = makeDiscoverData(8);
+const exploreData = makeExploreData(8);
 
 export const fetchSummaryData = async options => {
   await new Promise(r => setTimeout(r, 500));
@@ -80,14 +80,14 @@ export const fetchSummaryData = async options => {
   };
 };
 
-export const fetchDiscoverData = async options => {
+export const fetchExploreData = async options => {
   await new Promise(r => setTimeout(r, 500));
 
   return {
-    rows: discoverData.slice(
+    rows: exploreData.slice(
       options.pageIndex * options.pageSize,
       (options.pageIndex + 1) * options.pageSize
     ),
-    pageCount: Math.ceil(discoverData.length / options.pageSize),
+    pageCount: Math.ceil(exploreData.length / options.pageSize),
   };
 };

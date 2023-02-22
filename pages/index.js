@@ -6,20 +6,25 @@ import {
   IconTrash,
   IconPlus,
   IconFolderFilled,
-  IconFileArrowRight,
+  IconFileExport,
   IconSparkles,
+  IconEdit,
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
 import { useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
-import Button, { DangerButton, SecondaryButton } from "@/components/Button";
+import Button, {
+  DangerButton,
+  OutlineButton,
+  SecondaryButton,
+} from "@/components/Button";
 import Input from "@/components/Input";
 import Select from "@/components/Select";
 import Table from "@/components/Table";
 import youtube from "@/assets/youtube.png";
-import { fetchDiscoverData, fetchSummaryData } from "@/api";
+import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
 import useAuth from "@/utils/useAuth";
 
@@ -83,10 +88,10 @@ const CreateFolderButton = () => {
 
   return (
     <>
-      <Button onClick={openModal} className="ml-auto">
-        <IconPlus className="mr-2 h-5 w-5 stroke-white" />
+      <OutlineButton onClick={openModal} className="ml-auto">
+        <IconPlus className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
         Create Folder
-      </Button>
+      </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
@@ -167,9 +172,10 @@ const MoveToFolderButton = ({ summaryId }) => {
         onClick={() => {
           openModal();
         }}
-        className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
+        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
-        <IconFileArrowRight className="h-5 w-5 stroke-blue-600" />
+        <span className="tooltip">Move</span>
+        <IconFileExport className="h-5 w-5 stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -234,6 +240,92 @@ const MoveToFolderButton = ({ summaryId }) => {
   );
 };
 
+const EditFolderButton = ({ folderId, folderTitle }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    closeModal();
+    console.log("Submitted", folderId);
+  };
+
+  return (
+    <>
+      <button
+        onClick={() => {
+          openModal();
+        }}
+        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
+      >
+        <span className="tooltip">Rename</span>
+        <IconEdit className="h-5 w-5 stroke-blue-600" />
+      </button>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6"
+                  >
+                    Rename Folder
+                  </Dialog.Title>
+                  <form
+                    onSubmit={onSubmit}
+                    className="mt-4 flex w-full flex-col items-start gap-3"
+                  >
+                    <Input
+                      defaultValue={folderTitle}
+                      placeholder="Enter folder name"
+                      containerClassName="w-full"
+                    />
+                    <div className="flex w-full items-center justify-end gap-3">
+                      <SecondaryButton type="button" onClick={closeModal}>
+                        Cancel
+                      </SecondaryButton>
+                      <Button type="submit">Save</Button>
+                    </div>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
+  );
+};
+
 const DeleteButton = ({ summaryId, type }) => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -257,8 +349,9 @@ const DeleteButton = ({ summaryId, type }) => {
         onClick={() => {
           openModal();
         }}
-        className="z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
+        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
+        <span className="tooltip">Delete</span>
         <IconTrash className="h-5 w-5 stroke-red-500" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
@@ -309,7 +402,7 @@ const DeleteButton = ({ summaryId, type }) => {
   );
 };
 
-const MySummariesTable = () => {
+const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
@@ -393,7 +486,11 @@ const MySummariesTable = () => {
                   e.stopPropagation();
                 }}
               >
-                {!isFolder && <MoveToFolderButton summaryId={row.id} />}
+                {isFolder ? (
+                  <EditFolderButton folderId={row.id} folderTitle={row.title} />
+                ) : (
+                  <MoveToFolderButton summaryId={row.id} />
+                )}
                 <DeleteButton summaryId={row.id} type={row.type} />
               </div>
             );
@@ -419,7 +516,7 @@ const MySummariesTable = () => {
   );
 };
 
-const DiscoverTable = () => {
+const ExploreTable = () => {
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 10,
@@ -431,8 +528,8 @@ const DiscoverTable = () => {
   };
 
   const dataQuery = useQuery(
-    ["/discover", fetchDataOptions],
-    () => fetchDiscoverData(fetchDataOptions),
+    ["/explore", fetchDataOptions],
+    () => fetchExploreData(fetchDataOptions),
     { keepPreviousData: true }
   );
 
@@ -527,7 +624,6 @@ export default function Home() {
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
         <h1 className="relative mx-auto mt-6 text-center text-5xl font-bold sm:text-6xl md:mt-10 md:text-7xl">
           AI-powered Summaries
-          <span className="absolute top-0 left-1/2 h-16 w-1/2 -translate-x-1/2 bg-blue-600/30 blur-3xl dark:bg-blue-600/20" />
         </h1>
         <CreateSummaryForm />
       </div>
@@ -535,16 +631,16 @@ export default function Home() {
         {user && (
           <>
             <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-              <h2 className="text-xl font-bold">My Summaries</h2>
+              <h2 className="text-xl font-bold">My Items</h2>
               <CreateFolderButton />
             </div>
-            <MySummariesTable />
+            <MyItemsTable />
           </>
         )}
         <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-          <h2 className="text-xl font-bold">Discover</h2>
+          <h2 className="text-xl font-bold">Explore</h2>
         </div>
-        <DiscoverTable />
+        <ExploreTable />
       </div>
     </Container>
   );
