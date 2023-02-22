@@ -56,7 +56,8 @@ const CreateSummaryForm = () => {
         type="submit"
         className="absolute right-0 top-0 w-fit md:relative"
       >
-        Summarize
+        <SparklesIcon className="mr-2 h-5 w-5 stroke-white" />
+        Summarise
       </Button>
     </form>
   );

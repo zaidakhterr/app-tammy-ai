@@ -44,7 +44,7 @@ const Table = React.memo(
 
     return (
       <>
-        <div className="mb-4 w-full overflow-clip rounded-md border dark:border-slate-700">
+        <div className="relative mb-4 min-h-[4rem] w-full overflow-clip rounded-md border dark:border-slate-700">
           <table className="w-full">
             <tbody>
               {table.getRowModel().rows.map((row, idx) => {
@@ -84,9 +84,13 @@ const Table = React.memo(
               })}
             </tbody>
           </table>
+          {loading && (
+            <div className="absolute inset-0 flex items-center justify-center bg-slate-500/10">
+              <Loader />
+            </div>
+          )}
         </div>
         <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
-          {loading && <Loader />}
           <Pagination
             currentPage={pagination.pageIndex}
             pageCount={pageCount}
