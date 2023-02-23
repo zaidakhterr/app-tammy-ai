@@ -13,7 +13,14 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", "sans-serif"],
       },
+      animation: {
+        "bounce-right": "bounce-right 1s infinite",
+      },
     },
   },
-  plugins: [require("@tailwindcss/typography"), require("@tailwindcss/forms")],
+  plugins: [
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+  ],
 };

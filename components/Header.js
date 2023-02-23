@@ -14,22 +14,55 @@ import useAuth from "@/utils/useAuth";
 import Container from "./Container";
 import Avatar from "./Avatar";
 import Logo from "./Logo";
+import { useRouter } from "next/router";
 
 function Header() {
+  const router = useRouter();
   const { theme, setTheme } = useTheme();
   const { user, login, logout } = useAuth();
 
+  console.log(router.pathname);
+
   return (
-    <header className="sticky top-0 z-40 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
-      <Container className="flex items-center justify-between ">
-        <Link href="/">
-          <Logo />
-        </Link>
+    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
+      <Container className="flex h-full items-center justify-between ">
+        <div className="flex items-center gap-6 ">
+          <Link href="/" className="mr-2">
+            <Logo />
+          </Link>
+          {user && (
+            <>
+              <Link
+                className={classNames(
+                  "text-sm hover:opacity-75",
+                  router.pathname === "/" && "text-blue-500 dark:text-blue-600"
+                )}
+                href="/"
+              >
+                Explore
+              </Link>
+              <Link
+                className={classNames(
+                  "text-sm hover:opacity-75",
+                  router.pathname === "/library" &&
+                    "text-blue-500 dark:text-blue-600"
+                )}
+                href="/library"
+              >
+                My Items
+              </Link>
+            </>
+          )}
+        </div>
+
         {user ? (
           <div className="flex items-center gap-3">
             {user.plan !== "Pro" && (
-              <OutlineLink href="/subscription">
-                <IconDiamond className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-500" />
+              <OutlineLink
+                className="!border-none font-semibold"
+                href="/subscription"
+              >
+                <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-500" />
                 Upgrade
               </OutlineLink>
             )}
