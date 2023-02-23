@@ -7,7 +7,7 @@ import {
   IconPlus,
   IconFolderFilled,
   IconFileExport,
-  IconSparkles,
+  IconBolt,
   IconEdit,
   IconArrowRight,
   IconCircleCheckFilled,
@@ -60,8 +60,8 @@ const CreateSummaryForm = () => {
         className="pl-11 md:pl-12"
       />
       <Button type="submit" className="w-full sm:w-fit">
-        <IconSparkles className="mr-2 h-5 w-5 stroke-white" />
-        Summarise
+        <IconBolt className="mr-2 h-5 w-5 stroke-white" />
+        Summarize
       </Button>
     </form>
   );
@@ -232,7 +232,7 @@ export const CreateSummaryButton = () => {
                       <SecondaryButton type="button" onClick={closeModal}>
                         Cancel
                       </SecondaryButton>
-                      <Button type="submit">Summarise</Button>
+                      <Button type="submit">Summarize</Button>
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -694,11 +694,11 @@ const ExploreCard = ({ summary }) => {
           </p>
         </div>
         {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
-          Summarise{" "}
+          Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
         <OutlineButton className="mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
-          Summarise
+          Summarize
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton>
       </div>
@@ -795,7 +795,7 @@ export default function Home() {
       <div className="mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-6 max-w-lg text-center">
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
-          <p>Explore summaries of your favourite videos and channels</p>
+          <p>Explore popular videos loaded with AI-powered summaries</p>
         </div>
         <ExploreSection />
       </div>
