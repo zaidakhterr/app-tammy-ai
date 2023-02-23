@@ -21,8 +21,6 @@ function Header() {
   const { theme, setTheme } = useTheme();
   const { user, login, logout } = useAuth();
 
-  console.log(router.pathname);
-
   return (
     <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
       <Container className="flex h-full items-center justify-between ">
