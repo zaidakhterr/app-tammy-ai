@@ -29,6 +29,7 @@ import youtube from "@/assets/youtube.png";
 import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
+import classNames from "classnames";
 
 dayjs.extend(relativeTime);
 
@@ -665,9 +666,11 @@ const ExploreSection = () => {
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
+  const [type, setType] = React.useState("trending");
+
   const { data, fetchNextPage, isFetchingNextPage, isFetching, isLoading } =
     useInfiniteQuery({
-      queryKey: ["/explore"],
+      queryKey: [`/explore/${type}`, { type }],
       queryFn: fetchExploreData,
       getNextPageParam: (lastPage, pages) =>
         pages.length < lastPage.pageCount ? pages.length : undefined,
@@ -689,7 +692,41 @@ const ExploreSection = () => {
 
   return (
     <>
-      <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mb-6 lg:gap-6">
+      <div className="mx-auto mb-10 grid w-full max-w-sm grid-cols-3 gap-1">
+        <button
+          className={classNames(
+            "rounded-sm p-2 text-xs text-blue-500  transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "trending" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("trending")}
+        >
+          Trending
+        </button>
+        <button
+          className={classNames(
+            "rounded-sm p-2  text-xs text-blue-500 transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "latest" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("latest")}
+        >
+          Latest
+        </button>
+        <button
+          className={classNames(
+            "rounded-sm p-2 text-xs text-blue-500 transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "popular" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("popular")}
+        >
+          Popular
+        </button>
+      </div>
+      <div
+        className={classNames(
+          "grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6",
+          summaries.length !== 0 && "mb-4 lg:mb-6"
+        )}
+      >
         {summaries.map(summary => (
           <ExploreCard key={summary.id} summary={summary} />
         ))}
@@ -711,7 +748,7 @@ export default function Home() {
         <CreateSummaryForm />
       </div>
       <div className="mx-auto w-full max-w-6xl">
-        <div className="mx-auto mb-10 max-w-lg text-center">
+        <div className="mx-auto mb-6 max-w-lg text-center">
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
           <p>Explore summaries of your favourite videos and channels</p>
         </div>

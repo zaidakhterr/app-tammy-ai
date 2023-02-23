@@ -13,7 +13,7 @@ import { OutlineLink } from "./Button";
 import useAuth from "@/utils/useAuth";
 import Container from "./Container";
 import Avatar from "./Avatar";
-import Logo from "./Logo";
+import Logo, { IconLogo } from "./Logo";
 import { useRouter } from "next/router";
 
 function Header() {
@@ -24,31 +24,40 @@ function Header() {
   return (
     <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
       <Container className="flex h-full items-center justify-between ">
-        <div className="flex items-center gap-6 ">
+        <div className="flex items-center gap-3 sm:gap-6">
           <Link href="/" className="mr-2">
-            <Logo />
+            <span className="hidden sm:block">
+              <Logo />
+            </span>
+            <span className="block sm:hidden">
+              <IconLogo />
+            </span>
           </Link>
+
           {user && (
             <>
-              <Link
-                className={classNames(
-                  "text-sm hover:opacity-75",
-                  router.pathname === "/" && "text-blue-500 dark:text-blue-600"
-                )}
-                href="/"
-              >
-                Explore
-              </Link>
-              <Link
-                className={classNames(
-                  "text-sm hover:opacity-75",
-                  router.pathname === "/library" &&
-                    "text-blue-500 dark:text-blue-600"
-                )}
-                href="/library"
-              >
-                My Items
-              </Link>
+              <div className="flex items-center gap-4">
+                <Link
+                  className={classNames(
+                    "text-sm hover:opacity-75",
+                    router.pathname === "/" &&
+                      "text-blue-500 dark:text-blue-600"
+                  )}
+                  href="/"
+                >
+                  Explore
+                </Link>
+                <Link
+                  className={classNames(
+                    "text-sm hover:opacity-75",
+                    router.pathname === "/library" &&
+                      "text-blue-500 dark:text-blue-600"
+                  )}
+                  href="/library"
+                >
+                  My Items
+                </Link>
+              </div>
             </>
           )}
         </div>
@@ -57,7 +66,7 @@ function Header() {
           <div className="flex items-center gap-3">
             {user.plan !== "Pro" && (
               <OutlineLink
-                className="!border-none font-semibold"
+                className="hidden !border-none font-semibold sm:flex"
                 href="/subscription"
               >
                 <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-500" />
