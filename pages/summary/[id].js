@@ -11,8 +11,11 @@ import {
   IconChevronLeft,
   IconChevronRight,
 } from "@tabler/icons-react";
+import { useRouter } from "next/router";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSummaryDetailData } from "@/api";
 
-export default function Summary({
+function Summary({
   emoji,
   commentHeadline,
   detailedComment,
@@ -57,4 +60,17 @@ export default function Summary({
       </Container>
     </>
   );
+}
+
+export default function SummaryPage() {
+  const router = useRouter();
+  const { data } = useQuery({
+    queryKey: ["/summary", { id: router.query.id }],
+    queryFn: () => fetchSummaryDetailData(router.query.id),
+    enabled: router.isReady,
+  });
+
+  console.log("SUMMARY DETAIL", data);
+
+  return <div>Sumarry detail page</div>;
 }

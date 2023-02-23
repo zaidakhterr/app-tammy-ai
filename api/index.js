@@ -136,7 +136,7 @@ const newSummaryDetail = id => {
   };
 };
 
-export const fetchSummaryDetail = async id => {
+export const fetchSummaryDetailData = async id => {
   await new Promise(r => setTimeout(r, 500));
   return newSummaryDetail(id);
 };
