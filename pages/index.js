@@ -12,7 +12,7 @@ import {
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Button, {
@@ -26,7 +26,7 @@ import Table from "@/components/Table";
 import youtube from "@/assets/youtube.png";
 import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
-import useAuth from "@/utils/useAuth";
+import useIntersectionObserver from "@/utils/useIntersectionObserver";
 
 dayjs.extend(relativeTime);
 
@@ -172,10 +172,10 @@ const MoveToFolderButton = ({ summaryId }) => {
         onClick={() => {
           openModal();
         }}
-        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
+        className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Move</span>
-        <IconFileExport className="h-5 w-5 stroke-blue-600" />
+        <IconFileExport className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -263,10 +263,10 @@ const EditFolderButton = ({ folderId, folderTitle }) => {
         onClick={() => {
           openModal();
         }}
-        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
+        className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Rename</span>
-        <IconEdit className="h-5 w-5 stroke-blue-600" />
+        <IconEdit className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -349,10 +349,10 @@ const DeleteButton = ({ summaryId, type }) => {
         onClick={() => {
           openModal();
         }}
-        className="has-tooltip z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
+        className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
         <span className="tooltip">Delete</span>
-        <IconTrash className="h-5 w-5 stroke-red-500" />
+        <IconTrash className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-red-500" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -388,9 +388,9 @@ const DeleteButton = ({ summaryId, type }) => {
                   </Dialog.Title>
                   <div className="mt-4 flex w-full items-center justify-end gap-3">
                     <SecondaryButton onClick={closeModal}>
-                      No, Cancel
+                      Cancel
                     </SecondaryButton>
-                    <DangerButton onClick={onDelete}>Yes, Delete</DangerButton>
+                    <DangerButton onClick={onDelete}>Delete</DangerButton>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -438,7 +438,7 @@ const MyItemsTable = () => {
                 )}
                 <Link
                   href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
-                  className="text-sm font-medium hover:underline md:text-base"
+                  className="text-sm font-medium group-hover:underline md:text-base"
                 >
                   {row.title}
                 </Link>
@@ -516,109 +516,92 @@ const MyItemsTable = () => {
   );
 };
 
-const ExploreTable = () => {
-  const [pagination, setPagination] = React.useState({
-    pageIndex: 0,
-    pageSize: 10,
-  });
-
-  const fetchDataOptions = {
-    pageIndex: pagination.pageIndex,
-    pageSize: pagination.pageSize,
-  };
-
-  const dataQuery = useQuery(
-    ["/explore", fetchDataOptions],
-    () => fetchExploreData(fetchDataOptions),
-    { keepPreviousData: true }
+const ExploreLoading = () => {
+  return (
+    <div className="grid grid-cols-2 gap-4">
+      {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => (
+        <div
+          key={idx}
+          className="h-40 w-full animate-pulse rounded-md bg-slate-500/30"
+        />
+      ))}
+    </div>
   );
+};
+
+const ExploreCard = ({ summary }) => {
+  const router = useRouter();
+  return (
+    <button
+      onClick={() => {
+        router.push(`/summary/${summary.id}`);
+      }}
+      className="group flex h-40 w-full"
+    >
+      <Image
+        height={200}
+        width={300}
+        src={summary.thumbnail}
+        alt={summary.title}
+        className="h-40 w-60 max-w-[50%] rounded-md object-cover"
+      />
+      <div className="flex flex-col p-2 pl-3 text-left">
+        <h4 className="text-sm font-medium group-hover:underline md:text-base">
+          {summary.title}
+        </h4>
+        <p className="mt-1">{summary.channel}</p>
+        <p className="mt-1 flex items-center gap-1.5 text-sm">
+          {abbreviateNumber(summary.viewCount)}
+          <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
+          {dayjs(summary.lastViewed).fromNow()}
+        </p>
+      </div>
+    </button>
+  );
+};
+
+const ExploreSection = () => {
+  const ref = React.useRef(null);
+  const entry = useIntersectionObserver(ref, {});
+  const isVisible = !!entry?.isIntersecting;
+
+  const { data, fetchNextPage, isFetchingNextPage, isFetching, isLoading } =
+    useInfiniteQuery({
+      queryKey: ["/explore"],
+      queryFn: fetchExploreData,
+      getNextPageParam: (lastPage, pages) =>
+        pages.length < lastPage.pageCount ? pages.length : undefined,
+    });
+
+  React.useEffect(() => {
+    if (isVisible && !isFetching && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [isVisible, isFetching, isFetchingNextPage, fetchNextPage]);
+
+  const summaries = React.useMemo(() => {
+    if (!data?.pages) return [];
+
+    return data?.pages.reduce((acc, page) => {
+      return [...acc, ...page.rows];
+    }, []);
+  }, [data?.pages]);
 
   return (
-    <Table
-      columns={[
-        {
-          accessorKey: "title",
-          cell: info => {
-            const row = info.row.original;
-
-            return (
-              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
-                <Image
-                  src={row.thumbnail}
-                  width={112}
-                  height={80}
-                  alt={row.title}
-                  className="h-20 w-28 object-contain"
-                />
-                <p className="font-medium">{row.title}</p>
-              </div>
-            );
-          },
-        },
-        {
-          accessorKey: "videoLength",
-          cell: info => {
-            const row = info.row.original;
-            const isFolder = row.type === "folder";
-
-            return (
-              <div className="hidden whitespace-nowrap text-sm font-light md:block">
-                {isFolder
-                  ? `${row.videoCount} items`
-                  : `${row.videoLength} mins`}
-              </div>
-            );
-          },
-        },
-        {
-          accessorKey: "viewCount",
-          cell: info => {
-            const row = info.row.original;
-
-            return (
-              <div className="hidden whitespace-nowrap text-sm font-light sm:block">
-                Viewed {abbreviateNumber(row.viewCount)} times
-              </div>
-            );
-          },
-        },
-        {
-          accessorKey: "actions",
-          cell: info => {
-            const row = info.row.original;
-
-            return (
-              <div
-                className="flex flex-col items-center justify-end gap-2 sm:flex-row"
-                onClick={e => {
-                  console.log(e.target, e.currentTarget);
-                  e.stopPropagation();
-                }}
-              >
-                <Link
-                  href={`/summary/${row.id}`}
-                  className="flex h-9 items-center justify-center rounded px-3 text-sm text-blue-500 transition-colors hover:bg-blue-50 dark:text-blue-600 dark:hover:bg-blue-500/10"
-                >
-                  <IconSparkles className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
-                  Summarise
-                </Link>
-              </div>
-            );
-          },
-        },
-      ]}
-      data={dataQuery.data?.rows}
-      pageCount={dataQuery.data?.pageCount}
-      pagination={pagination}
-      setPagination={setPagination}
-      loading={dataQuery.isFetching}
-    />
+    <>
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+        {summaries.map(summary => (
+          <ExploreCard key={summary.id} summary={summary} />
+        ))}
+      </div>
+      <div ref={ref}>
+        {isFetchingNextPage || isLoading ? <ExploreLoading /> : null}
+      </div>
+    </>
   );
 };
 
 export default function Home() {
-  const { user } = useAuth();
-
   return (
     <Container className="pb-40">
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
@@ -628,19 +611,11 @@ export default function Home() {
         <CreateSummaryForm />
       </div>
       <div className="mx-auto w-full max-w-6xl">
-        {user && (
-          <>
-            <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-              <h2 className="text-xl font-bold">My Items</h2>
-              <CreateFolderButton />
-            </div>
-            <MyItemsTable />
-          </>
-        )}
+        <MyItemsTable />
         <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
           <h2 className="text-xl font-bold">Explore</h2>
         </div>
-        <ExploreTable />
+        <ExploreSection />
       </div>
     </Container>
   );

@@ -9,11 +9,13 @@ const range = len => {
 };
 
 const newSummary = () => {
+  const channel = faker.lorem.word();
   return {
     type: "summary",
     id: faker.datatype.uuid(),
     title: faker.lorem.sentence(),
-    thumbnail: "https://picsum.photos/150/100",
+    channel: channel,
+    thumbnail: `https://picsum.photos/seed/${channel}/150/100`,
     lastViewed: faker.date.recent(100),
     viewCount: faker.datatype.number(),
     videoLength: faker.datatype.number({ max: 30, min: 2 }),
@@ -66,7 +68,7 @@ const makeExploreData = (...lens) => {
 };
 
 const summaryData = makeSummaryData(100);
-const exploreData = makeExploreData(8);
+const exploreData = makeExploreData(80);
 
 export const fetchSummaryData = async options => {
   await new Promise(r => setTimeout(r, 500));
@@ -81,13 +83,13 @@ export const fetchSummaryData = async options => {
 };
 
 export const fetchExploreData = async options => {
-  await new Promise(r => setTimeout(r, 500));
+  await new Promise(r => setTimeout(r, 2000));
+
+  const pageSize = 10;
+  const pageIndex = options.pageParam ?? 0;
 
   return {
-    rows: exploreData.slice(
-      options.pageIndex * options.pageSize,
-      (options.pageIndex + 1) * options.pageSize
-    ),
-    pageCount: Math.ceil(exploreData.length / options.pageSize),
+    rows: exploreData.slice(pageIndex * pageSize, (pageIndex + 1) * pageSize),
+    pageCount: Math.ceil(exploreData.length / pageSize),
   };
 };
