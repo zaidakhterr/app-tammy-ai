@@ -51,7 +51,7 @@ const Table = React.memo(
       <>
         <div
           ref={containerRef}
-          className="relative mb-4 min-h-[4rem] w-full scroll-m-20"
+          className="relative mb-4 min-h-[4rem] w-full scroll-m-36"
         >
           {loading ? (
             <table className="w-full">

@@ -9,6 +9,8 @@ import {
   IconFileExport,
   IconSparkles,
   IconEdit,
+  IconArrowRight,
+  IconCircleCheckFilled,
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
@@ -42,7 +44,7 @@ const CreateSummaryForm = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative mx-auto my-6 w-full max-w-xl gap-2 rounded-md sm:flex-row md:my-10 md:flex md:items-center lg:max-w-2xl"
+      className="mx-auto my-6 flex w-full max-w-xl flex-col items-center gap-3 rounded-md sm:flex-row md:my-10 lg:max-w-2xl"
     >
       <Input
         placeholder="Enter a YouTube URL"
@@ -56,10 +58,7 @@ const CreateSummaryForm = () => {
         }
         className="bg-white pl-11 pr-28 md:pl-12"
       />
-      <Button
-        type="submit"
-        className="absolute right-0 top-0 w-fit sm:relative"
-      >
+      <Button type="submit" className="w-full sm:w-fit">
         <IconSparkles className="mr-2 h-5 w-5 stroke-white" />
         Summarise
       </Button>
@@ -67,7 +66,7 @@ const CreateSummaryForm = () => {
   );
 };
 
-const CreateFolderButton = () => {
+export const CreateFolderButton = () => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -137,6 +136,96 @@ const CreateFolderButton = () => {
                         Cancel
                       </SecondaryButton>
                       <Button type="submit">Create</Button>
+                    </div>
+                  </form>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+    </>
+  );
+};
+
+export const CreateSummaryButton = () => {
+  const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const onSubmit = e => {
+    e.preventDefault();
+    closeModal();
+    console.log("Submitted");
+    router.push("/folder/123");
+  };
+
+  return (
+    <>
+      <OutlineButton onClick={openModal} className="ml-auto">
+        <IconPlus className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
+        Create Summary
+      </OutlineButton>
+      <Transition appear show={isOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-lg font-medium leading-6"
+                  >
+                    Create Summary
+                  </Dialog.Title>
+                  <form
+                    onSubmit={onSubmit}
+                    className="mt-4 flex w-full flex-col items-start gap-3"
+                  >
+                    <Input
+                      placeholder="Enter a YouTube URL"
+                      containerClassName="w-full"
+                      leftIcon={
+                        <Image
+                          src={youtube}
+                          alt="YouTube Logo"
+                          className="ml-2 h-5 w-auto md:mr-4 md:h-6"
+                        />
+                      }
+                      className="bg-white pl-11 pr-28 md:pl-12"
+                    />
+                    <div className="flex w-full items-center justify-end gap-3">
+                      <SecondaryButton type="button" onClick={closeModal}>
+                        Cancel
+                      </SecondaryButton>
+                      <Button type="submit">Summarise</Button>
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -402,7 +491,7 @@ const DeleteButton = ({ summaryId, type }) => {
   );
 };
 
-const MyItemsTable = () => {
+export const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
@@ -432,7 +521,7 @@ const MyItemsTable = () => {
             return (
               <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
                 {isFolder ? (
-                  <IconFolderFilled className="h-7 w-7 text-blue-700" />
+                  <IconFolderFilled className="h-7 w-7 text-blue-600" />
                 ) : (
                   <Image src={youtube} width={28} height={28} alt={row.title} />
                 )}
@@ -545,16 +634,27 @@ const ExploreCard = ({ summary }) => {
         alt={summary.title}
         className="h-40 w-60 max-w-[50%] rounded-md object-cover"
       />
-      <div className="flex flex-col p-2 pl-3 text-left">
-        <h4 className="text-sm font-medium line-clamp-2 group-hover:underline md:text-base">
+      <div className="flex h-full flex-col p-1 pl-3 text-left text-lg leading-snug">
+        <h4 className="font-semibold line-clamp-2 group-hover:underline">
           {summary.title}
         </h4>
-        <p className="mt-1">{summary.channel}</p>
+        <p className="mt-1 flex items-center">
+          {summary.channel}{" "}
+          <IconCircleCheckFilled className="ml-1 h-5 w-5 text-slate-400 dark:text-slate-600" />
+        </p>
         <p className="mt-1 flex items-center gap-1.5 text-sm">
           {abbreviateNumber(summary.viewCount)}
           <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
           {dayjs(summary.lastViewed).fromNow()}
         </p>
+        {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
+          Summarise{" "}
+          <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
+        </OutlineButton> */}
+        <OutlineButton className="mt-auto h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
+          Summarise{" "}
+          <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
+        </OutlineButton>
       </div>
     </button>
   );
@@ -589,7 +689,7 @@ const ExploreSection = () => {
 
   return (
     <>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:gap-6">
+      <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mb-6 lg:gap-6">
         {summaries.map(summary => (
           <ExploreCard key={summary.id} summary={summary} />
         ))}
@@ -606,14 +706,14 @@ export default function Home() {
     <Container className="pb-40">
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
         <h1 className="relative mx-auto mt-6 text-center text-5xl font-bold sm:text-6xl md:mt-10 md:text-7xl">
-          AI-powered Summaries
+          AI Powered Summaries
         </h1>
         <CreateSummaryForm />
       </div>
       <div className="mx-auto w-full max-w-6xl">
-        <MyItemsTable />
-        <div className="mt-10 mb-4 flex items-center justify-between md:mt-16">
-          <h2 className="text-xl font-bold">Explore</h2>
+        <div className="mx-auto mb-10 max-w-lg text-center">
+          <h2 className="mb-2 text-2xl font-bold">Explore</h2>
+          <p>Explore summaries of your favourite videos and channels</p>
         </div>
         <ExploreSection />
       </div>

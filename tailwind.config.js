@@ -13,6 +13,9 @@ module.exports = {
       fontFamily: {
         sans: ["var(--font-sans)", "sans-serif"],
       },
+      animation: {
+        "bounce-right": "bounce-right 1s infinite",
+      },
     },
   },
   plugins: [
