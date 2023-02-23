@@ -22,7 +22,7 @@ function Header() {
   const { user, login, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-800 dark:bg-slate-900">
+    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-700 dark:bg-slate-900">
       <Container className="flex h-full items-center justify-between ">
         <div className="flex items-center gap-3 sm:gap-6">
           <Link href="/" className="mr-2">
@@ -69,7 +69,7 @@ function Header() {
                 className="hidden !border-none font-semibold sm:flex"
                 href="/subscription"
               >
-                <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-500" />
+                <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
                 Upgrade
               </OutlineLink>
             )}
@@ -159,7 +159,7 @@ function Header() {
         ) : (
           <div className="flex items-center gap-2">
             <OutlineLink href="#" onClick={login}>
-              <IconLogout className="mr-2 h-4 w-4 stroke-blue-600 stroke-2" />
+              <IconLogout className="mr-2 h-4 w-4 stroke-blue-500 stroke-2 dark:stroke-blue-600" />
               Login
             </OutlineLink>
           </div>
