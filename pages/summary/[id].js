@@ -2,30 +2,59 @@ import Container from "@/components/Container";
 import classNames from "classnames";
 import Image from "next/image";
 import { Disclosure, Transition } from "@headlessui/react";
+import ChevronRight from "@/assets/ChevronRight.svg";
+import DefaultEmoji from "@/assets/DefaultEmoji.png";
+import Head from "next/head";
+import {
+  IconChevronDown,
+  IconChevronDownLeft,
+  IconChevronLeft,
+  IconChevronRight,
+} from "@tabler/icons-react";
 
-export default function Summary({ emoji, text, className }) {
+export default function Summary({
+  emoji,
+  commentHeadline,
+  detailedComment,
+  duration,
+  className,
+}) {
   return (
-    <Container>
-      <div className=" bg-slate-100 text-black">
-        <Disclosure>
-          <Disclosure.Button>Is team pricing available?</Disclosure.Button>
-          <Transition
-            enter="transition duration-100 ease-out"
-            enterFrom="transform scale-95 opacity-0"
-            enterTo="transform scale-100 opacity-100"
-            leave="transition duration-75 ease-out"
-            leaveFrom="transform scale-100 opacity-100"
-            leaveTo="transform scale-95 opacity-0"
-          >
-            <div>
-              <Disclosure.Panel>
-                Yes! You can purchase a license that you can share with your
-                entire team.
-              </Disclosure.Panel>
-            </div>
-          </Transition>
-        </Disclosure>
-      </div>
-    </Container>
+    <>
+      <Container>
+        <div className="mx-auto w-full max-w-md rounded-2xl  bg-white p-3 ">
+          <div className="flex items-center border-b-2 ">
+            {emoji ? emoji : <Image src={DefaultEmoji} />}
+            <Disclosure>
+              {({ open }) => (
+                <>
+                  <div className="mx-10 flex  flex-col   ">
+                    <div className="flex items-center ">
+                      <Disclosure.Button className=" flex w-full justify-between  space-x-8 rounded-lg px-4 py-2 text-left text-sm font-medium  text-gray-500 focus:outline-none ">
+                        <span>
+                          {commentHeadline
+                            ? commentHeadline
+                            : "Lorem Ipsum Demo Text"}{" "}
+                        </span>
+                        {open ? <IconChevronDown /> : <IconChevronRight />}
+                      </Disclosure.Button>
+
+                      <span className="bg-blue-400 text-blue-100">
+                        {" "}
+                        {duration ? duration : "00:00"}{" "}
+                      </span>
+                    </div>
+
+                    <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm text-gray-500 ">
+                      {detailedComment ? detailedComment : " Comment Detail "}
+                    </Disclosure.Panel>
+                  </div>
+                </>
+              )}
+            </Disclosure>
+          </div>
+        </div>
+      </Container>
+    </>
   );
 }
