@@ -93,3 +93,50 @@ export const fetchExploreData = async options => {
     pageCount: Math.ceil(exploreData.length / pageSize),
   };
 };
+
+const makeSubpoints = () => {
+  const p = [];
+  for (let i = 0; i < 500; i++) {
+    p.push(faker.lorem.sentences());
+  }
+
+  return p;
+};
+
+const subpoints = makeSubpoints();
+
+const newSummaryPoint = () => {
+  return {
+    id: faker.datatype.uuid(),
+    emoji: faker.helpers.arrayElement(["🎊", "🔥", "✅", "ℹ️", "♥️", "💔"]),
+    description: faker.lorem.sentences(),
+    subPoints: faker.helpers.arrayElements(subpoints, 5),
+    timestamp: faker.datatype.number({ max: 30, min: 2 }),
+  };
+};
+
+const makeSummaryPoints = () => {
+  const p = [];
+  for (let i = 0; i < 100; i++) {
+    p.push(newSummaryPoint());
+  }
+
+  return p;
+};
+
+const points = makeSummaryPoints();
+
+const newSummaryDetail = id => {
+  return {
+    id,
+    video: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    description: faker.lorem.sentences(),
+    language: faker.helpers.arrayElement(["English", "Spanish", "French"]),
+    points: faker.helpers.arrayElements(points, 10),
+  };
+};
+
+export const fetchSummaryDetail = async id => {
+  await new Promise(r => setTimeout(r, 500));
+  return newSummaryDetail(id);
+};
