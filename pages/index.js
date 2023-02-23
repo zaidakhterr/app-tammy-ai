@@ -546,7 +546,7 @@ const ExploreCard = ({ summary }) => {
         className="h-40 w-60 max-w-[50%] rounded-md object-cover"
       />
       <div className="flex flex-col p-2 pl-3 text-left">
-        <h4 className="text-sm font-medium group-hover:underline md:text-base">
+        <h4 className="text-sm font-medium line-clamp-2 group-hover:underline md:text-base">
           {summary.title}
         </h4>
         <p className="mt-1">{summary.channel}</p>
