@@ -39,9 +39,7 @@ const Table = React.memo(
       },
       onPaginationChange: (...args) => {
         setPagination(...args);
-        if (containerRef.current) {
-          containerRef.current.scrollIntoView({ behavior: "smooth" });
-        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
       },
       getCoreRowModel: getCoreRowModel(),
       manualPagination: true,
@@ -49,10 +47,7 @@ const Table = React.memo(
 
     return (
       <>
-        <div
-          ref={containerRef}
-          className="relative mb-4 min-h-[4rem] w-full scroll-m-36"
-        >
+        <div ref={containerRef} className="relative mb-4 min-h-[4rem] w-full">
           {loading ? (
             <table className="w-full">
               <tbody>
@@ -61,7 +56,7 @@ const Table = React.memo(
                     <tr key={idx}>
                       <td
                         className={classNames(
-                          "w-full p-3 text-sm md:text-base",
+                          "w-full p-2 text-sm sm:p-3 md:text-base",
                           idx !== 0 && "border-t dark:border-slate-700"
                         )}
                       >
@@ -94,17 +89,15 @@ const Table = React.memo(
                           <td
                             key={cell.id}
                             className={classNames(
-                              "p-3 text-sm md:text-base",
+                              "p-2 text-sm sm:p-3 md:text-base",
                               idx !== 0 && "border-t dark:border-slate-700",
                               cellIdx !== 0 && "hidden md:table-cell"
                             )}
                           >
-                            <a>
-                              {flexRender(
-                                cell.column.columnDef.cell,
-                                cell.getContext()
-                              )}
-                            </a>
+                            {flexRender(
+                              cell.column.columnDef.cell,
+                              cell.getContext()
+                            )}
                           </td>
                         );
                       })}

@@ -11,6 +11,14 @@ const Logo = () => {
   );
 };
 
+export const IconLogo = () => {
+  return (
+    <p className="flex items-center text-xl font-black text-blue-600 dark:text-white md:text-2xl">
+      <IconCircleLetterT className="h-8 w-8 stroke-blue-600 dark:stroke-white" />
+    </p>
+  );
+};
+
 export const LargeLogo = () => {
   return (
     <p className="flex items-center text-6xl font-black text-white dark:text-white">

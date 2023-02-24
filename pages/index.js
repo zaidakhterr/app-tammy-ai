@@ -7,7 +7,7 @@ import {
   IconPlus,
   IconFolderFilled,
   IconFileExport,
-  IconSparkles,
+  IconBolt,
   IconEdit,
   IconArrowRight,
   IconCircleCheckFilled,
@@ -29,6 +29,7 @@ import youtube from "@/assets/youtube.png";
 import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
+import classNames from "classnames";
 
 dayjs.extend(relativeTime);
 
@@ -56,11 +57,11 @@ const CreateSummaryForm = () => {
             className="ml-2 h-5 w-auto md:mr-4 md:h-6"
           />
         }
-        className="bg-white pl-11 pr-28 md:pl-12"
+        className="pl-11 md:pl-12"
       />
       <Button type="submit" className="w-full sm:w-fit">
-        <IconSparkles className="mr-2 h-5 w-5 stroke-white" />
-        Summarise
+        <IconBolt className="mr-2 h-5 w-5 stroke-white" />
+        Summarize
       </Button>
     </form>
   );
@@ -87,8 +88,11 @@ export const CreateFolderButton = () => {
 
   return (
     <>
-      <OutlineButton onClick={openModal} className="ml-auto">
-        <IconPlus className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
+      <OutlineButton
+        onClick={openModal}
+        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+      >
+        <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Folder
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
@@ -169,8 +173,11 @@ export const CreateSummaryButton = () => {
 
   return (
     <>
-      <OutlineButton onClick={openModal} className="ml-auto">
-        <IconPlus className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
+      <OutlineButton
+        onClick={openModal}
+        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+      >
+        <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Summary
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
@@ -219,13 +226,13 @@ export const CreateSummaryButton = () => {
                           className="ml-2 h-5 w-auto md:mr-4 md:h-6"
                         />
                       }
-                      className="bg-white pl-11 pr-28 md:pl-12"
+                      className="pl-11 md:pl-12"
                     />
                     <div className="flex w-full items-center justify-end gap-3">
                       <SecondaryButton type="button" onClick={closeModal}>
                         Cancel
                       </SecondaryButton>
-                      <Button type="submit">Summarise</Button>
+                      <Button type="submit">Summarize</Button>
                     </div>
                   </form>
                 </Dialog.Panel>
@@ -519,19 +526,56 @@ export const MyItemsTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div className="flex w-full flex-col gap-2 sm:flex-row sm:items-center">
-                {isFolder ? (
-                  <IconFolderFilled className="h-7 w-7 text-blue-600" />
-                ) : (
-                  <Image src={youtube} width={28} height={28} alt={row.title} />
-                )}
-                <Link
-                  href={isFolder ? `/folder/${row.id}` : `/summary/${row.id}`}
-                  className="text-sm font-medium group-hover:underline md:text-base"
-                >
-                  {row.title}
-                </Link>
-              </div>
+              <>
+                <div className="flex w-full items-center gap-2">
+                  <div className="flex w-full items-center gap-2">
+                    {isFolder ? (
+                      <IconFolderFilled className="h-6 w-6 min-w-[1.5rem] text-blue-600 sm:h-7 sm:w-7 sm:min-w-[1.75rem]" />
+                    ) : (
+                      <Image
+                        src={youtube}
+                        width={28}
+                        height={28}
+                        alt={row.title}
+                        className="h-6 w-6 min-w-[1.5rem] object-contain sm:h-7 sm:w-7 sm:min-w-[1.75rem]"
+                      />
+                    )}
+                    <div className="flex flex-col gap-1">
+                      <Link
+                        href={
+                          isFolder ? `/folder/${row.id}` : `/summary/${row.id}`
+                        }
+                        className="text-sm font-medium group-hover:underline md:text-base"
+                      >
+                        {row.title}
+                      </Link>
+                      <div className="flex items-center gap-2 text-xs font-light md:hidden">
+                        {isFolder
+                          ? `${row.videoCount} items`
+                          : `${row.videoLength} mins`}
+                        <span className="h-1 w-1 rounded-full bg-slate-700" />
+                        {dayjs(row.lastViewed).fromNow()}
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="flex flex-col items-center justify-end gap-2 sm:flex-row md:hidden"
+                    onClick={e => {
+                      e.stopPropagation();
+                    }}
+                  >
+                    {isFolder ? (
+                      <EditFolderButton
+                        folderId={row.id}
+                        folderTitle={row.title}
+                      />
+                    ) : (
+                      <MoveToFolderButton summaryId={row.id} />
+                    )}
+                    <DeleteButton summaryId={row.id} type={row.type} />
+                  </div>
+                </div>
+              </>
             );
           },
         },
@@ -542,7 +586,7 @@ export const MyItemsTable = () => {
             const isFolder = row.type === "folder";
 
             return (
-              <div className="hidden whitespace-nowrap text-sm font-light sm:block">
+              <div className="whitespace-nowrap text-sm font-light">
                 {isFolder
                   ? `${row.videoCount} items`
                   : `${row.videoLength} mins`}
@@ -556,7 +600,7 @@ export const MyItemsTable = () => {
             const row = info.row.original;
 
             return (
-              <div className="hidden whitespace-nowrap text-sm font-light md:block">
+              <div className="whitespace-nowrap text-sm font-light">
                 {dayjs(row.lastViewed).fromNow()}
               </div>
             );
@@ -570,7 +614,7 @@ export const MyItemsTable = () => {
 
             return (
               <div
-                className="flex flex-col items-center justify-end gap-2 sm:flex-row"
+                className="flex items-center justify-end gap-2"
                 onClick={e => {
                   e.stopPropagation();
                 }}
@@ -607,7 +651,7 @@ export const MyItemsTable = () => {
 
 const ExploreLoading = () => {
   return (
-    <div className="grid grid-cols-2 gap-4">
+    <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:gap-6">
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => (
         <div
           key={idx}
@@ -625,34 +669,36 @@ const ExploreCard = ({ summary }) => {
       onClick={() => {
         router.push(`/summary/${summary.id}`);
       }}
-      className="group flex h-40 w-full"
+      className="group flex h-full w-full flex-col items-center rounded-md lg:flex-row"
     >
       <Image
         height={200}
         width={300}
         src={summary.thumbnail}
         alt={summary.title}
-        className="h-40 w-60 max-w-[50%] rounded-md object-cover"
+        className="aspect-video w-full min-w-[50%] rounded-md object-cover lg:max-w-[50%]"
       />
-      <div className="flex h-full flex-col p-1 pl-3 text-left text-lg leading-snug">
+      <div className="flex h-full w-full flex-col py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3">
         <h4 className="font-semibold line-clamp-2 group-hover:underline">
           {summary.title}
         </h4>
-        <p className="mt-1 flex items-center">
-          {summary.channel}{" "}
-          <IconCircleCheckFilled className="ml-1 h-5 w-5 text-slate-400 dark:text-slate-600" />
-        </p>
-        <p className="mt-1 flex items-center gap-1.5 text-sm">
-          {abbreviateNumber(summary.viewCount)}
-          <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
-          {dayjs(summary.lastViewed).fromNow()}
-        </p>
+        <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
+          <p className=" flex items-center">
+            {summary.channel}
+            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-slate-400 dark:text-slate-600" />
+          </p>
+          <p className="flex items-center gap-1.5 text-xs">
+            {abbreviateNumber(summary.viewCount)}
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
+            {dayjs(summary.lastViewed).fromNow()}
+          </p>
+        </div>
         {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
-          Summarise{" "}
+          Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
-        <OutlineButton className="mt-auto h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
-          Summarise{" "}
+        <OutlineButton className="mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
+          Summarize
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton>
       </div>
@@ -665,9 +711,11 @@ const ExploreSection = () => {
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
+  const [type, setType] = React.useState("trending");
+
   const { data, fetchNextPage, isFetchingNextPage, isFetching, isLoading } =
     useInfiniteQuery({
-      queryKey: ["/explore"],
+      queryKey: [`/explore/${type}`, { type }],
       queryFn: fetchExploreData,
       getNextPageParam: (lastPage, pages) =>
         pages.length < lastPage.pageCount ? pages.length : undefined,
@@ -689,7 +737,41 @@ const ExploreSection = () => {
 
   return (
     <>
-      <div className="mb-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:mb-6 lg:gap-6">
+      <div className="mx-auto mb-10 grid w-full max-w-sm grid-cols-3 gap-1">
+        <button
+          className={classNames(
+            "rounded-sm p-2 text-xs text-blue-500  transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "trending" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("trending")}
+        >
+          Trending
+        </button>
+        <button
+          className={classNames(
+            "rounded-sm p-2  text-xs text-blue-500 transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "latest" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("latest")}
+        >
+          Latest
+        </button>
+        <button
+          className={classNames(
+            "rounded-sm p-2 text-xs text-blue-500 transition-colors hover:bg-blue-500/5 dark:text-blue-600 md:text-sm",
+            type === "popular" && "bg-blue-500/10"
+          )}
+          onClick={() => setType("popular")}
+        >
+          Popular
+        </button>
+      </div>
+      <div
+        className={classNames(
+          "grid grid-cols-1 gap-5 sm:grid-cols-2 lg:gap-6",
+          summaries.length !== 0 && "mb-4 lg:mb-6"
+        )}
+      >
         {summaries.map(summary => (
           <ExploreCard key={summary.id} summary={summary} />
         ))}
@@ -703,7 +785,7 @@ const ExploreSection = () => {
 
 export default function Home() {
   return (
-    <Container className="pb-40">
+    <Container>
       <div className="flex min-h-[50vh] flex-col items-center justify-center py-10 md:py-20">
         <h1 className="relative mx-auto mt-6 text-center text-5xl font-bold sm:text-6xl md:mt-10 md:text-7xl">
           AI Powered Summaries
@@ -711,9 +793,9 @@ export default function Home() {
         <CreateSummaryForm />
       </div>
       <div className="mx-auto w-full max-w-6xl">
-        <div className="mx-auto mb-10 max-w-lg text-center">
+        <div className="mx-auto mb-6 max-w-lg text-center">
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
-          <p>Explore summaries of your favourite videos and channels</p>
+          <p>Explore popular videos loaded with AI-powered summaries</p>
         </div>
         <ExploreSection />
       </div>
