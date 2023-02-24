@@ -1,1 +1,1 @@
-# app-tammy-ai
+# Tammy AI
