@@ -30,6 +30,7 @@ import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
 import classNames from "classnames";
+import Balancer from "react-wrap-balancer";
 
 dayjs.extend(relativeTime);
 
@@ -795,7 +796,11 @@ export default function Home() {
       <div className="mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-6 max-w-lg text-center">
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
-          <p>Explore popular videos loaded with AI-powered summaries</p>
+          <p>
+            <Balancer>
+              Explore popular videos loaded with AI-powered summaries
+            </Balancer>
+          </p>
         </div>
         <ExploreSection />
       </div>
