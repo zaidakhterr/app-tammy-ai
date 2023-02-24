@@ -8,8 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
 import { useRef } from "react";
 import YouTube from "react-youtube";
-import { secondsToTime } from "@/utils/index";
+import { parseYoutubeURL, secondsToTime } from "@/utils/index";
 import classNames from "classnames";
+
 function Summary({ point, seekTo }) {
   return (
     <>
@@ -17,7 +18,7 @@ function Summary({ point, seekTo }) {
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 px-2 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800">
+              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800 lg:px-2">
                 <p className="w-full">
                   {point.emoji} {point.description}
                 </p>
@@ -40,7 +41,7 @@ function Summary({ point, seekTo }) {
                 </span>
               </Disclosure.Button>
 
-              <Disclosure.Panel className="w-full px-2 pt-4 pb-8 text-sm text-slate-600 dark:text-slate-400">
+              <Disclosure.Panel className="w-full pt-4 pb-8 text-sm text-slate-600 dark:text-slate-400 lg:px-2">
                 <ul className="ml-4 list-disc space-y-2">
                   {/* iteration of points array */}
                   {point?.subPoints.map(val => {
@@ -56,15 +57,8 @@ function Summary({ point, seekTo }) {
   );
 }
 
-function youtube_parser(url) {
-  var regExp =
-    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  var match = url.match(regExp);
-  return match && match[7].length == 11 ? match[7] : false;
-}
-
 export default function SummaryPage() {
-  const Player = useRef(null);
+  const player = useRef(null);
 
   const router = useRouter();
   const { data } = useQuery({
@@ -77,30 +71,32 @@ export default function SummaryPage() {
     return null;
   }
   const { points } = data;
-  let videoId = youtube_parser(data.video);
+  const videoId = parseYoutubeURL(data.video);
 
   function seekTo(time) {
-    if (Player.current) {
-      Player.current.seekTo(time);
+    if (player.current) {
+      player.current.seekTo(time);
     }
   }
 
   return (
     <>
-      <Container className="summary-grid mt-8 grid gap-8">
+      <Container className="summary-grid grid gap-4 lg:mt-8 lg:gap-8">
         <YouTube
-          className={"h-full"}
-          iframeClassName={"w-full aspect-video sticky top-20 h-auto"}
+          className={"sticky top-16 h-full overflow-clip rounded"}
+          iframeClassName={
+            "w-full aspect-video bg-white pt-4 lg:pt-0 dark:bg-slate-900 lg:sticky lg:top-20 h-auto"
+          }
           frameborder="0"
           allowfullscreen
           videoId={videoId}
-          id={"https://www.youtube.com/embed/"}
+          id={data.id}
           onReady={e => {
-            Player.current = e.target;
+            player.current = e.target;
           }}
         />
         <div>
-          <div className="flex gap-2 px-2">
+          <div className="flex gap-2 lg:px-2">
             <button className="flex h-10 items-center justify-center rounded border border-slate-200 bg-transparent bg-right stroke-slate-900 px-2  text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600 ">
               <IconShare className="h-5 w-5 stroke-1" />
             </button>
@@ -112,7 +108,7 @@ export default function SummaryPage() {
               ))}
             </select>
           </div>
-          <p className="mt-2 p-2 font-bold">{data.description}</p>
+          <p className="mt-2 px-0 py-2 font-bold lg:px-2">{data.description}</p>
           {points.map(point => {
             return <Summary key={point.id} point={point} seekTo={seekTo} />;
           })}

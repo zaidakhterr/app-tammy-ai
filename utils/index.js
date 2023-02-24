@@ -18,7 +18,7 @@ export const abbreviateNumber = number => {
   return scaled.toFixed(1) + suffix;
 };
 
-export function youtube_parser(url) {
+export function parseYoutubeURL(url) {
   const regExp =
     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
   const match = url.match(regExp);
