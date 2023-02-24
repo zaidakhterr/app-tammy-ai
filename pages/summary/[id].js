@@ -32,11 +32,7 @@ function Summary(props) {
                       </span>
                       <span>
                         {" "}
-                        {open ? (
-                          <IconChevronDown className="" />
-                        ) : (
-                          <IconChevronRight />
-                        )}
+                        {open ? <IconChevronDown /> : <IconChevronRight />}
                       </span>
                     </Disclosure.Button>
 
@@ -109,7 +105,7 @@ export default function SummaryPage() {
   return (
     <>
       <Container>
-        <div class=" grid   grid-cols-2 md:grid-cols-6">
+        <div class=" grid grid-cols-2 md:grid-cols-6">
           <div class="lg:col-span-3">
             <YouTube
               className={"sticky top-16 aspect-video w-full"}
@@ -122,7 +118,7 @@ export default function SummaryPage() {
               }}
             />
           </div>
-          <div class="max-w-screen-lg px-20 md:col-span-3 ">
+          <div className="max-w-screen-lg px-20 md:col-span-3 ">
             <div className="flex flex-col">
               {/* Buttons */}
               <div className="flex">
@@ -142,7 +138,6 @@ export default function SummaryPage() {
                 dolorem perferendis qui a fugit animi recusandae reprehenderit
                 adipisci delectus amet?
               </strong>
-              {/* <div className="   "> */}
               {points.map(val => {
                 return (
                   <>
