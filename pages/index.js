@@ -30,6 +30,7 @@ import { fetchExploreData, fetchSummaryData } from "@/api";
 import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
 import classNames from "classnames";
+import Balancer from "react-wrap-balancer";
 
 dayjs.extend(relativeTime);
 
@@ -90,7 +91,7 @@ export const CreateFolderButton = () => {
     <>
       <OutlineButton
         onClick={openModal}
-        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+        className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Folder
@@ -152,7 +153,7 @@ export const CreateFolderButton = () => {
   );
 };
 
-export const CreateSummaryButton = () => {
+export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -167,15 +168,15 @@ export const CreateSummaryButton = () => {
   const onSubmit = e => {
     e.preventDefault();
     closeModal();
-    console.log("Submitted");
-    router.push("/folder/123");
+    console.log("Submitted", folderId);
+    router.push("/summary/123");
   };
 
   return (
     <>
       <OutlineButton
         onClick={openModal}
-        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+        className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Summary
@@ -245,7 +246,7 @@ export const CreateSummaryButton = () => {
   );
 };
 
-const MoveToFolderButton = ({ summaryId }) => {
+export const MoveToFolderButton = ({ summaryId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -336,7 +337,7 @@ const MoveToFolderButton = ({ summaryId }) => {
   );
 };
 
-const EditFolderButton = ({ folderId, folderTitle }) => {
+export const EditFolderButton = ({ folderId, folderTitle }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -422,7 +423,7 @@ const EditFolderButton = ({ folderId, folderTitle }) => {
   );
 };
 
-const DeleteButton = ({ summaryId, type }) => {
+export const DeleteButton = ({ summaryId, type }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -502,7 +503,7 @@ export const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 20,
   });
 
   const fetchDataOptions = {
@@ -518,6 +519,11 @@ export const MyItemsTable = () => {
 
   return (
     <Table
+      data={dataQuery.data?.rows}
+      loading={dataQuery.isFetching}
+      pageCount={dataQuery.data?.pageCount}
+      pagination={pagination}
+      setPagination={setPagination}
       columns={[
         {
           accessorKey: "title",
@@ -640,11 +646,6 @@ export const MyItemsTable = () => {
           router.push(`/summary/${original.id}`);
         }
       }}
-      data={dataQuery.data?.rows}
-      pageCount={dataQuery.data?.pageCount}
-      pagination={pagination}
-      setPagination={setPagination}
-      loading={dataQuery.isFetching}
     />
   );
 };
@@ -795,7 +796,11 @@ export default function Home() {
       <div className="mx-auto w-full max-w-6xl">
         <div className="mx-auto mb-6 max-w-lg text-center">
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
-          <p>Explore popular videos loaded with AI-powered summaries</p>
+          <p>
+            <Balancer>
+              Explore popular videos loaded with AI-powered summaries
+            </Balancer>
+          </p>
         </div>
         <ExploreSection />
       </div>

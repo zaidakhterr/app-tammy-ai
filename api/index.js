@@ -53,6 +53,20 @@ const makeSummaryData = (...lens) => {
   return makeDataLevel();
 };
 
+const summaryData = makeSummaryData(100);
+
+export const fetchSummaryData = async options => {
+  await new Promise(r => setTimeout(r, 500));
+
+  return {
+    rows: summaryData.slice(
+      options.pageIndex * options.pageSize,
+      (options.pageIndex + 1) * options.pageSize
+    ),
+    pageCount: Math.ceil(summaryData.length / options.pageSize),
+  };
+};
+
 const makeExploreData = (...lens) => {
   const makeDataLevel = (depth = 0) => {
     const len = lens[depth];
@@ -67,20 +81,7 @@ const makeExploreData = (...lens) => {
   return makeDataLevel();
 };
 
-const summaryData = makeSummaryData(100);
 const exploreData = makeExploreData(80);
-
-export const fetchSummaryData = async options => {
-  await new Promise(r => setTimeout(r, 500));
-
-  return {
-    rows: summaryData.slice(
-      options.pageIndex * options.pageSize,
-      (options.pageIndex + 1) * options.pageSize
-    ),
-    pageCount: Math.ceil(summaryData.length / options.pageSize),
-  };
-};
 
 export const fetchExploreData = async options => {
   await new Promise(r => setTimeout(r, 2000));
@@ -139,4 +140,28 @@ const newSummaryDetail = id => {
 export const fetchSummaryDetailData = async id => {
   await new Promise(r => setTimeout(r, 500));
   return newSummaryDetail(id);
+};
+
+const makeSummaries = () => {
+  const p = [];
+  for (let i = 0; i < 50; i++) {
+    p.push(newSummary());
+  }
+
+  return p;
+};
+
+const summaries = makeSummaries();
+
+const newFolderDetail = id => {
+  return {
+    id,
+    title: faker.lorem.words(),
+    summaries: faker.helpers.arrayElements(summaries, 7),
+  };
+};
+
+export const fetchFolderDetail = async id => {
+  await new Promise(r => setTimeout(r, 500));
+  return newFolderDetail(id);
 };
