@@ -3,12 +3,7 @@ import { useTheme } from "next-themes";
 import Link from "next/link";
 import classNames from "classnames";
 import { Menu, Transition } from "@headlessui/react";
-import {
-  IconDiamond,
-  IconMoon,
-  IconLogout,
-  IconSun,
-} from "@tabler/icons-react";
+import { IconDiamond, IconMoon, IconSun } from "@tabler/icons-react";
 import { OutlineLink } from "./Button";
 import useAuth from "@/utils/useAuth";
 import Container from "./Container";
@@ -159,8 +154,14 @@ function Header() {
         ) : (
           <div className="flex items-center gap-2">
             <OutlineLink href="#" onClick={login}>
-              <IconLogout className="mr-2 h-4 w-4 stroke-blue-500 stroke-2 dark:stroke-blue-600" />
               Login
+            </OutlineLink>
+            <OutlineLink
+              href="#"
+              onClick={login}
+              className="bg-blue-500 text-white hover:text-blue-500 dark:bg-blue-600 dark:text-white dark:hover:text-blue-600"
+            >
+              Register
             </OutlineLink>
           </div>
         )}

@@ -502,7 +502,7 @@ export const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 20,
   });
 
   const fetchDataOptions = {
@@ -518,6 +518,11 @@ export const MyItemsTable = () => {
 
   return (
     <Table
+      data={dataQuery.data?.rows}
+      loading={dataQuery.isFetching}
+      pageCount={dataQuery.data?.pageCount}
+      pagination={pagination}
+      setPagination={setPagination}
       columns={[
         {
           accessorKey: "title",
@@ -640,11 +645,6 @@ export const MyItemsTable = () => {
           router.push(`/summary/${original.id}`);
         }
       }}
-      data={dataQuery.data?.rows}
-      pageCount={dataQuery.data?.pageCount}
-      pagination={pagination}
-      setPagination={setPagination}
-      loading={dataQuery.isFetching}
     />
   );
 };

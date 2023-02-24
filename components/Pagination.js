@@ -70,7 +70,7 @@ const PaginationButton = ({ active, ...props }) => {
 
 const Pagination = ({
   currentPage = 0,
-  pageCount = 10,
+  pageCount = 1,
   onPageChange = () => {},
   onPrev = () => {},
   onNext = () => {},

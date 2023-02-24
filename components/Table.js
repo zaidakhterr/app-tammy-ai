@@ -51,7 +51,9 @@ const Table = React.memo(
           {loading ? (
             <table className="w-full">
               <tbody>
-                {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => {
+                {Array.from({
+                  length: pagination.pageSize,
+                }).map((_, idx) => {
                   return (
                     <tr key={idx}>
                       <td
@@ -108,7 +110,22 @@ const Table = React.memo(
             </table>
           )}
         </div>
-        <div className="flex flex-col items-end gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+        <div className="flex flex-col-reverse items-end gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
+          {pageCount > 0 && (
+            <select
+              className="flex h-8 items-center justify-center rounded-sm border border-slate-100 bg-right stroke-slate-900 p-1 pr-6 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600"
+              value={table.getState().pagination.pageSize}
+              onChange={e => {
+                table.setPageSize(Number(e.target.value));
+              }}
+            >
+              {[10, 20, 30, 40, 50].map(pageSize => (
+                <option key={pageSize} value={pageSize}>
+                  Show {pageSize}
+                </option>
+              ))}
+            </select>
+          )}
           <Pagination
             currentPage={pagination.pageIndex}
             pageCount={pageCount}
