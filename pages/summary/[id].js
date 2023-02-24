@@ -1,5 +1,4 @@
 import Container from "@/components/Container";
-import classNames from "classnames";
 import Image from "next/image";
 import { Disclosure } from "@headlessui/react";
 
@@ -8,14 +7,18 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
 import { OutlineButton } from "@/components/Button";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import YouTube from "react-youtube";
 function Summary(props) {
   return (
     <>
       <div className="max-w-screen mx-auto w-full  rounded-2xl  bg-white p-3 ">
         <div className="flex items-center border-b-2 ">
-          {props.emoji ? props.emoji : <Image src={props.DefaultEmoji} />}
+          {props.emoji ? (
+            props.emoji
+          ) : (
+            <Image src={props.DefaultEmoji} alt="image not found" />
+          )}
           <Disclosure>
             {({ open }) => (
               <>
@@ -78,7 +81,6 @@ function youtube_parser(url) {
 }
 
 export default function SummaryPage() {
-  const [start, setStart] = useState("");
   const Player = useRef(null);
 
   const router = useRouter();
@@ -88,12 +90,10 @@ export default function SummaryPage() {
     enabled: router.isReady,
   });
 
-  // console.log("SUMMARY DETAIL", data);
-
   if (!data) {
     return null;
   }
-  const { description, points, id, language } = data;
+  const { points } = data;
   let videoId = youtube_parser(data.video);
 
   function handleStart(val) {
@@ -111,26 +111,15 @@ export default function SummaryPage() {
       <Container>
         <div class=" grid   grid-cols-2 md:grid-cols-6">
           <div class="lg:col-span-3">
-            {/* <iframe
-              src={"https://www.youtube.com/embed/" + videoId}
-              className={"sticky top-16 aspect-video w-full"}
-              frameborder="0"
-              allowfullscreen
-            ></iframe> */}
-
             <YouTube
               className={"sticky top-16 aspect-video w-full"}
               frameborder="0"
               allowfullscreen
               videoId={videoId}
               id={"https://www.youtube.com/embed/"}
-              // onPlay={e => {
-              //   console.log({ e });
-              // }}
               onReady={e => {
                 Player.current = e.target;
               }}
-              className={"sticky top-16 aspect-video w-full"}
             />
           </div>
           <div class="max-w-screen-lg px-20 md:col-span-3 ">

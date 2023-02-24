@@ -17,3 +17,10 @@ export const abbreviateNumber = number => {
   // format number and add suffix
   return scaled.toFixed(1) + suffix;
 };
+
+export function youtube_parser(url) {
+  var regExp =
+    /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+  var match = url.match(regExp);
+  return match && match[7].length == 11 ? match[7] : false;
+}
