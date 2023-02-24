@@ -111,9 +111,9 @@ const Table = React.memo(
           )}
         </div>
         <div className="flex flex-col-reverse items-end gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
-          {pageCount > 0 && (
+          {pageCount > 1 && (
             <select
-              className="flex h-8 items-center justify-center rounded-sm border border-slate-100 bg-right stroke-slate-900 p-1 pr-6 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600"
+              className="flex h-8 items-center justify-center rounded-sm border border-slate-100 bg-transparent bg-right stroke-slate-900 p-1 pr-6 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600"
               value={table.getState().pagination.pageSize}
               onChange={e => {
                 table.setPageSize(Number(e.target.value));

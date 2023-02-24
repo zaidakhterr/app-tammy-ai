@@ -156,8 +156,8 @@ const summaries = makeSummaries();
 const newFolderDetail = id => {
   return {
     id,
-    title: faker.lorem.sentence(),
-    summaries: faker.helpers.arrayElements(summaries),
+    title: faker.lorem.words(),
+    summaries: faker.helpers.arrayElements(summaries, 7),
   };
 };
 

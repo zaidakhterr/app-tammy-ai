@@ -90,7 +90,7 @@ export const CreateFolderButton = () => {
     <>
       <OutlineButton
         onClick={openModal}
-        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+        className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Folder
@@ -152,7 +152,7 @@ export const CreateFolderButton = () => {
   );
 };
 
-export const CreateSummaryButton = () => {
+export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = useState(false);
 
@@ -167,15 +167,15 @@ export const CreateSummaryButton = () => {
   const onSubmit = e => {
     e.preventDefault();
     closeModal();
-    console.log("Submitted");
-    router.push("/folder/123");
+    console.log("Submitted", folderId);
+    router.push("/summary/123");
   };
 
   return (
     <>
       <OutlineButton
         onClick={openModal}
-        className="!h-auto !px-2.5 !py-1.5 !text-xs sm:!text-sm"
+        className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         Create Summary
@@ -245,7 +245,7 @@ export const CreateSummaryButton = () => {
   );
 };
 
-const MoveToFolderButton = ({ summaryId }) => {
+export const MoveToFolderButton = ({ summaryId }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -336,7 +336,7 @@ const MoveToFolderButton = ({ summaryId }) => {
   );
 };
 
-const EditFolderButton = ({ folderId, folderTitle }) => {
+export const EditFolderButton = ({ folderId, folderTitle }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
@@ -422,7 +422,7 @@ const EditFolderButton = ({ folderId, folderTitle }) => {
   );
 };
 
-const DeleteButton = ({ summaryId, type }) => {
+export const DeleteButton = ({ summaryId, type }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const closeModal = () => {
