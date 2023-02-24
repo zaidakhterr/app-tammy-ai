@@ -19,8 +19,14 @@ export const abbreviateNumber = number => {
 };
 
 export function youtube_parser(url) {
-  var regExp =
+  const regExp =
     /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
-  var match = url.match(regExp);
+  const match = url.match(regExp);
   return match && match[7].length == 11 ? match[7] : false;
+}
+
+export function secondsToTime(sec) {
+  const minutes = Math.floor(sec / 60);
+  const seconds = sec % 60;
+  return ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
 }

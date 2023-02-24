@@ -15,7 +15,7 @@ body {
 }
 
 .has-tooltip {
-  @apply relative;
+  @apply md:relative;
 }
 
 .has-tooltip:hover .tooltip {
@@ -31,5 +31,14 @@ body {
   50% {
     transform: translateX(25%);
     animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+.summary-grid {
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 1024px) {
+  .summary-grid {
+    grid-template-columns: auto 500px;
   }
 }
