@@ -8,7 +8,8 @@ import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
 import { OutlineButton } from "@/components/Button";
-
+import { useRef, useState } from "react";
+import YouTube from "react-youtube";
 function Summary(props) {
   return (
     <>
@@ -37,8 +38,13 @@ function Summary(props) {
                     </Disclosure.Button>
 
                     <span className="bg-blue-400 text-blue-100">
-                      {" "}
-                      {props.timestamp ? props.timestamp : "00:00"}{" "}
+                      <OutlineButton
+                        onClick={() => {
+                          props.setStart(props.timestamp);
+                        }}
+                      >
+                        {props.timestamp ? props.timestamp : "00:00"}{" "}
+                      </OutlineButton>{" "}
                     </span>
                   </div>
 
@@ -72,6 +78,9 @@ function youtube_parser(url) {
 }
 
 export default function SummaryPage() {
+  const [start, setStart] = useState("");
+  const Player = useRef(null);
+
   const router = useRouter();
   const { data } = useQuery({
     queryKey: ["/summary", { id: router.query.id }],
@@ -79,7 +88,7 @@ export default function SummaryPage() {
     enabled: router.isReady,
   });
 
-  console.log("SUMMARY DETAIL", data);
+  // console.log("SUMMARY DETAIL", data);
 
   if (!data) {
     return null;
@@ -87,17 +96,42 @@ export default function SummaryPage() {
   const { description, points, id, language } = data;
   let videoId = youtube_parser(data.video);
 
+  function handleStart(val) {
+    // setStart(val);
+    seek(val);
+  }
+  function seek(time) {
+    if (Player.current) {
+      Player.current.seekTo(time);
+    }
+  }
+
   return (
     <>
       <Container>
         <div class=" grid   grid-cols-2 md:grid-cols-6">
           <div class="lg:col-span-3">
-            <iframe
+            {/* <iframe
               src={"https://www.youtube.com/embed/" + videoId}
               className={"sticky top-16 aspect-video w-full"}
               frameborder="0"
               allowfullscreen
-            ></iframe>
+            ></iframe> */}
+
+            <YouTube
+              className={"sticky top-16 aspect-video w-full"}
+              frameborder="0"
+              allowfullscreen
+              videoId={videoId}
+              id={"https://www.youtube.com/embed/"}
+              // onPlay={e => {
+              //   console.log({ e });
+              // }}
+              onReady={e => {
+                Player.current = e.target;
+              }}
+              className={"sticky top-16 aspect-video w-full"}
+            />
           </div>
           <div class="max-w-screen-lg px-20 md:col-span-3 ">
             <div className="flex flex-col">
@@ -129,6 +163,7 @@ export default function SummaryPage() {
                         emoji={val?.emoji}
                         timestamp={val?.timestamp}
                         Description={val?.description.slice(0, 90)}
+                        setStart={handleStart}
                       />
                     </div>
                   </>
