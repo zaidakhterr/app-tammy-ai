@@ -679,10 +679,17 @@ const ExploreCard = ({ summary }) => {
         alt={summary.title}
         className="aspect-video w-full min-w-[50%] rounded-md object-cover lg:max-w-[50%]"
       />
-      <div className="flex h-full w-full flex-col py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3">
-        <h4 className="font-semibold line-clamp-2 group-hover:underline">
-          {summary.title}
-        </h4>
+      <div className="items flex h-full w-full flex-col  items-start justify-between py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3 ">
+        {/* <div className="flex-col"> */}
+        <div className="flex w-full items-center justify-between ">
+          <h4 className="font-semibold line-clamp-2 group-hover:underline">
+            {summary.title}
+          </h4>
+          <OutlineButton className=" ml-3  mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm lg:hidden">
+            Summarize
+            <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
+          </OutlineButton>
+        </div>
         <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
           <p className=" flex items-center">
             {summary.channel}
@@ -694,11 +701,12 @@ const ExploreCard = ({ summary }) => {
             {dayjs(summary.lastViewed).fromNow()}
           </p>
         </div>
+        {/* </div> */}
         {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
           Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
-        <OutlineButton className="mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
+        <OutlineButton className=" ml-3 mt-1 hidden h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm lg:flex">
           Summarize
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton>
