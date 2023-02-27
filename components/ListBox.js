@@ -3,15 +3,6 @@ import { Listbox, Transition } from "@headlessui/react";
 import { IconChevronDown } from "@tabler/icons-react";
 import classNames from "classnames";
 
-const people = [
-  { name: "Wade Cooper" },
-  { name: "Arlene Mccoy" },
-  { name: "Devon Webb" },
-  { name: "Tom Cook" },
-  { name: "Tanya Fox" },
-  { name: "Hellen Schmidt" },
-];
-
 const MyListbox = ({ options = [] }) => {
   const [selected, setSelected] = useState(options[0]);
 
@@ -38,7 +29,7 @@ const MyListbox = ({ options = [] }) => {
                 key={idx}
                 className={({ active }) =>
                   classNames(
-                    "cursor-pointer px-2 py-1",
+                    "cursor-pointer p-2",
                     active && "  bg-slate-200 dark:bg-slate-700"
                   )
                 }

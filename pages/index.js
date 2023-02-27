@@ -11,6 +11,10 @@ import {
   IconEdit,
   IconArrowRight,
   IconCircleCheckFilled,
+  IconStarFilled,
+  IconHeartFilled,
+  IconHeart,
+  IconEye,
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
@@ -503,7 +507,7 @@ export const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 25,
   });
 
   const fetchDataOptions = {
@@ -670,7 +674,7 @@ const ExploreCard = ({ summary }) => {
       onClick={() => {
         router.push(`/summary/${summary.id}`);
       }}
-      className="group flex h-full w-full flex-col items-center rounded-md lg:flex-row"
+      className="group relative flex h-full w-full flex-col items-center rounded-md lg:flex-row"
     >
       <Image
         height={200}
@@ -685,10 +689,6 @@ const ExploreCard = ({ summary }) => {
           <h4 className="font-semibold line-clamp-2 group-hover:underline">
             {summary.title}
           </h4>
-          <OutlineButton className=" ml-3  mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm lg:hidden">
-            Summarize
-            <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
-          </OutlineButton>
         </div>
         <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
           <p className=" flex items-center">
@@ -706,10 +706,18 @@ const ExploreCard = ({ summary }) => {
           Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
-        <OutlineButton className=" ml-3 mt-1 hidden h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm lg:flex">
-          Summarize
-          <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
-        </OutlineButton>
+        <div className="mt-1 flex items-center gap-4">
+          {/* <OutlineButton className=" ml-3 flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm">
+            Summarize
+            <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
+          </OutlineButton> */}
+          <button className="flex h-8 w-8 items-center justify-center rounded border border-blue-500 hover:bg-blue-500/10">
+            <IconEye className="h-5 w-5 text-blue-500" />
+          </button>
+          <button className="flex h-8 w-8 items-center justify-center rounded border border-rose-500 hover:bg-rose-500/10">
+            <IconHeart className="h-5 w-5 text-rose-500" />
+          </button>
+        </div>
       </div>
     </button>
   );

@@ -93,9 +93,9 @@ export default function SummaryPage() {
 
   return (
     <>
-      <Container className="summary-grid grid gap-4 px-0 lg:mt-8 lg:gap-8">
+      <Container className="summary-grid grid gap-4 !px-0 md:!px-8 lg:mt-8 lg:gap-8">
         <YouTube
-          className={"sticky top-16 h-full"}
+          className={"sticky top-16 z-10 h-full"}
           iframeClassName={"w-full aspect-video sticky top-20 h-auto"}
           frameborder="0"
           allowfullscreen
@@ -114,24 +114,6 @@ export default function SummaryPage() {
               <IconShare className="h-5 w-5 stroke-1" />
             </button>
 
-            {/* <select className="flex h-10 cursor-pointer  items-center justify-center rounded border border-slate-200 bg-transparent stroke-slate-900 px-2 pr-8 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600">
-              {[
-                {
-                  name: "English",
-                  icon: <US className="h-5" />,
-                },
-                { name: "French", icon: <FR /> },
-                { name: "Chinese", icon: <CH /> },
-              ].map((language, index) => (
-                <option
-                  value={language}
-                  key={index}
-                  className="px-6 dark:bg-slate-800 "
-                >
-                  {language?.name}
-                </option>
-              ))}
-            </select> */}
             <MyListbox
               options={[
                 {

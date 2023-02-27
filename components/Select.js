@@ -10,7 +10,7 @@ const Select = ({
   ...props
 }) => {
   return (
-    <div className={classNames("relative shadow-sm", containerClassName)}>
+    <div className={classNames("relative z-0", containerClassName)}>
       <select
         className={classNames(
           "h-10 w-full rounded-md border-slate-300 bg-transparent px-3 focus:border-blue-500 dark:border-slate-700 md:h-12 md:px-4",
