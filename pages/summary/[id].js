@@ -11,6 +11,7 @@ import YouTube from "react-youtube";
 import { secondsToTime } from "@/utils/index";
 import classNames from "classnames";
 import { US, FR, CH } from "country-flag-icons/react/3x2";
+import MyListbox from "@/components/ListBox";
 function Summary({ point, seekTo }) {
   return (
     <>
@@ -112,7 +113,8 @@ export default function SummaryPage() {
             <button className=" bg-t ransparent flex h-10 items-center justify-center rounded border  border-slate-200 bg-right stroke-slate-900 px-2  text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600 ">
               <IconShare className="h-5 w-5 stroke-1" />
             </button>
-            <select className="flex h-10 cursor-pointer  items-center justify-center rounded border border-slate-200 bg-transparent stroke-slate-900 px-2 pr-8 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600">
+
+            {/* <select className="flex h-10 cursor-pointer  items-center justify-center rounded border border-slate-200 bg-transparent stroke-slate-900 px-2 pr-8 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600">
               {[
                 {
                   name: "English",
@@ -129,7 +131,35 @@ export default function SummaryPage() {
                   {language?.name}
                 </option>
               ))}
-            </select>
+            </select> */}
+            <MyListbox
+              options={[
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <US className="mr-2 h-4 w-4" />
+                      English
+                    </span>
+                  ),
+                },
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <FR className="mr-2 h-4 w-4" />
+                      French
+                    </span>
+                  ),
+                },
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <CH className="mr-2 h-4 w-4" />
+                      Chinese
+                    </span>
+                  ),
+                },
+              ]}
+            />
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
           {points.map(point => {

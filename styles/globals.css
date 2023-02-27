@@ -39,6 +39,11 @@ body {
 
 @media screen and (min-width: 1024px) {
   .summary-grid {
+    grid-template-columns: auto 400px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .summary-grid {
     grid-template-columns: auto 500px;
   }
 }
