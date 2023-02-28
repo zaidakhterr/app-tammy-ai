@@ -10,3 +10,8 @@ copy dropdown
 
 share dropdown 
         facebook and twitter
+
+
+fix uncheck ,
+on checking both checkbox 
+copy text default 
