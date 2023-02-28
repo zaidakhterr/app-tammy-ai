@@ -9,10 +9,7 @@ import {
   IconFileExport,
   IconBolt,
   IconEdit,
-  IconArrowRight,
   IconCircleCheckFilled,
-  IconStarFilled,
-  IconHeartFilled,
   IconHeart,
   IconEye,
 } from "@tabler/icons-react";

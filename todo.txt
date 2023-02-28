@@ -1,0 +1,12 @@
+copy dropdown
+    - 2 checkboxes and a copy button
+        [
+            description,
+            timestamp
+        ]
+
+    -by default the description with timestamp will be selected        
+
+
+share dropdown 
+        facebook and twitter
