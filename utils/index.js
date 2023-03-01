@@ -30,3 +30,7 @@ export function secondsToTime(sec) {
   const seconds = sec % 60;
   return ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
 }
+export async function copyToClipBoard(data) {
+  let copiedText = await navigator.clipboard.writeText(data);
+  return copiedText;
+}

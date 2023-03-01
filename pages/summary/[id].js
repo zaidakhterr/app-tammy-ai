@@ -1,36 +1,39 @@
 import Container from "@/components/Container";
-
-import { Disclosure } from "@headlessui/react";
-
-import { IconChevronDown, IconShare } from "@tabler/icons-react";
+import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
+import { IconChevronDown, IconCopy, IconShare } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
-import { useRef } from "react";
+import React, { useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { parseYoutubeURL, secondsToTime } from "@/utils/index";
+import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import classNames from "classnames";
+import { US, FR, CH } from "country-flag-icons/react/3x2";
+import MyListbox from "@/components/ListBox";
+import faceBookIcon from "@/assets/facebookIcon.png";
+import twitterIcon from "@/assets/twitterIcon.png";
+import Image from "next/image";
+import Button, { OutlineButton } from "@/components/Button";
+import { toast } from "react-hot-toast";
 
 function Summary({ point, seekTo }) {
   return (
     <>
-      <div className="w-full border-b border-slate-200 dark:border-slate-700 ">
+      <div
+        className={classNames(
+          "w-full border-b border-neutral-200 dark:border-neutral-700"
+        )}
+      >
         <Disclosure>
           {({ open }) => (
             <>
-              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 py-4 text-left hover:bg-slate-50 dark:hover:bg-slate-800 lg:px-2">
-                <p className="w-full">
+              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800">
+                <p className="w-full ">
                   {point.emoji} {point.description}
                 </p>
                 <span className="flex flex-col items-center gap-3">
-                  <IconChevronDown
-                    className={classNames(
-                      "h-6 w-6 min-w-[1.5rem] transition-transform",
-                      open && "rotate-180"
-                    )}
-                  />
                   <button
-                    className="flex items-center justify-center rounded bg-blue-50 p-1  text-center text-xs text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-500/10 dark:text-blue-600 dark:hover:bg-blue-500/20"
+                    className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20"
                     onClick={e => {
                       e.stopPropagation();
                       seekTo(point.timestamp);
@@ -38,11 +41,17 @@ function Summary({ point, seekTo }) {
                   >
                     {secondsToTime(point.timestamp)}
                   </button>
+                  <IconChevronDown
+                    className={classNames(
+                      "h-6 w-6 min-w-[1.5rem] transition-transform",
+                      open && "rotate-180"
+                    )}
+                  />
                 </span>
               </Disclosure.Button>
 
-              <Disclosure.Panel className="w-full pt-4 pb-8 text-sm text-slate-600 dark:text-slate-400 lg:px-2">
-                <ul className="ml-4 list-disc space-y-2">
+              <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
+                <ul className="ml-4 list-disc space-y-2 text-sm">
                   {/* iteration of points array */}
                   {point?.subPoints.map(val => {
                     return <li key={val}>{val}</li>;
@@ -59,8 +68,11 @@ function Summary({ point, seekTo }) {
 
 export default function SummaryPage() {
   const player = useRef(null);
+  const [includeTimeStamp, setIncludeTimeStamp] = useState(false);
+  const [includeSubPoints, setIncludeSubPoints] = useState(false);
 
   const router = useRouter();
+  router.cur;
   const { data } = useQuery({
     queryKey: ["/summary", { id: router.query.id }],
     queryFn: () => fetchSummaryDetailData(router.query.id),
@@ -79,14 +91,42 @@ export default function SummaryPage() {
     }
   }
 
+  async function handleCopyText() {
+    try {
+      const copiedData = [data.description];
+      data.points.forEach(val => {
+        if (includeTimeStamp) {
+          copiedData.push(secondsToTime(val.timestamp));
+        }
+        if (includeSubPoints) {
+          copiedData.push(...val.subPoints);
+        }
+        copiedData.push(val.description);
+      });
+
+      await copyToClipBoard(copiedData.join("\n\n"));
+      toast.success("Text Copied");
+    } catch (err) {
+      toast.error("Error Copying Text");
+    }
+  }
+
+  async function handleCopyLink() {
+    try {
+      await copyToClipBoard(window.location.href);
+
+      toast.success("Link Copied");
+    } catch (error) {
+      toast.error("Error Copying Link");
+    }
+  }
+
   return (
     <>
-      <Container className="summary-grid grid gap-4 lg:mt-8 lg:gap-8">
+      <Container className="summary-grid grid gap-4 !px-0 md:!px-8 lg:mt-8 lg:gap-8">
         <YouTube
-          className={"sticky top-16 h-full overflow-clip rounded"}
-          iframeClassName={
-            "w-full aspect-video bg-white pt-4 lg:pt-0 dark:bg-slate-900 lg:sticky lg:top-20 h-auto"
-          }
+          className={"sticky top-16 z-10 h-full"}
+          iframeClassName={"w-full aspect-video sticky top-20 h-auto"}
           frameborder="0"
           allowfullscreen
           videoId={videoId}
@@ -96,19 +136,160 @@ export default function SummaryPage() {
           }}
         />
         <div>
-          <div className="flex gap-2 lg:px-2">
-            <button className="flex h-10 items-center justify-center rounded border border-slate-200 bg-transparent bg-right stroke-slate-900 px-2  text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600 ">
-              <IconShare className="h-5 w-5 stroke-1" />
-            </button>
-            <select className="flex h-10 items-center justify-center rounded border border-slate-200 bg-transparent stroke-slate-900 px-2 pr-8 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600 ">
-              {["English", "French", "Chinese"].map(language => (
-                <option key={language} value={language}>
-                  {language}
-                </option>
-              ))}
-            </select>
+          <div className="flex gap-2 px-4">
+            <Popover className="relative">
+              <Popover.Button
+                className={`flex h-10 items-center justify-center rounded border border-neutral-200  bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600`}
+              >
+                <IconCopy className="h-5 w-5 stroke-1" />
+              </Popover.Button>
+              <Transition
+                as={React.Fragment}
+                enter="transition ease-out duration-200"
+                enterFrom="opacity-0 translate-y-1"
+                enterTo="opacity-100 translate-y-0"
+                leave="transition ease-in duration-150"
+                leaveFrom="opacity-100 translate-y-0"
+                leaveTo="opacity-0 translate-y-1"
+              >
+                <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-neutral-200 bg-white text-sm  shadow-lg dark:border-neutral-700   dark:bg-neutral-800  ">
+                  <div className="flex w-full flex-col  overflow-hidden rounded py-1">
+                    <label
+                      htmlFor="timeStamp"
+                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    >
+                      Include Timestamps
+                      <input
+                        checked={includeTimeStamp}
+                        onChange={e => {
+                          setIncludeTimeStamp(e.target.checked);
+                        }}
+                        id="timeStamp"
+                        name="timeStamp"
+                        type="checkbox"
+                        className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
+                      />
+                    </label>
+                    <label
+                      htmlFor="description"
+                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    >
+                      Full Summary
+                      <input
+                        checked={includeSubPoints}
+                        onChange={e => {
+                          setIncludeSubPoints(e.target.checked);
+                        }}
+                        id="description"
+                        name="description"
+                        type="checkbox"
+                        className="  cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0"
+                      />
+                    </label>
+
+                    <span className="my-2 flex px-2 ">
+                      <Button
+                        onClick={handleCopyText}
+                        type="button"
+                        className="mx-4 !h-auto w-full border border-blue-600 !px-2 !py-2  !text-xs"
+                      >
+                        Copy Text
+                      </Button>
+                    </span>
+                    <span className=" mb-2  flex px-2">
+                      <OutlineButton
+                        onClick={handleCopyLink}
+                        type="button"
+                        className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
+                      >
+                        Copy Link
+                      </OutlineButton>
+                    </span>
+                  </div>
+                </Popover.Panel>
+              </Transition>
+            </Popover>
+
+            {/* Share */}
+            <Menu as="div" className="relative inline-block text-left">
+              <Menu.Button className=" flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+                <IconShare className="h-5 w-5 stroke-1" />
+              </Menu.Button>
+              <Transition
+                as={React.Fragment}
+                enter="transition ease-out duration-100"
+                enterFrom="transform opacity-0 scale-95"
+                enterTo="transform opacity-100 scale-100"
+                leave="transition ease-in duration-75"
+                leaveFrom="transform opacity-100 scale-100"
+                leaveTo="transform opacity-0 scale-95"
+              >
+                <Menu.Items className="absolute left-0 z-50 mt-1 w-fit origin-top-right rounded bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-neutral-800  dark:bg-neutral-800 dark:hover:text-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+                  <Menu.Item>
+                    <a
+                      className="flex w-full cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                      href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image
+                        src={twitterIcon}
+                        className="mr-2 h-5 w-5"
+                        alt="twitter Icon"
+                      />
+                      Twitter
+                    </a>
+                  </Menu.Item>
+
+                  <Menu.Item>
+                    <a
+                      className="flex w-max cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                      href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <Image
+                        src={faceBookIcon}
+                        className="mr-2 h-5 w-5"
+                        alt="Facebook Icon"
+                      />
+                      Facebook
+                    </a>
+                  </Menu.Item>
+                </Menu.Items>
+              </Transition>
+            </Menu>
+
+            <MyListbox
+              options={[
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <US className="mr-2 h-4 w-4" />
+                      English
+                    </span>
+                  ),
+                },
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <FR className="mr-2 h-4 w-4" />
+                      French
+                    </span>
+                  ),
+                },
+                {
+                  name: (
+                    <span className="flex items-center text-xs">
+                      <CH className="mr-2 h-4 w-4" />
+                      Chinese
+                    </span>
+                  ),
+                },
+              ]}
+            />
           </div>
-          <p className="mt-2 px-0 py-2 font-bold lg:px-2">{data.description}</p>
+          <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
           {points.map(point => {
             return <Summary key={point.id} point={point} seekTo={seekTo} />;
           })}

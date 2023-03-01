@@ -8,6 +8,7 @@ import Header from "@/components/Header";
 import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
+import { Toaster } from "react-hot-toast";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],
@@ -42,6 +43,11 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Toaster
+        toastOptions={{
+          className: "dark:bg-neutral-700 dark:text-neutral-100",
+        }}
+      />
       <AuthProvider>
         <QueryClientProvider client={queryClient}>
           <ThemeProvider enableSystem={false}>

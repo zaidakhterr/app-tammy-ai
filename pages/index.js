@@ -9,7 +9,6 @@ import {
   IconFileExport,
   IconBolt,
   IconEdit,
-  IconArrowRight,
   IconCircleCheckFilled,
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
@@ -31,6 +30,7 @@ import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
 import classNames from "classnames";
 import Balancer from "react-wrap-balancer";
+import { toast } from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 
@@ -94,7 +94,7 @@ export const CreateFolderButton = () => {
         className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
-        Create Folder
+        New Folder
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -121,12 +121,12 @@ export const CreateFolderButton = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
                   >
-                    Create Folder
+                    New Folder
                   </Dialog.Title>
                   <form
                     onSubmit={onSubmit}
@@ -179,7 +179,7 @@ export const CreateSummaryButton = ({ folderId }) => {
         className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
-        Create Summary
+        New Summary
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -206,12 +206,12 @@ export const CreateSummaryButton = ({ folderId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
                   >
-                    Create Summary
+                    New Summary
                   </Dialog.Title>
                   <form
                     onSubmit={onSubmit}
@@ -272,7 +272,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Move</span>
-        <IconFileExport className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
+        <IconFileExport className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -299,7 +299,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -363,7 +363,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Rename</span>
-        <IconEdit className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
+        <IconEdit className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -390,7 +390,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -449,7 +449,7 @@ export const DeleteButton = ({ summaryId, type }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
         <span className="tooltip">Delete</span>
-        <IconTrash className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-red-500" />
+        <IconTrash className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-red-500" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -476,7 +476,7 @@ export const DeleteButton = ({ summaryId, type }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -503,7 +503,7 @@ export const MyItemsTable = () => {
   const router = useRouter();
   const [pagination, setPagination] = React.useState({
     pageIndex: 0,
-    pageSize: 20,
+    pageSize: 25,
   });
 
   const fetchDataOptions = {
@@ -559,7 +559,7 @@ export const MyItemsTable = () => {
                         {isFolder
                           ? `${row.videoCount} items`
                           : `${row.videoLength} mins`}
-                        <span className="h-1 w-1 rounded-full bg-slate-700" />
+                        <span className="h-1 w-1 rounded-full bg-neutral-700" />
                         {dayjs(row.lastViewed).fromNow()}
                       </div>
                     </div>
@@ -656,7 +656,7 @@ const ExploreLoading = () => {
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => (
         <div
           key={idx}
-          className="h-40 w-full animate-pulse rounded-md bg-slate-500/30"
+          className="h-40 w-full animate-pulse rounded-md bg-neutral-500/30"
         />
       ))}
     </div>
@@ -670,7 +670,7 @@ const ExploreCard = ({ summary }) => {
       onClick={() => {
         router.push(`/summary/${summary.id}`);
       }}
-      className="group flex h-full w-full flex-col items-center rounded-md lg:flex-row"
+      className="group relative flex h-full w-full flex-col items-center rounded-md lg:flex-row"
     >
       <Image
         height={200}
@@ -679,29 +679,43 @@ const ExploreCard = ({ summary }) => {
         alt={summary.title}
         className="aspect-video w-full min-w-[50%] rounded-md object-cover lg:max-w-[50%]"
       />
-      <div className="flex h-full w-full flex-col py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3">
-        <h4 className="font-semibold line-clamp-2 group-hover:underline">
-          {summary.title}
-        </h4>
+      <div className="items flex h-full w-full flex-col  items-start justify-between py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3 ">
+        <div className="flex w-full items-center justify-between ">
+          <h4 className="font-semibold line-clamp-2 group-hover:underline">
+            {summary.title}
+          </h4>
+        </div>
         <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
           <p className=" flex items-center">
             {summary.channel}
-            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-slate-400 dark:text-slate-600" />
+            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-neutral-400 dark:text-neutral-600" />
           </p>
           <p className="flex items-center gap-1.5 text-xs">
             {abbreviateNumber(summary.viewCount)}
-            <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
+            <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
             {dayjs(summary.lastViewed).fromNow()}
           </p>
         </div>
+
         {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
           Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
-        <OutlineButton className="mt-1 h-auto w-fit !py-1.5 !px-2.5 text-xs md:h-auto md:py-1.5 md:text-sm">
-          Summarize
-          <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
-        </OutlineButton>
+        <div className="mt-1 flex items-center gap-4">
+          <OutlineButton
+            className=" ml-3 flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm"
+            onClick={() => toast.success("Added to the Summary")}
+          >
+            Summarize
+            {/* <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" /> */}
+          </OutlineButton>
+          {/* <button className="flex h-8 w-8 items-center justify-center rounded border border-blue-500 hover:bg-blue-500/10">
+            <IconEye className="h-5 w-5 text-blue-500" />
+          </button>
+          <button className="flex h-8 w-8 items-center justify-center rounded border border-rose-500 hover:bg-rose-500/10">
+            <IconHeart className="h-5 w-5 text-rose-500" />
+          </button> */}
+        </div>
       </div>
     </button>
   );
@@ -798,7 +812,8 @@ export default function Home() {
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
           <p>
             <Balancer>
-              Explore popular videos loaded with AI-powered summaries
+              Explore videos of popular YouTube channels loaded with AI-powered
+              summaries
             </Balancer>
           </p>
         </div>
