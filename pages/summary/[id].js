@@ -1,78 +1,76 @@
-import Container from "@/components/Container";
-import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
-import { IconChevronDown, IconCopy, IconShare } from "@tabler/icons-react";
+import React from "react";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSummaryDetailData } from "@/api";
-import React, { useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import classNames from "classnames";
+import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
+import { IconChevronDown, IconCopy, IconShare } from "@tabler/icons-react";
+import { toast } from "react-hot-toast";
 import { US, FR, CH } from "country-flag-icons/react/3x2";
+import Button, { OutlineButton } from "@/components/Button";
+import Container from "@/components/Container";
 import MyListbox from "@/components/ListBox";
 import faceBookIcon from "@/assets/facebookIcon.png";
 import twitterIcon from "@/assets/twitterIcon.png";
-import Image from "next/image";
-import Button, { OutlineButton } from "@/components/Button";
-import { toast } from "react-hot-toast";
+import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
+import { fetchSummaryDetailData } from "@/api";
 
-function Summary({ point, seekTo }) {
+function SummaryPoint({ point, seekTo }) {
   return (
-    <>
-      <div
-        className={classNames(
-          "w-full border-b border-neutral-200 dark:border-neutral-700"
-        )}
-      >
-        <Disclosure>
-          {({ open }) => (
-            <>
-              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800">
-                <p className="w-full ">
-                  {point.emoji} {point.description}
-                </p>
-                <span className="flex flex-col items-center gap-3">
-                  <button
-                    className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20"
-                    onClick={e => {
-                      e.stopPropagation();
-                      seekTo(point.timestamp);
-                    }}
-                  >
-                    {secondsToTime(point.timestamp)}
-                  </button>
-                  <IconChevronDown
-                    className={classNames(
-                      "h-6 w-6 min-w-[1.5rem] transition-transform",
-                      open && "rotate-180"
-                    )}
-                  />
-                </span>
-              </Disclosure.Button>
+    <div
+      className={classNames(
+        "w-full border-b border-neutral-200 dark:border-neutral-700"
+      )}
+    >
+      <Disclosure>
+        {({ open }) => (
+          <>
+            <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800">
+              <p className="w-full ">
+                {point.emoji} {point.description}
+              </p>
+              <span className="flex flex-col items-center gap-3">
+                <button
+                  className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20"
+                  onClick={e => {
+                    e.stopPropagation();
+                    seekTo(point.timestamp);
+                  }}
+                >
+                  {secondsToTime(point.timestamp)}
+                </button>
+                <IconChevronDown
+                  className={classNames(
+                    "h-6 w-6 min-w-[1.5rem] transition-transform",
+                    open && "rotate-180"
+                  )}
+                />
+              </span>
+            </Disclosure.Button>
 
-              <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
-                <ul className="ml-4 list-disc space-y-2 text-sm">
-                  {/* iteration of points array */}
-                  {point?.subPoints.map(val => {
-                    return <li key={val}>{val}</li>;
-                  })}
-                </ul>
-              </Disclosure.Panel>
-            </>
-          )}
-        </Disclosure>
-      </div>
-    </>
+            <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
+              <ul className="ml-4 list-disc space-y-2 text-sm">
+                {/* iteration of points array */}
+                {point?.subPoints.map(val => {
+                  return <li key={val}>{val}</li>;
+                })}
+              </ul>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+    </div>
   );
 }
 
 export default function SummaryPage() {
-  const player = useRef(null);
-  const [includeTimeStamp, setIncludeTimeStamp] = useState(false);
-  const [includeSubPoints, setIncludeSubPoints] = useState(false);
+  const player = React.useRef(null);
+  const [includeTimeStamp, setIncludeTimeStamp] = React.useState(false);
+  const [includeSubPoints, setIncludeSubPoints] = React.useState(false);
 
   const router = useRouter();
-  router.cur;
+
   const { data } = useQuery({
     queryKey: ["/summary", { id: router.query.id }],
     queryFn: () => fetchSummaryDetailData(router.query.id),
@@ -82,7 +80,7 @@ export default function SummaryPage() {
   if (!data) {
     return null;
   }
-  const { points } = data;
+
   const videoId = parseYoutubeURL(data.video);
 
   function seekTo(time) {
@@ -290,8 +288,10 @@ export default function SummaryPage() {
             />
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
-          {points.map(point => {
-            return <Summary key={point.id} point={point} seekTo={seekTo} />;
+          {data.points.map(point => {
+            return (
+              <SummaryPoint key={point.id} point={point} seekTo={seekTo} />
+            );
           })}
         </div>
       </Container>

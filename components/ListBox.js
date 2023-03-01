@@ -1,10 +1,10 @@
-import { Fragment, useState } from "react";
+import React from "react";
+import classNames from "classnames";
 import { Listbox, Transition } from "@headlessui/react";
 import { IconChevronDown } from "@tabler/icons-react";
-import classNames from "classnames";
 
 const MyListbox = ({ options = [] }) => {
-  const [selected, setSelected] = useState(options[0]);
+  const [selected, setSelected] = React.useState(options[0]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
@@ -18,7 +18,7 @@ const MyListbox = ({ options = [] }) => {
           <IconChevronDown className="ml-2 h-5 w-5  stroke-1" />
         </Listbox.Button>
         <Transition
-          as={Fragment}
+          as={React.Fragment}
           leave="transition ease-in duration-100"
           leaveFrom="opacity-100"
           leaveTo="opacity-0"

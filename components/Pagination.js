@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React from "react";
 import classNames from "classnames";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 
@@ -9,7 +9,7 @@ const range = (start, end) => {
 };
 
 const usePagination = ({ pageCount, siblingCount = 1, currentPage }) => {
-  const paginationRange = useMemo(() => {
+  const paginationRange = React.useMemo(() => {
     const totalPageNumbers = siblingCount + 5;
 
     if (totalPageNumbers >= pageCount) {

@@ -1,6 +1,6 @@
-import Container from "@/components/Container";
-import { IconArrowLeft } from "@tabler/icons-react";
 import Link from "next/link";
+import { IconArrowLeft } from "@tabler/icons-react";
+import Container from "@/components/Container";
 
 export default function NotFound() {
   return (

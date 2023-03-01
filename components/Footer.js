@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Container from "./Container";
-import chrome from "@/assets/available-on-chrome.png";
+import chromeImg from "@/assets/available-on-Img.png";
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         <a href="#">
           <Image
             className="w-64"
-            src={chrome}
+            src={chromeImg}
             alt="Available in the Chrome Web Store"
           />
         </a>

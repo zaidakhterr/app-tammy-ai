@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import Image from "next/image";
 
 export const InputBox = () => {
-  const [isValid, setIsValid] = useState(true);
+  const [isValid, setIsValid] = React.useState(true);
 
   function isValidYoutubeUrl(url) {
     const pattern = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/;

@@ -4,11 +4,12 @@ import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Montserrat } from "@next/font/google";
 import { ThemeProvider } from "next-themes";
+import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header";
-import "@/styles/globals.css";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
-import { Toaster } from "react-hot-toast";
+
+import "@/styles/globals.css";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],

@@ -1,5 +1,4 @@
 import { IconCircleLetterT } from "@tabler/icons-react";
-import React from "react";
 
 const Logo = () => {
   return (

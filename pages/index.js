@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -70,7 +70,7 @@ const CreateSummaryForm = () => {
 
 export const CreateFolderButton = () => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -96,10 +96,10 @@ export const CreateFolderButton = () => {
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         New Folder
       </OutlineButton>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -113,7 +113,7 @@ export const CreateFolderButton = () => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -155,7 +155,7 @@ export const CreateFolderButton = () => {
 
 export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -181,10 +181,10 @@ export const CreateSummaryButton = ({ folderId }) => {
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
         New Summary
       </OutlineButton>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -198,7 +198,7 @@ export const CreateSummaryButton = ({ folderId }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -247,7 +247,7 @@ export const CreateSummaryButton = ({ folderId }) => {
 };
 
 export const MoveToFolderButton = ({ summaryId }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -274,10 +274,10 @@ export const MoveToFolderButton = ({ summaryId }) => {
         <span className="tooltip">Move</span>
         <IconFileExport className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -291,7 +291,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -338,7 +338,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
 };
 
 export const EditFolderButton = ({ folderId, folderTitle }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -365,10 +365,10 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
         <span className="tooltip">Rename</span>
         <IconEdit className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -382,7 +382,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -424,7 +424,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
 };
 
 export const DeleteButton = ({ summaryId, type }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = React.useState(false);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -451,10 +451,10 @@ export const DeleteButton = ({ summaryId, type }) => {
         <span className="tooltip">Delete</span>
         <IconTrash className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-red-500" />
       </button>
-      <Transition appear show={isOpen} as={Fragment}>
+      <Transition appear show={isOpen} as={React.Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -468,7 +468,7 @@ export const DeleteButton = ({ summaryId, type }) => {
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -501,7 +501,7 @@ export const DeleteButton = ({ summaryId, type }) => {
 
 export const MyItemsTable = () => {
   const router = useRouter();
-  const [pagination, setPagination] = React.useState({
+  const [pagination, setPagination] = React.React.useState({
     pageIndex: 0,
     pageSize: 25,
   });
@@ -726,7 +726,7 @@ const ExploreSection = () => {
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const [type, setType] = React.useState("trending");
+  const [type, setType] = React.React.useState("trending");
 
   const { data, fetchNextPage, isFetchingNextPage, isFetching, isLoading } =
     useInfiniteQuery({

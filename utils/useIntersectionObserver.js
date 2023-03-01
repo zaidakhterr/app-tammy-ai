@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 
-function useIntersectionObserver(
+const useIntersectionObserver = (
   elementRef,
   { threshold = 0, root = null, rootMargin = "0%", freezeOnceVisible = false }
-) {
+) => {
   const [entry, setEntry] = useState();
 
   const frozen = entry?.isIntersecting && freezeOnceVisible;
@@ -36,6 +36,6 @@ function useIntersectionObserver(
   ]);
 
   return entry;
-}
+};
 
 export default useIntersectionObserver;

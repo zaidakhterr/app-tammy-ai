@@ -1,15 +1,15 @@
-import { Fragment } from "react";
-import { useTheme } from "next-themes";
+import React from "react";
+import { useRouter } from "next/router";
 import Link from "next/link";
 import classNames from "classnames";
+import { useTheme } from "next-themes";
 import { Menu, Transition } from "@headlessui/react";
 import { IconDiamond, IconMoon, IconSun } from "@tabler/icons-react";
 import { OutlineLink } from "./Button";
-import useAuth from "@/utils/useAuth";
 import Container from "./Container";
 import Avatar from "./Avatar";
 import Logo, { IconLogo } from "./Logo";
-import { useRouter } from "next/router";
+import useAuth from "@/utils/useAuth";
 
 function Header() {
   const router = useRouter();
@@ -73,7 +73,7 @@ function Header() {
                 <Avatar name={user.name} />
               </Menu.Button>
               <Transition
-                as={Fragment}
+                as={React.Fragment}
                 enter="transition ease-out duration-100"
                 enterFrom="transform opacity-0 scale-95"
                 enterTo="transform opacity-100 scale-100"

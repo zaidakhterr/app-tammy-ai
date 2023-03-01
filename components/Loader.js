@@ -1,5 +1,3 @@
-import React from "react";
-
 const Loader = ({ size = 24 }) => {
   return (
     <svg

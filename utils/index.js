@@ -25,12 +25,12 @@ export function parseYoutubeURL(url) {
   return match && match[7].length == 11 ? match[7] : false;
 }
 
-export function secondsToTime(sec) {
+export const secondsToTime = sec => {
   const minutes = Math.floor(sec / 60);
   const seconds = sec % 60;
   return ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
-}
-export async function copyToClipBoard(data) {
+};
+export const copyToClipBoard = async data => {
   let copiedText = await navigator.clipboard.writeText(data);
   return copiedText;
-}
+};
