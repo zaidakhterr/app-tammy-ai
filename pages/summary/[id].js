@@ -1,18 +1,21 @@
 import React from "react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import YouTube from "react-youtube";
 import classNames from "classnames";
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
-import { IconChevronDown, IconCopy, IconShare } from "@tabler/icons-react";
+import {
+  IconBrandFacebook,
+  IconBrandTwitter,
+  IconChevronDown,
+  IconCopy,
+  IconShare,
+} from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
 import { US, FR, CH } from "country-flag-icons/react/3x2";
 import Button, { OutlineButton } from "@/components/Button";
 import Container from "@/components/Container";
 import MyListbox from "@/components/ListBox";
-import faceBookIcon from "@/assets/facebookIcon.png";
-import twitterIcon from "@/assets/twitterIcon.png";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
 
@@ -66,6 +69,7 @@ function SummaryPoint({ point, seekTo }) {
 
 export default function SummaryPage() {
   const player = React.useRef(null);
+  const [includeLink, setIncludeLink] = React.useState(false);
   const [includeTimeStamp, setIncludeTimeStamp] = React.useState(false);
   const [includeSubPoints, setIncludeSubPoints] = React.useState(false);
 
@@ -92,38 +96,47 @@ export default function SummaryPage() {
   async function handleCopyText() {
     try {
       const copiedData = [data.description];
-      data.points.forEach(val => {
-        if (includeTimeStamp) {
-          copiedData.push(secondsToTime(val.timestamp));
-        }
-        if (includeSubPoints) {
-          copiedData.push(...val.subPoints);
-        }
-        copiedData.push(val.description);
-      });
+      copiedData.push("\n\n");
 
-      await copyToClipBoard(copiedData.join("\n\n"));
+      data.points.forEach(point => {
+        if (includeTimeStamp) {
+          copiedData.push(`${secondsToTime(point.timestamp)}: `);
+        }
+
+        copiedData.push(point.description);
+        copiedData.push("\n\n");
+
+        if (includeSubPoints) {
+          copiedData.push(...point.subPoints.map(val => ` - ${val}\n`));
+          copiedData.push("\n\n");
+        }
+      });
+      if (includeLink) {
+        copiedData.push(`Summary for ${data.video} by tammy.ai`);
+      }
+
+      await copyToClipBoard(copiedData.join(""));
       toast.success("Text Copied");
     } catch (err) {
       toast.error("Error Copying Text");
     }
   }
 
-  async function handleCopyLink() {
-    try {
-      await copyToClipBoard(window.location.href);
+  // async function handleCopyLink() {
+  //   try {
+  //     await copyToClipBoard(window.location.href);
 
-      toast.success("Link Copied");
-    } catch (error) {
-      toast.error("Error Copying Link");
-    }
-  }
+  //     toast.success("Link Copied");
+  //   } catch (error) {
+  //     toast.error("Error Copying Link");
+  //   }
+  // }
 
   return (
     <>
       <Container
         className={classNames(
-          "summary-grid grid gap-4 !px-0 md:!px-8 lg:mt-8 lg:gap-8"
+          "summary-grid grid gap-4 !px-0 lg:mt-8 lg:gap-8 lg:!px-8"
         )}
       >
         <YouTube
@@ -153,6 +166,22 @@ export default function SummaryPage() {
               >
                 <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-neutral-200 bg-white text-sm  shadow-lg dark:border-neutral-700   dark:bg-neutral-800  ">
                   <div className="flex w-full flex-col  overflow-hidden rounded py-1">
+                    <label
+                      htmlFor="link"
+                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                    >
+                      Include Link
+                      <input
+                        checked={includeLink}
+                        onChange={e => {
+                          setIncludeLink(e.target.checked);
+                        }}
+                        id="link"
+                        name="link"
+                        type="checkbox"
+                        className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
+                      />
+                    </label>
                     <label
                       htmlFor="timeStamp"
                       className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
@@ -195,7 +224,7 @@ export default function SummaryPage() {
                         Copy Text
                       </Button>
                     </span>
-                    <span className=" mb-2  flex px-2">
+                    {/* <span className=" mb-2  flex px-2">
                       <OutlineButton
                         onClick={handleCopyLink}
                         type="button"
@@ -203,7 +232,7 @@ export default function SummaryPage() {
                       >
                         Copy Link
                       </OutlineButton>
-                    </span>
+                    </span> */}
                   </div>
                 </Popover.Panel>
               </Transition>
@@ -227,11 +256,7 @@ export default function SummaryPage() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Image
-                        src={twitterIcon}
-                        className="mr-2 h-5 w-5"
-                        alt="twitter Icon"
-                      />
+                      <IconBrandTwitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
                       Twitter
                     </a>
                   </Menu.Item>
@@ -243,11 +268,7 @@ export default function SummaryPage() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <Image
-                        src={faceBookIcon}
-                        className="mr-2 h-5 w-5"
-                        alt="Facebook Icon"
-                      />
+                      <IconBrandFacebook className="mr-2 h-4 w-4 text-[#4267B2]" />
                       Facebook
                     </a>
                   </Menu.Item>
