@@ -13,5 +13,5 @@ share dropdown
 
 
 fix uncheck ,
-on checking both checkbox 
+on checking both checkbox (done)
 copy text default 

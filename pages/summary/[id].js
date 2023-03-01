@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
 import React, { useEffect, useRef, useState } from "react";
 import YouTube from "react-youtube";
-import { secondsToTime } from "@/utils/index";
+import { copyToClipBoard, secondsToTime } from "@/utils/index";
 import classNames from "classnames";
 import { US, FR, CH } from "country-flag-icons/react/3x2";
 import MyListbox from "@/components/ListBox";
@@ -75,10 +75,7 @@ function youtube_parser(url) {
 
 export default function SummaryPage() {
   const [includeTimeStamp, setIncludeTimeStamp] = useState(false);
-
-  const [includeDescription, setIncludeDescription] = useState(false);
-  const [includeCopy, setIncludeCopy] = useState(false);
-  const [storeCopiedData, setStoreCopiedData] = useState([]);
+  const [includeSubPoints, setIncludeSubPoints] = useState(false);
 
   const Player = useRef(null);
 
@@ -101,52 +98,24 @@ export default function SummaryPage() {
     }
   }
 
-  // useEffect(() => {
-  //   getCopiedValue;
-  // }, [storeCopiedData, includeTimeStamp, includeDescription]);
+  async function handleCopyClick() {
+    try {
+      const copiedData = [data.description];
+      data.points.forEach(val => {
+        if (includeTimeStamp) {
+          copiedData.push(secondsToTime(val.timestamp));
+        }
+        if (includeSubPoints) {
+          copiedData.push(...val.subPoints);
+        }
+        copiedData.push(val.description);
+      });
 
-  function getCopiedValue(
-    mainDescription,
-    pointDescription,
-    timeStamp,
-    // push subpoints seperately in this array
-    subPoints = []
-  ) {
-    if (includeTimeStamp) {
-      () => {
-        if (storeCopiedData.length > 0) {
-          storeCopiedData.length = 0 | null;
-        }
-        setStoreCopiedData(mainDescription, pointDescription, timeStamp);
-        storeCopiedData.push(mainDescription, pointDescription, timeStamp);
-      };
+      await copyToClipBoard(copiedData.join("\n\n"));
+      console.log(copiedData.join("\n\n"));
+    } catch (err) {
+      console.log(err, "error");
     }
-    if (includeTimeStamp & includeDescription) {
-      () => {
-        if (storeCopiedData.length > 0) {
-          storeCopiedData.length = 0 | null;
-        }
-        storeCopiedData.push(
-          mainDescription,
-          pointDescription,
-          timeStamp
-          // subPoints
-        );
-        setStoreCopiedData(
-          mainDescription,
-          pointDescription,
-          timeStamp
-          // subPoints
-        );
-      };
-    }
-  }
-  function handleCopyClick() {
-    async function copyToClipBoard() {
-      let copiedText = await navigator.clipboard.writeText(storeCopiedData);
-      return copiedText;
-    }
-    return copyToClipBoard();
   }
 
   return (
@@ -183,9 +152,7 @@ export default function SummaryPage() {
                 <Popover.Panel className="borderborder-slate-200 absolute top-full  left-0 mt-1 w-fit overflow-auto rounded-md bg-white text-sm  shadow-lg dark:border-none  dark:bg-slate-100  ">
                   <form
                     className="w-full overflow-hidden rounded"
-                    onChange={e => {
-                      handleCopyClick(e);
-                    }}
+                    onChange={() => handleCopyClick()}
                   >
                     <span className="flex items-center justify-between p-2  hover:bg-slate-200  dark:bg-slate-700 dark:text-slate-200 ">
                       <label
@@ -213,9 +180,9 @@ export default function SummaryPage() {
                         Full Summary
                       </label>
                       <input
-                        checked={includeDescription}
+                        checked={includeSubPoints}
                         onChange={e => {
-                          setIncludeDescription(e.target.checked);
+                          setIncludeSubPoints(e.target.checked);
                         }}
                         id="description"
                         name="description"
@@ -226,9 +193,7 @@ export default function SummaryPage() {
                     </span>
                     <span className=" border-t-1 flex cursor-pointer items-center justify-between border-blue-200  p-2 text-xs  dark:bg-slate-700 dark:text-slate-200 ">
                       <OutlineButton
-                        onClick={() => {
-                          setIncludeCopy();
-                        }}
+                        onClick={handleCopyClick}
                         type="button"
                         id="copyWholeText"
                         name="copyWholeText"
@@ -313,22 +278,6 @@ export default function SummaryPage() {
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
           {points.map(point => {
-            if (includeTimeStamp) {
-              getCopiedValue(
-                data.description,
-                point.description,
-                point.timestamp
-              );
-            }
-            if (includeTimeStamp & includeDescription) {
-              getCopiedValue(
-                data.description,
-                point.description,
-                point.timestamp,
-                point.subPoints
-              );
-            }
-
             return <Summary key={point.id} point={point} seekTo={seekTo} />;
           })}
         </div>
