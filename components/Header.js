@@ -64,7 +64,7 @@ function Header() {
                 className="hidden !border-none font-semibold sm:flex"
                 href="/subscription"
               >
-                <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-600" />
+                <IconDiamond className="mr-2 h-5 w-5 stroke-blue-500 dark:stroke-blue-400" />
                 Upgrade
               </OutlineLink>
             )}

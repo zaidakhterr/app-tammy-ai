@@ -1,12 +1,10 @@
 import Container from "@/components/Container";
-
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
-
 import { IconChevronDown, IconCopy, IconShare } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import { fetchSummaryDetailData } from "@/api";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import YouTube from "react-youtube";
 import { copyToClipBoard, secondsToTime } from "@/utils/index";
 import classNames from "classnames";
@@ -15,7 +13,8 @@ import MyListbox from "@/components/ListBox";
 import faceBookIcon from "@/assets/facebookIcon.png";
 import twitterIcon from "@/assets/twitterIcon.png";
 import Image from "next/image";
-import { OutlineButton } from "@/components/Button";
+import Button, { OutlineButton } from "@/components/Button";
+
 function Summary({ point, seekTo }) {
   return (
     <>
@@ -80,6 +79,7 @@ export default function SummaryPage() {
   const Player = useRef(null);
 
   const router = useRouter();
+  router.cur;
   const { data } = useQuery({
     queryKey: ["/summary", { id: router.query.id }],
     queryFn: () => fetchSummaryDetailData(router.query.id),
@@ -98,7 +98,7 @@ export default function SummaryPage() {
     }
   }
 
-  async function handleCopyClick() {
+  async function handleCopyText() {
     try {
       const copiedData = [data.description];
       data.points.forEach(val => {
@@ -112,9 +112,16 @@ export default function SummaryPage() {
       });
 
       await copyToClipBoard(copiedData.join("\n\n"));
-      console.log(copiedData.join("\n\n"));
     } catch (err) {
-      console.log(err, "error");
+      // console.log(err, "error");
+    }
+  }
+
+  async function handleCopyLink() {
+    try {
+      await copyToClipBoard(window.location.href);
+    } catch (error) {
+      console.log(error);
     }
   }
 
@@ -149,18 +156,13 @@ export default function SummaryPage() {
                 leaveFrom="opacity-100 translate-y-0"
                 leaveTo="opacity-0 translate-y-1"
               >
-                <Popover.Panel className="borderborder-slate-200 absolute top-full  left-0 mt-1 w-fit overflow-auto rounded-md bg-white text-sm  shadow-lg dark:border-none  dark:bg-slate-100  ">
-                  <form
-                    className="w-full overflow-hidden rounded"
-                    onChange={() => handleCopyClick()}
-                  >
-                    <span className="flex items-center justify-between p-2  hover:bg-slate-200  dark:bg-slate-700 dark:text-slate-200 ">
-                      <label
-                        htmlFor="timeStamp"
-                        className="mr-2 cursor-pointer  whitespace-nowrap text-xs  text-gray-900  dark:border-none dark:bg-slate-700 dark:text-slate-200  "
-                      >
-                        Include Timestamps
-                      </label>
+                <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-slate-200 bg-white text-sm  shadow-lg dark:border-slate-700   dark:bg-slate-800  ">
+                  <div className="flex w-full flex-col  overflow-hidden rounded py-1">
+                    <label
+                      htmlFor="timeStamp"
+                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-slate-200 dark:hover:bg-slate-700"
+                    >
+                      Include Timestamps
                       <input
                         checked={includeTimeStamp}
                         onChange={e => {
@@ -169,16 +171,14 @@ export default function SummaryPage() {
                         id="timeStamp"
                         name="timeStamp"
                         type="checkbox"
-                        className=" cursor-pointer rounded border-blue-500 checked:bg-blue-500 focus:border-none focus:shadow-none  focus:outline-none focus:ring-0 dark:border-none"
+                        className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
                       />
-                    </span>
-                    <span className="flex items-center justify-between p-2   hover:bg-slate-200  dark:bg-slate-700 dark:text-slate-200 ">
-                      <label
-                        htmlFor="description"
-                        className="mr-2 cursor-pointer  whitespace-nowrap text-xs  text-gray-900  dark:border-none dark:bg-slate-700  dark:text-slate-200"
-                      >
-                        Full Summary
-                      </label>
+                    </label>
+                    <label
+                      htmlFor="description"
+                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-slate-200 dark:hover:bg-slate-700"
+                    >
+                      Full Summary
                       <input
                         checked={includeSubPoints}
                         onChange={e => {
@@ -187,22 +187,29 @@ export default function SummaryPage() {
                         id="description"
                         name="description"
                         type="checkbox"
-                        // className=" border-1 cursor-pointer rounded-md border-blue-500  checked:bg-blue-500 focus:border-none focus:outline-none"
-                        className=" cursor-pointer rounded border-blue-500 checked:bg-blue-500 focus:border-none focus:shadow-none  focus:outline-none focus:ring-0"
+                        className="  cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0"
                       />
-                    </span>
-                    <span className=" border-t-1 flex cursor-pointer items-center justify-between border-blue-200  p-2 text-xs  dark:bg-slate-700 dark:text-slate-200 ">
-                      <OutlineButton
-                        onClick={handleCopyClick}
+                    </label>
+
+                    <span className="my-2 flex px-2">
+                      <Button
+                        onClick={handleCopyText}
                         type="button"
-                        id="copyWholeText"
-                        name="copyWholeText"
-                        className="dark:bg-blue -700 cursor-pointer  rounded border-blue-500 bg-blue-600  text-xs  font-semibold text-white hover:bg-blue-600/70 dark:border-none dark:bg-blue-400  dark:text-white dark:hover:bg-blue-200 dark:hover:text-blue-600"
+                        className="mx-4 !h-auto w-full border border-blue-600 !px-2  !py-2"
                       >
                         Copy Text
+                      </Button>
+                    </span>
+                    <span className=" mb-2  flex px-2">
+                      <OutlineButton
+                        onClick={handleCopyLink}
+                        type="button"
+                        className="mx-4 !h-auto w-full !px-2 !py-2"
+                      >
+                        Copy Link
                       </OutlineButton>
                     </span>
-                  </form>
+                  </div>
                 </Popover.Panel>
               </Transition>
             </Popover>
