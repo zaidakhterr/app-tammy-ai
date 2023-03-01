@@ -679,43 +679,35 @@ const ExploreCard = ({ summary }) => {
         alt={summary.title}
         className="aspect-video w-full min-w-[50%] rounded-md object-cover lg:max-w-[50%]"
       />
-      <div className="items flex h-full w-full flex-col  items-start justify-between py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3 ">
-        <div className="flex w-full items-center justify-between ">
-          <h4 className="font-semibold line-clamp-2 group-hover:underline">
-            {summary.title}
-          </h4>
-        </div>
-        <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
-          <p className=" flex items-center">
-            {summary.channel}
-            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-neutral-400 dark:text-neutral-600" />
-          </p>
-          <p className="flex items-center gap-1.5 text-xs">
-            {abbreviateNumber(summary.viewCount)}
-            <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
-            {dayjs(summary.lastViewed).fromNow()}
-          </p>
+      <div className="items flex h-full w-full items-start justify-between py-2 text-left leading-snug lg:flex-col lg:pb-1 lg:pt-0 lg:pl-3 ">
+        <div className="flex w-full flex-col">
+          <div className="flex w-full items-center justify-between ">
+            <h4 className="font-semibold line-clamp-2 group-hover:underline">
+              {summary.title}
+            </h4>
+          </div>
+          <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
+            <p className=" flex items-center">
+              {summary.channel}
+              <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-neutral-400 dark:text-neutral-600" />
+            </p>
+            <p className="flex items-center gap-1.5 text-xs">
+              {abbreviateNumber(summary.viewCount)}
+              <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
+              {dayjs(summary.lastViewed).fromNow()}
+            </p>
+          </div>
         </div>
 
-        {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
-          Summarize{" "}
-          <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
-        </OutlineButton> */}
-        <div className="mt-1 flex items-center gap-4">
-          <OutlineButton
-            className=" ml-3 flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm"
-            onClick={() => toast.success("Added to the Summary")}
-          >
-            Summarize
-            {/* <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" /> */}
-          </OutlineButton>
-          {/* <button className="flex h-8 w-8 items-center justify-center rounded border border-blue-500 hover:bg-blue-500/10">
-            <IconEye className="h-5 w-5 text-blue-500" />
-          </button>
-          <button className="flex h-8 w-8 items-center justify-center rounded border border-rose-500 hover:bg-rose-500/10">
-            <IconHeart className="h-5 w-5 text-rose-500" />
-          </button> */}
-        </div>
+        <OutlineButton
+          className="ml-3 mt-auto flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm"
+          onClick={e => {
+            e.stopPropagation();
+            toast.success("Added to my items");
+          }}
+        >
+          Add
+        </OutlineButton>
       </div>
     </button>
   );

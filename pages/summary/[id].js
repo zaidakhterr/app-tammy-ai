@@ -120,181 +120,170 @@ export default function SummaryPage() {
   }
 
   return (
-    <>
-      <Container className="summary-grid grid gap-4 !px-0 md:!px-8 lg:mt-8 lg:gap-8">
-        <YouTube
-          className={"sticky top-16 z-10 h-full"}
-          iframeClassName={"w-full aspect-video sticky top-20 h-auto"}
-          frameborder="0"
-          allowfullscreen
-          videoId={videoId}
-          id={data.id}
-          onReady={e => {
-            player.current = e.target;
-          }}
-        />
-        <div>
-          <div className="flex gap-2 px-4">
-            <Popover className="relative">
-              <Popover.Button
-                className={`flex h-10 items-center justify-center rounded border border-neutral-200  bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600`}
-              >
-                <IconCopy className="h-5 w-5 stroke-1" />
-              </Popover.Button>
-              <Transition
-                as={React.Fragment}
-                enter="transition ease-out duration-200"
-                enterFrom="opacity-0 translate-y-1"
-                enterTo="opacity-100 translate-y-0"
-                leave="transition ease-in duration-150"
-                leaveFrom="opacity-100 translate-y-0"
-                leaveTo="opacity-0 translate-y-1"
-              >
-                <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-neutral-200 bg-white text-sm  shadow-lg dark:border-neutral-700   dark:bg-neutral-800  ">
-                  <div className="flex w-full flex-col  overflow-hidden rounded py-1">
-                    <label
-                      htmlFor="timeStamp"
-                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                    >
-                      Include Timestamps
-                      <input
-                        checked={includeTimeStamp}
-                        onChange={e => {
-                          setIncludeTimeStamp(e.target.checked);
-                        }}
-                        id="timeStamp"
-                        name="timeStamp"
-                        type="checkbox"
-                        className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
-                      />
-                    </label>
-                    <label
-                      htmlFor="description"
-                      className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
-                    >
-                      Full Summary
-                      <input
-                        checked={includeSubPoints}
-                        onChange={e => {
-                          setIncludeSubPoints(e.target.checked);
-                        }}
-                        id="description"
-                        name="description"
-                        type="checkbox"
-                        className="  cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0"
-                      />
-                    </label>
+    <Container className="summary-grid grid gap-4 !px-0 md:!px-8 lg:mt-8 lg:gap-8">
+      <YouTube
+        className={"sticky top-16 z-10 h-full"}
+        iframeClassName={"w-full aspect-video sticky top-20 h-auto"}
+        frameborder="0"
+        allowfullscreen
+        videoId={videoId}
+        id={data.id}
+        onReady={e => {
+          player.current = e.target;
+        }}
+      />
+      <div>
+        <div className="flex gap-2 px-4">
+          <Popover className="relative">
+            <Popover.Button
+              className={`flex h-10 items-center justify-center rounded border border-neutral-200  bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600`}
+            >
+              <IconCopy className="h-5 w-5 stroke-1" />
+            </Popover.Button>
+            <Transition
+              as={React.Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-neutral-200 bg-white text-sm  shadow-lg dark:border-neutral-700   dark:bg-neutral-800  ">
+                <div className="flex w-full flex-col  overflow-hidden rounded py-1">
+                  <label
+                    htmlFor="timeStamp"
+                    className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                  >
+                    Include Timestamps
+                    <input
+                      checked={includeTimeStamp}
+                      onChange={e => {
+                        setIncludeTimeStamp(e.target.checked);
+                      }}
+                      id="timeStamp"
+                      name="timeStamp"
+                      type="checkbox"
+                      className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
+                    />
+                  </label>
+                  <label
+                    htmlFor="description"
+                    className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                  >
+                    Full Summary
+                    <input
+                      checked={includeSubPoints}
+                      onChange={e => {
+                        setIncludeSubPoints(e.target.checked);
+                      }}
+                      id="description"
+                      name="description"
+                      type="checkbox"
+                      className="  cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0"
+                    />
+                  </label>
 
-                    <span className="my-2 flex px-2 ">
-                      <Button
-                        onClick={handleCopyText}
-                        type="button"
-                        className="mx-4 !h-auto w-full border border-blue-600 !px-2 !py-2  !text-xs"
-                      >
-                        Copy Text
-                      </Button>
-                    </span>
-                    <span className=" mb-2  flex px-2">
-                      <OutlineButton
-                        onClick={handleCopyLink}
-                        type="button"
-                        className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
-                      >
-                        Copy Link
-                      </OutlineButton>
-                    </span>
-                  </div>
-                </Popover.Panel>
-              </Transition>
-            </Popover>
-
-            {/* Share */}
-            <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className=" flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
-                <IconShare className="h-5 w-5 stroke-1" />
-              </Menu.Button>
-              <Transition
-                as={React.Fragment}
-                enter="transition ease-out duration-100"
-                enterFrom="transform opacity-0 scale-95"
-                enterTo="transform opacity-100 scale-100"
-                leave="transition ease-in duration-75"
-                leaveFrom="transform opacity-100 scale-100"
-                leaveTo="transform opacity-0 scale-95"
-              >
-                <Menu.Items className="absolute left-0 z-50 mt-1 w-fit origin-top-right rounded bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-neutral-800  dark:bg-neutral-800 dark:hover:text-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
-                  <Menu.Item>
-                    <a
-                      className="flex w-full cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
-                      href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
-                      target="_blank"
-                      rel="noreferrer"
+                  <span className="my-2 flex px-2 ">
+                    <Button
+                      onClick={handleCopyText}
+                      type="button"
+                      className="mx-4 !h-auto w-full border border-blue-600 !px-2 !py-2  !text-xs"
                     >
-                      <Image
-                        src={twitterIcon}
-                        className="mr-2 h-5 w-5"
-                        alt="twitter Icon"
-                      />
-                      Twitter
-                    </a>
-                  </Menu.Item>
-
-                  <Menu.Item>
-                    <a
-                      className="flex w-max cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
-                      href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
-                      target="_blank"
-                      rel="noreferrer"
+                      Copy Text
+                    </Button>
+                  </span>
+                  <span className=" mb-2  flex px-2">
+                    <OutlineButton
+                      onClick={handleCopyLink}
+                      type="button"
+                      className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
                     >
-                      <Image
-                        src={faceBookIcon}
-                        className="mr-2 h-5 w-5"
-                        alt="Facebook Icon"
-                      />
-                      Facebook
-                    </a>
-                  </Menu.Item>
-                </Menu.Items>
-              </Transition>
-            </Menu>
+                      Copy Link
+                    </OutlineButton>
+                  </span>
+                </div>
+              </Popover.Panel>
+            </Transition>
+          </Popover>
 
-            <MyListbox
-              options={[
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <US className="mr-2 h-4 w-4" />
-                      English
-                    </span>
-                  ),
-                },
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <FR className="mr-2 h-4 w-4" />
-                      French
-                    </span>
-                  ),
-                },
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <CH className="mr-2 h-4 w-4" />
-                      Chinese
-                    </span>
-                  ),
-                },
-              ]}
-            />
-          </div>
-          <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
-          {data.points.map(point => {
-            return (
-              <SummaryPoint key={point.id} point={point} seekTo={seekTo} />
-            );
-          })}
+          <Menu as="div" className="relative inline-block text-left">
+            <Menu.Button className=" flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+              <IconShare className="h-5 w-5 stroke-1" />
+            </Menu.Button>
+            <Transition
+              as={React.Fragment}
+              leave="transition ease-in duration-100"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <Menu.Items className="absolute left-0 z-50 mt-1 w-fit origin-top-right rounded bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-neutral-800  dark:bg-neutral-800 dark:hover:text-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+                <Menu.Item>
+                  <a
+                    className="flex w-full cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    href={`https://twitter.com/intent/tweet?url=${window.location.href}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Image
+                      src={twitterIcon}
+                      className="mr-2 h-5 w-5"
+                      alt="twitter Icon"
+                    />
+                    Twitter
+                  </a>
+                </Menu.Item>
+
+                <Menu.Item>
+                  <a
+                    className="flex w-max cursor-pointer items-center p-2 text-xs hover:bg-neutral-200 dark:text-neutral-200 dark:hover:bg-neutral-700"
+                    href={`https://www.facebook.com/sharer/sharer.php?u=${window.location.href}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <Image
+                      src={faceBookIcon}
+                      className="mr-2 h-5 w-5"
+                      alt="Facebook Icon"
+                    />
+                    Facebook
+                  </a>
+                </Menu.Item>
+              </Menu.Items>
+            </Transition>
+          </Menu>
+
+          <MyListbox
+            options={[
+              {
+                name: (
+                  <span className="flex items-center text-xs">
+                    <US className="mr-2 h-4 w-4" />
+                    English
+                  </span>
+                ),
+              },
+              {
+                name: (
+                  <span className="flex items-center text-xs">
+                    <FR className="mr-2 h-4 w-4" />
+                    French
+                  </span>
+                ),
+              },
+              {
+                name: (
+                  <span className="flex items-center text-xs">
+                    <CH className="mr-2 h-4 w-4" />
+                    Chinese
+                  </span>
+                ),
+              },
+            ]}
+          />
         </div>
-      </Container>
-    </>
+        <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
+        {data.points.map(point => {
+          return <SummaryPoint key={point.id} point={point} seekTo={seekTo} />;
+        })}
+      </div>
+    </Container>
   );
 }
