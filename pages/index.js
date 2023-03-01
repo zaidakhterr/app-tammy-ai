@@ -501,7 +501,7 @@ export const DeleteButton = ({ summaryId, type }) => {
 
 export const MyItemsTable = () => {
   const router = useRouter();
-  const [pagination, setPagination] = React.React.useState({
+  const [pagination, setPagination] = React.useState({
     pageIndex: 0,
     pageSize: 25,
   });
@@ -726,7 +726,7 @@ const ExploreSection = () => {
   const entry = useIntersectionObserver(ref, {});
   const isVisible = !!entry?.isIntersecting;
 
-  const [type, setType] = React.React.useState("trending");
+  const [type, setType] = React.useState("trending");
 
   const { data, fetchNextPage, isFetchingNextPage, isFetching, isLoading } =
     useInfiniteQuery({

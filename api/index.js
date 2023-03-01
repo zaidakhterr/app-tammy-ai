@@ -137,9 +137,11 @@ const newSummaryDetail = id => {
   };
 };
 
-export const fetchSummaryDetailData = async id => {
+const summaryDetail = newSummaryDetail(1);
+
+export const fetchSummaryDetailData = async () => {
   await new Promise(r => setTimeout(r, 500));
-  return newSummaryDetail(id);
+  return summaryDetail;
 };
 
 const makeSummaries = () => {
@@ -154,6 +156,7 @@ const makeSummaries = () => {
 const summaries = makeSummaries();
 
 const newFolderDetail = id => {
+  faker.seed(id);
   return {
     id,
     title: faker.lorem.words(),
@@ -161,7 +164,9 @@ const newFolderDetail = id => {
   };
 };
 
-export const fetchFolderDetail = async id => {
+const folderDetail = newFolderDetail(1);
+
+export const fetchFolderDetail = async () => {
   await new Promise(r => setTimeout(r, 500));
-  return newFolderDetail(id);
+  return folderDetail;
 };

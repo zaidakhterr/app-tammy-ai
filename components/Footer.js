@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Container from "./Container";
-import chromeImg from "@/assets/available-on-Img.png";
+import chromeImg from "@/assets/available-on-chrome.png";
 
 const Footer = () => {
   return (
