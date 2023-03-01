@@ -122,7 +122,7 @@ export const CreateFolderButton = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -207,7 +207,7 @@ export const CreateSummaryButton = ({ folderId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -273,7 +273,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Move</span>
-        <IconFileExport className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
+        <IconFileExport className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -300,7 +300,7 @@ export const MoveToFolderButton = ({ summaryId }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -364,7 +364,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-blue-50 dark:hover:bg-blue-500/10"
       >
         <span className="tooltip">Rename</span>
-        <IconEdit className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-blue-600" />
+        <IconEdit className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-blue-600" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -391,7 +391,7 @@ export const EditFolderButton = ({ folderId, folderTitle }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -450,7 +450,7 @@ export const DeleteButton = ({ summaryId, type }) => {
         className="has-tooltip group/btn z-10 flex h-8 w-8 items-center justify-center rounded transition-colors hover:bg-red-50 dark:hover:bg-red-500/10"
       >
         <span className="tooltip">Delete</span>
-        <IconTrash className="h-5 w-5 stroke-slate-500 stroke-1 group-hover/btn:stroke-red-500" />
+        <IconTrash className="h-5 w-5 stroke-neutral-500 stroke-1 group-hover/btn:stroke-red-500" />
       </button>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -477,7 +477,7 @@ export const DeleteButton = ({ summaryId, type }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-slate-800/10 transition-all dark:bg-slate-800">
+                <Dialog.Panel className="w-full max-w-lg transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
                     className="text-lg font-medium leading-6"
@@ -560,7 +560,7 @@ export const MyItemsTable = () => {
                         {isFolder
                           ? `${row.videoCount} items`
                           : `${row.videoLength} mins`}
-                        <span className="h-1 w-1 rounded-full bg-slate-700" />
+                        <span className="h-1 w-1 rounded-full bg-neutral-700" />
                         {dayjs(row.lastViewed).fromNow()}
                       </div>
                     </div>
@@ -657,7 +657,7 @@ const ExploreLoading = () => {
       {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map(idx => (
         <div
           key={idx}
-          className="h-40 w-full animate-pulse rounded-md bg-slate-500/30"
+          className="h-40 w-full animate-pulse rounded-md bg-neutral-500/30"
         />
       ))}
     </div>
@@ -690,11 +690,11 @@ const ExploreCard = ({ summary }) => {
         <div className="mt-auto flex items-center gap-4 lg:mb-auto lg:flex-col lg:items-start lg:gap-1">
           <p className=" flex items-center">
             {summary.channel}
-            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-slate-400 dark:text-slate-600" />
+            <IconCircleCheckFilled className="ml-1 h-5 w-5 text-sm text-neutral-400 dark:text-neutral-600" />
           </p>
           <p className="flex items-center gap-1.5 text-xs">
             {abbreviateNumber(summary.viewCount)}
-            <span className="h-1.5 w-1.5 rounded-full bg-slate-700" />
+            <span className="h-1.5 w-1.5 rounded-full bg-neutral-700" />
             {dayjs(summary.lastViewed).fromNow()}
           </p>
         </div>

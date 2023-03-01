@@ -35,12 +35,12 @@ export const InputBox = () => {
                flex-1
               border-none
               text-xl font-thin
-              text-slate-900
+              text-neutral-900
               outline-none
 
                placeholder:text-xl
                placeholder:font-[400]
-               placeholder:text-slate-300
+               placeholder:text-neutral-300
                focus:border-none
                focus:outline-none md:text-sm
                 "

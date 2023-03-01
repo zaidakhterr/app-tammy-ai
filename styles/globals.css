@@ -7,7 +7,7 @@
 }
 
 body {
-  @apply min-h-screen w-full overflow-x-hidden bg-white text-slate-900 dark:bg-slate-900 dark:text-slate-200;
+  @apply min-h-screen w-full overflow-x-hidden bg-white text-neutral-900 dark:bg-neutral-900 dark:text-neutral-200;
 }
 
 .tooltip {

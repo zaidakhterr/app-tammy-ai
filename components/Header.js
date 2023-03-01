@@ -17,7 +17,7 @@ function Header() {
   const { user, login, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-slate-700 dark:bg-slate-900">
+    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-neutral-700 dark:bg-neutral-900">
       <Container className="flex h-full items-center justify-between ">
         <div className="flex items-center gap-3 sm:gap-6">
           <Link href="/" className="mr-2">
@@ -81,12 +81,12 @@ function Header() {
                 leaveFrom="transform opacity-100 scale-100"
                 leaveTo="transform opacity-0 scale-95"
               >
-                <Menu.Items className="absolute right-0 z-50 mt-2 w-48 origin-top-right divide-y divide-slate-100 rounded border bg-white px-1 text-slate-700 shadow-lg shadow-slate-900/10 dark:divide-slate-700/50 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+                <Menu.Items className="absolute right-0 z-50 mt-2 w-48 origin-top-right divide-y divide-neutral-100 rounded border bg-white px-1 text-neutral-700 shadow-lg shadow-neutral-900/10 dark:divide-neutral-700/50 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
                   <div className="overflow-clip px-3 py-2">
                     <p className="text-sm font-semibold">{user.name}</p>
                     <p
                       title={user.email}
-                      className="overflow-hidden text-ellipsis text-sm font-light text-slate-500 dark:text-slate-500"
+                      className="overflow-hidden text-ellipsis text-sm font-light text-neutral-500 dark:text-neutral-500"
                     >
                       {user.email}
                     </p>
@@ -97,7 +97,7 @@ function Header() {
                         <Link
                           href="/subscription"
                           className={classNames(
-                            active && "bg-slate-100 dark:bg-slate-700",
+                            active && "bg-neutral-100 dark:bg-neutral-700",
                             "block rounded-sm px-3 py-2 text-sm"
                           )}
                         >
@@ -109,7 +109,7 @@ function Header() {
                       {({ active }) => (
                         <button
                           className={classNames(
-                            active && "bg-slate-100 dark:bg-slate-700",
+                            active && "bg-neutral-100 dark:bg-neutral-700",
                             "flex w-full items-center rounded-sm px-3 py-2 text-left text-sm"
                           )}
                           onClick={() =>
@@ -159,7 +159,7 @@ function Header() {
             <OutlineLink
               href="#"
               onClick={login}
-              className="bg-blue-500 text-white hover:text-blue-500 dark:bg-blue-600 dark:text-white dark:hover:text-blue-600"
+              className="bg-blue-500 text-white hover:text-blue-600 dark:bg-blue-600 dark:text-white dark:hover:text-blue-600"
             >
               Register
             </OutlineLink>

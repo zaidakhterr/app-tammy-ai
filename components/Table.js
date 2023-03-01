@@ -59,10 +59,10 @@ const Table = React.memo(
                       <td
                         className={classNames(
                           "w-full p-2 text-sm sm:p-3 md:text-base",
-                          idx !== 0 && "border-t dark:border-slate-700"
+                          idx !== 0 && "border-t dark:border-neutral-700"
                         )}
                       >
-                        <div className="h-8 w-full animate-pulse bg-slate-200 dark:bg-slate-800" />
+                        <div className="h-8 w-full animate-pulse bg-neutral-200 dark:bg-neutral-800" />
                       </td>
                     </tr>
                   );
@@ -83,7 +83,7 @@ const Table = React.memo(
                       className={classNames(
                         "group",
                         onRowClick &&
-                          "cursor-pointer transition-colors hover:bg-slate-50/75 dark:hover:bg-slate-800/25"
+                          "cursor-pointer transition-colors hover:bg-neutral-50/75 dark:hover:bg-neutral-800/25"
                       )}
                     >
                       {row.getVisibleCells().map((cell, cellIdx) => {
@@ -92,7 +92,7 @@ const Table = React.memo(
                             key={cell.id}
                             className={classNames(
                               "p-2 text-sm sm:p-3 md:text-base",
-                              idx !== 0 && "border-t dark:border-slate-700",
+                              idx !== 0 && "border-t dark:border-neutral-700",
                               cellIdx !== 0 && "hidden md:table-cell"
                             )}
                           >
@@ -113,7 +113,7 @@ const Table = React.memo(
         <div className="flex flex-col-reverse items-end gap-2 sm:flex-row sm:items-center sm:justify-end sm:gap-3">
           {pageCount > 1 && (
             <select
-              className="flex h-8 items-center justify-center rounded-sm border border-slate-100 bg-transparent bg-right stroke-slate-900 p-1 pr-6 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600"
+              className="flex h-8 items-center justify-center rounded-sm border border-neutral-100 bg-transparent bg-right stroke-neutral-900 p-1 pr-6 text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600"
               value={table.getState().pagination.pageSize}
               onChange={e => {
                 table.setPageSize(Number(e.target.value));

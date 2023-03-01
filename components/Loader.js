@@ -12,7 +12,7 @@ const Loader = ({ size = 24 }) => {
       fill="none"
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="animate-spin stroke-slate-900 dark:stroke-white"
+      className="animate-spin stroke-neutral-900 dark:stroke-white"
     >
       <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
       <path d="M12 3a9 9 0 1 0 9 9"></path>

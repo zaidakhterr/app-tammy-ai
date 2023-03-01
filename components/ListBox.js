@@ -11,7 +11,7 @@ const MyListbox = ({ options = [] }) => {
       <div className="relative ">
         <Listbox.Button
           className={
-            " flex h-10  cursor-pointer items-center justify-center rounded border border-slate-200 bg-transparent stroke-slate-900 px-2 text-sm transition-colors hover:bg-slate-100 disabled:cursor-not-allowed disabled:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:bg-slate-800 dark:disabled:stroke-slate-600"
+            " flex h-10  cursor-pointer items-center justify-center rounded border border-neutral-200 bg-transparent stroke-neutral-900 px-2 text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600"
           }
         >
           <span className="block truncate">{selected.name}</span>
@@ -23,14 +23,14 @@ const MyListbox = ({ options = [] }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute top-full left-0  mt-1 max-h-60 w-full overflow-auto rounded border border-slate-200  bg-white  py-1 text-sm shadow-lg  dark:border-slate-700 dark:bg-slate-800">
+          <Listbox.Options className="absolute top-full left-0  mt-1 max-h-60 w-full overflow-auto rounded border border-neutral-200  bg-white  py-1 text-sm shadow-lg  dark:border-neutral-700 dark:bg-neutral-800">
             {options.map((option, idx) => (
               <Listbox.Option
                 key={idx}
                 className={({ active }) =>
                   classNames(
                     "cursor-pointer p-2",
-                    active && "  bg-slate-200 dark:bg-slate-700"
+                    active && "  bg-neutral-200 dark:bg-neutral-700"
                   )
                 }
                 value={option}

@@ -59,10 +59,10 @@ const PaginationButton = ({ active, ...props }) => {
     <button
       {...props}
       className={classNames(
-        "flex h-8 w-8 items-center justify-center rounded-sm border p-1 text-sm transition-colors disabled:cursor-not-allowed disabled:bg-slate-100 dark:disabled:bg-slate-800",
+        "flex h-8 w-8 items-center justify-center rounded-sm border p-1 text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 dark:disabled:bg-neutral-800",
         active
           ? "border-transparent bg-blue-500/30 text-blue-600"
-          : "border-slate-100 stroke-slate-900 hover:bg-slate-100 disabled:stroke-slate-400 dark:border-slate-800 dark:stroke-white dark:hover:bg-slate-800 dark:disabled:stroke-slate-600"
+          : "border-neutral-100 stroke-neutral-900 hover:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:stroke-neutral-600"
       )}
     />
   );

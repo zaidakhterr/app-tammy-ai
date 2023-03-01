@@ -10,7 +10,7 @@ import AuthScreenBanner from "@/components/AuthScreenBanner";
 
 const GoogleButton = () => {
   return (
-    <button className="relative flex h-12 w-full items-center justify-center rounded border py-2 px-4 text-center shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800 md:px-6">
+    <button className="relative flex h-12 w-full items-center justify-center rounded border py-2 px-4 text-center shadow-sm transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800 md:px-6">
       <span className="absolute inset-y-0 left-0 flex items-center pl-4">
         <Image src={google} alt="Google" className="" />
       </span>
@@ -21,7 +21,7 @@ const GoogleButton = () => {
 
 const FacebookButton = () => {
   return (
-    <button className="relative flex h-12 w-full items-center justify-center rounded border py-2 px-4 text-center shadow-sm transition-colors hover:bg-slate-50 dark:border-slate-700 dark:hover:bg-slate-800 md:px-6">
+    <button className="relative flex h-12 w-full items-center justify-center rounded border py-2 px-4 text-center shadow-sm transition-colors hover:bg-neutral-50 dark:border-neutral-700 dark:hover:bg-neutral-800 md:px-6">
       <span className="absolute inset-y-0 left-0 flex items-center pl-4">
         <Image src={facebook} alt="Facebook" className="" />
       </span>
@@ -65,11 +65,11 @@ export default function Register() {
         <GoogleButton />
         <FacebookButton />
         <div className="my-3 flex w-full items-center">
-          <span className="h-px w-full bg-slate-200 dark:bg-slate-800" />
-          <span className="px-2 text-sm text-slate-400 dark:text-slate-700">
+          <span className="h-px w-full bg-neutral-200 dark:bg-neutral-800" />
+          <span className="px-2 text-sm text-neutral-400 dark:text-neutral-700">
             OR
           </span>
-          <span className="h-px w-full bg-slate-200 dark:bg-slate-800" />
+          <span className="h-px w-full bg-neutral-200 dark:bg-neutral-800" />
         </div>
         <RegisterForm />
         <p className="mt-10">
