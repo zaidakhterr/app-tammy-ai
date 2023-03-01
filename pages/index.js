@@ -10,8 +10,6 @@ import {
   IconBolt,
   IconEdit,
   IconCircleCheckFilled,
-  IconHeart,
-  IconEye,
 } from "@tabler/icons-react";
 import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
@@ -32,6 +30,7 @@ import { abbreviateNumber } from "@/utils";
 import useIntersectionObserver from "@/utils/useIntersectionObserver";
 import classNames from "classnames";
 import Balancer from "react-wrap-balancer";
+import { toast } from "react-hot-toast";
 
 dayjs.extend(relativeTime);
 
@@ -95,7 +94,7 @@ export const CreateFolderButton = () => {
         className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
-        Create Folder
+        New Folder
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -127,7 +126,7 @@ export const CreateFolderButton = () => {
                     as="h3"
                     className="text-lg font-medium leading-6"
                   >
-                    Create Folder
+                    New Folder
                   </Dialog.Title>
                   <form
                     onSubmit={onSubmit}
@@ -180,7 +179,7 @@ export const CreateSummaryButton = ({ folderId }) => {
         className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"
       >
         <IconPlus className="mr-2 h-4 w-4 stroke-blue-500 dark:stroke-blue-600" />
-        Create Summary
+        New Summary
       </OutlineButton>
       <Transition appear show={isOpen} as={Fragment}>
         <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
@@ -212,7 +211,7 @@ export const CreateSummaryButton = ({ folderId }) => {
                     as="h3"
                     className="text-lg font-medium leading-6"
                   >
-                    Create Summary
+                    New Summary
                   </Dialog.Title>
                   <form
                     onSubmit={onSubmit}
@@ -681,7 +680,6 @@ const ExploreCard = ({ summary }) => {
         className="aspect-video w-full min-w-[50%] rounded-md object-cover lg:max-w-[50%]"
       />
       <div className="items flex h-full w-full flex-col  items-start justify-between py-2 text-left leading-snug lg:pb-1 lg:pt-0 lg:pl-3 ">
-        {/* <div className="flex-col"> */}
         <div className="flex w-full items-center justify-between ">
           <h4 className="font-semibold line-clamp-2 group-hover:underline">
             {summary.title}
@@ -698,22 +696,25 @@ const ExploreCard = ({ summary }) => {
             {dayjs(summary.lastViewed).fromNow()}
           </p>
         </div>
-        {/* </div> */}
+
         {/* <OutlineButton className="mt-auto h-auto w-fit border-none py-1.5 !px-1 text-xs md:h-auto md:text-sm">
           Summarize{" "}
           <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
         </OutlineButton> */}
         <div className="mt-1 flex items-center gap-4">
-          {/* <OutlineButton className=" ml-3 flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm">
+          <OutlineButton
+            className=" ml-3 flex h-auto w-fit !py-1.5 !px-2.5 text-xs md:ml-0 md:h-auto md:py-1.5 md:text-sm"
+            onClick={() => toast.success("Added to the Summary")}
+          >
             Summarize
-            <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" />
-          </OutlineButton> */}
-          <button className="flex h-8 w-8 items-center justify-center rounded border border-blue-500 hover:bg-blue-500/10">
+            {/* <IconArrowRight className="ml-2 h-4 w-4 stroke-blue-500 group-hover:animate-bounce-right dark:stroke-blue-600" /> */}
+          </OutlineButton>
+          {/* <button className="flex h-8 w-8 items-center justify-center rounded border border-blue-500 hover:bg-blue-500/10">
             <IconEye className="h-5 w-5 text-blue-500" />
           </button>
           <button className="flex h-8 w-8 items-center justify-center rounded border border-rose-500 hover:bg-rose-500/10">
             <IconHeart className="h-5 w-5 text-rose-500" />
-          </button>
+          </button> */}
         </div>
       </div>
     </button>
@@ -811,7 +812,8 @@ export default function Home() {
           <h2 className="mb-2 text-2xl font-bold">Explore</h2>
           <p>
             <Balancer>
-              Explore popular videos loaded with AI-powered summaries
+              Explore videos of popular YouTube channels loaded with AI-powered
+              summaries
             </Balancer>
           </p>
         </div>
