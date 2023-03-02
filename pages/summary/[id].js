@@ -33,9 +33,9 @@ function SummaryPoint({ point, seekTo }) {
               <p className="w-full ">
                 {point.emoji} {point.description}
               </p>
-              <span className="flex flex-col items-center gap-3">
+              <span className="flex flex-col items-center space-y-6">
                 <button
-                  className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20"
+                  className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
                   onClick={e => {
                     e.stopPropagation();
                     seekTo(point.timestamp);
