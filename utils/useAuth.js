@@ -9,7 +9,7 @@ export const AuthProvider = ({ children }) => {
     setUser({
       name: "Zaid Akhter",
       email: "zaid@gmail.com",
-      // plan: "Pro",
+      plan: "Pro",
     });
   };
 

@@ -1,18 +1,27 @@
+import Button from "@/components/Button";
 import Container from "@/components/Container";
-import { IconCheck, IconMinus, IconX } from "@tabler/icons-react";
+import useAuth from "@/utils/useAuth";
+import {
+  IconCheck,
+  IconArrowRight,
+  IconCircleCheckFilled,
+  IconCircleXFilled,
+  IconBan,
+} from "@tabler/icons-react";
+import { useRouter } from "next/router";
 
 const data = [
   {
     text: "Unlimited access to our database of saved summaries",
     free: (
       <div className="flex flex-col  gap-1">
-        <IconCheck className="text-green-600" />
+        <IconCircleCheckFilled className="text-green-600" />
         <span className=" text-[9px] md:text-sm"> (With Ads)</span>
       </div>
     ),
     pro: (
       <div className="flex flex-col  gap-1">
-        <IconCheck className="text-green-600" />
+        <IconCircleCheckFilled className="text-green-600" />
         <span className=" whitespace-nowrap text-[9px] md:text-sm">
           {" "}
           (Without Ads)
@@ -100,13 +109,13 @@ const data = [
 function SubscriptionTableRow({ free, pro, text }) {
   const conditionalIcon = val => {
     if (val === "yes") {
-      return <IconCheck className="text-green-600 " />;
+      return <IconCircleCheckFilled className="text-green-600 " />;
     }
     if (val === "no") {
-      return <IconX className="text-red-600 " />;
+      return <IconCircleXFilled className="text-red-600 " />;
     }
     if (val === "n/a") {
-      return <IconMinus className="text-neutral-500 " />;
+      return <IconBan className="text-neutral-400 dark:text-neutral-500" />;
     }
 
     return val;
@@ -124,12 +133,63 @@ function SubscriptionTableRow({ free, pro, text }) {
 }
 
 export default function Subscription() {
+  const router = useRouter();
+  const { user } = useAuth();
   return (
     <Container className="h-full">
       <div className=" pricing-grid sticky top-16 grid h-full border-b border-neutral-200 bg-white p-4 text-sm  font-bold  dark:border-neutral-700 dark:bg-neutral-900 md:text-xl ">
-        <div>Feature</div>
-        <div>Free</div>
-        <div>Premium</div>
+        <div> Feature</div>
+        <div className="flex flex-col  ">
+          Free
+          {user === null && (
+            <Button
+              className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md"
+              onClick={() => router.push("/auth/login")}
+            >
+              Get Started
+              <IconArrowRight className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+          {user !== null && user?.plan !== "Pro" && (
+            <Button className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md">
+              Active
+              <IconCheck className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+          {user?.plan === "Pro" && user !== null && (
+            <Button
+              className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md"
+              onClick={() => router.push("/auth/login")}
+            >
+              Downgrade
+              <IconArrowRight className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+        </div>
+        <div className="flex flex-col  ">
+          Premium
+          {user === null && (
+            <Button
+              className="!h-auto !w-fit !py-1.5 !text-sm"
+              onClick={() => router.push("/auth/login")}
+            >
+              Get Started
+              <IconArrowRight className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+          {user !== null && user?.plan !== "Pro" && (
+            <Button className="!h-auto !w-fit !py-1.5 !text-sm">
+              Upgrade
+              <IconArrowRight className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+          {user?.plan === "Pro" && user !== null && (
+            <Button className="!h-auto !w-fit !py-1.5 !text-sm">
+              Active
+              <IconCheck className="ml-2 h-5 w-5 " />
+            </Button>
+          )}
+        </div>
       </div>
 
       {data.map(({ free, pro, text }, idx) => {
