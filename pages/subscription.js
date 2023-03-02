@@ -154,7 +154,7 @@ export default function Subscription() {
           Free
           {user === null && (
             <Button
-              className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md"
+              className="!hidden !h-auto !w-fit !border !border-blue-600 !bg-transparent !py-1.5  !text-sm !text-blue-600 !shadow-sm hover:!shadow-md md:!flex"
               onClick={() => router.push("/auth/login")}
             >
               Get Started
@@ -162,14 +162,14 @@ export default function Subscription() {
             </Button>
           )}
           {user !== null && user?.plan !== "Pro" && (
-            <Button className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md">
+            <Button className="!hidden !h-auto !w-fit !border !border-blue-600 !bg-transparent !py-1.5  !text-sm !text-blue-600 !shadow-sm hover:!shadow-md md:!flex">
               Active
               <IconCheck className="ml-2 h-5 w-5 " />
             </Button>
           )}
           {user?.plan === "Pro" && user !== null && (
             <Button
-              className="!h-auto !w-fit !border !border-blue-600 !bg-transparent  !py-1.5 !text-sm !text-blue-600 !shadow-sm hover:!shadow-md"
+              className="!hidden !h-auto !w-fit !border !border-blue-600 !bg-transparent !py-1.5  !text-sm !text-blue-600 !shadow-sm hover:!shadow-md md:!flex"
               onClick={() => router.push("/auth/login")}
             >
               Downgrade
@@ -181,7 +181,7 @@ export default function Subscription() {
           Premium
           {user === null && (
             <Button
-              className="!h-auto !w-fit !py-1.5 !text-sm"
+              className="!hidden !h-auto !w-fit !py-1.5 !text-sm md:!flex"
               onClick={() => router.push("/auth/login")}
             >
               Get Started
@@ -189,13 +189,13 @@ export default function Subscription() {
             </Button>
           )}
           {user !== null && user?.plan !== "Pro" && (
-            <Button className="!h-auto !w-fit !py-1.5 !text-sm">
+            <Button className="!hidden !h-auto !w-fit !py-1.5 !text-sm md:!flex">
               Upgrade
               <IconArrowRight className="ml-2 h-5 w-5 " />
             </Button>
           )}
           {user?.plan === "Pro" && user !== null && (
-            <Button className="!h-auto !w-fit !py-1.5 !text-sm">
+            <Button className="!hidden !h-auto !w-fit !py-1.5 !text-sm md:!flex">
               Active
               <IconCheck className="ml-2 h-5 w-5 " />
             </Button>
