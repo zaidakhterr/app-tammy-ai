@@ -8,9 +8,9 @@ import { Toaster } from "react-hot-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
+import { Banner } from "@/components/Banner";
 
 import "@/styles/globals.css";
-import { Banner } from "@/components/Banner";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],
