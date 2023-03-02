@@ -29,11 +29,11 @@ function SummaryPoint({ point, seekTo }) {
       <Disclosure>
         {({ open }) => (
           <>
-            <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800">
+            <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 ">
               <p className="w-full ">
                 {point.emoji} {point.description}
               </p>
-              <span className="flex flex-col items-center space-y-6">
+              <span className="flex h-full flex-col items-stretch space-y-9">
                 <button
                   className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
                   onClick={e => {
