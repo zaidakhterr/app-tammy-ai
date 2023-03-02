@@ -707,6 +707,7 @@ const ExploreCard = ({ summary }) => {
           }}
         >
           Add
+          <IconPlus className="ml-2 h-4 w-4" />
         </OutlineButton>
       </div>
     </button>

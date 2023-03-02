@@ -13,7 +13,7 @@ import {
 } from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
 import { US, FR, CH } from "country-flag-icons/react/3x2";
-import Button, { OutlineButton } from "@/components/Button";
+import Button from "@/components/Button";
 import Container from "@/components/Container";
 import MyListbox from "@/components/ListBox";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
@@ -256,7 +256,7 @@ export default function SummaryPage() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <IconBrandTwitter className="mr-2 h-4 w-4 text-[#1DA1F2]" />
+                      <IconBrandTwitter className="mr-2 h-4 w-4 fill-[#1DA1F2] stroke-none text-[#1DA1F2]" />
                       Twitter
                     </a>
                   </Menu.Item>
@@ -268,7 +268,7 @@ export default function SummaryPage() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      <IconBrandFacebook className="mr-2 h-4 w-4 text-[#4267B2]" />
+                      <IconBrandFacebook className="mr-2 h-4 w-4 fill-[#4267B2] stroke-none text-[#4267B2]" />
                       Facebook
                     </a>
                   </Menu.Item>
