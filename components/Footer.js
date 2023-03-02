@@ -1,29 +1,34 @@
+import Container from "@/components/Container";
+import Link from "next/link";
+
 const Footer = () => {
   return (
-    <footer className=" mt-1 flex items-center justify-between  whitespace-nowrap bg-neutral-400 p-2 text-xs shadow  md:p-4 md:text-sm">
-      <div />
-      <ul className=" flex  items-center space-x-4 whitespace-nowrap py-2 text-xs text-white dark:text-neutral-100 sm:mt-0 md:text-sm">
-        <li>
-          <a href="#" className=" hover:underline  ">
-            About
-          </a>
-        </li>
-        <li>
-          <a href="#" className=" hover:underline ">
-            Terms of Service
-          </a>
-        </li>
-        <li>
-          <a href="#" className=" hover:underline ">
-            Privacy Policy
-          </a>
-        </li>
-        <li>
-          <a href="#" className="hover:underline">
-            Contact Us
-          </a>
-        </li>
-      </ul>
+    <footer className="  mt-20  border-t border-neutral-200 p-2 py-10 text-xs dark:border-neutral-700   md:text-sm">
+      <Container className="flex w-full justify-end">
+        <div />
+        <ul className="flex flex-wrap items-center gap-y-4 gap-x-6 whitespace-nowrap text-xs text-white dark:text-neutral-100  md:text-sm">
+          <li>
+            <Link href="/about" className=" hover:underline  ">
+              About
+            </Link>
+          </li>
+          <li>
+            <Link href="/contact" className="hover:underline">
+              Contact Us
+            </Link>
+          </li>
+          <li>
+            <Link href="/terms" className=" hover:underline ">
+              Terms of Service
+            </Link>
+          </li>
+          <li>
+            <Link href="/privacy" className=" hover:underline ">
+              Privacy Policy
+            </Link>
+          </li>
+        </ul>
+      </Container>
     </footer>
   );
 };

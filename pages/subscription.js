@@ -12,6 +12,17 @@ import { useRouter } from "next/router";
 
 const data = [
   {
+    text: "Price",
+    free: <div className=" h-full  "> Free Forever</div>,
+    pro: (
+      <div className="flex flex-col  gap-1">
+        <span className=" text-[9px] md:text-sm">$12.99 / mo</span>
+        <span className="text-sm font-semibold"> OR </span>
+        <span className=" text-[9px] md:text-sm">$59.94 / 6 mo</span>
+      </div>
+    ),
+  },
+  {
     text: "Unlimited access to our database of saved summaries",
     free: (
       <div className="flex flex-col  gap-1">
@@ -139,7 +150,7 @@ export default function Subscription() {
     <Container className="h-full">
       <div className=" pricing-grid sticky top-16 grid h-full border-b border-neutral-200 bg-white p-4 text-sm  font-bold  dark:border-neutral-700 dark:bg-neutral-900 md:text-xl ">
         <div> Feature</div>
-        <div className="flex flex-col  ">
+        <div className="flex flex-col justify-between gap-2">
           Free
           {user === null && (
             <Button
@@ -166,7 +177,7 @@ export default function Subscription() {
             </Button>
           )}
         </div>
-        <div className="flex flex-col  ">
+        <div className="flex flex-col gap-2 ">
           Premium
           {user === null && (
             <Button

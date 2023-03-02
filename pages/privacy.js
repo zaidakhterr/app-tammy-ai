@@ -1,17 +1,17 @@
 import Container from "@/components/Container";
-import React from "react";
 
 const Privacy = () => {
   return (
-    <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert">
+    <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert  md:py-16">
       <h1>Privacy Policy</h1>
       <p>
-        Tammy AI ("us", "we", or "our") operates the www.tammy.ai website (the
-        "Service") as well as the Tammy AI Chrome extension and mobile
-        application (the "Application"). We take your privacy very seriously and
-        are committed to protecting your personal information. This Privacy
-        Policy outlines the types of information we collect, how we use it, and
-        your choices and rights regarding your personal data.
+        Tammy AI (&quot; us&quot; , &quot; we&quot; , or &quot; our&quot; )
+        operates the www.tammy.ai website (the &quot; Service&quot; ) as well as
+        the Tammy AI Chrome extension and mobile application (the &quot;
+        Application&quot; ). We take your privacy very seriously and are
+        committed to protecting your personal information. This Privacy Policy
+        outlines the types of information we collect, how we use it, and your
+        choices and rights regarding your personal data.
       </p>
       <h2>Information We Collect</h2>
       <p>

@@ -8,7 +8,9 @@ const Input = ({
   ...props
 }) => {
   return (
-    <div className={classNames("relative shadow-sm", containerClassName)}>
+    <div
+      className={classNames("relative w-full shadow-sm", containerClassName)}
+    >
       <input
         className={classNames(
           "h-10 w-full rounded border-neutral-200 bg-transparent px-3 focus:border-blue-500 dark:border-neutral-700 md:h-11 md:px-4",

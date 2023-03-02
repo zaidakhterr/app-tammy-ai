@@ -10,7 +10,6 @@ import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
 
 import "@/styles/globals.css";
-import Terms from "./terms";
 import { Banner } from "@/components/Banner";
 
 // const sans = Roboto_Flex({

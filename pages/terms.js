@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 
 const Terms = () => {
   return (
-    <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert">
+    <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert md:py-16">
       <h1>Terms of Service</h1>
 
       <p>
@@ -70,7 +70,7 @@ const Terms = () => {
         third-party ads. Tammy AI does not have control over the content of the
         ads served, and will not be held liable for the display of ads that are
         considered offensive or inappropriate by the user. It is important to
-        note that the Service is provided "as is".
+        note that the Service is provided &quot; as is&quot;.
       </p>
 
       {/* Paid Plan Users */}
