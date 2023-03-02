@@ -13,7 +13,7 @@ const Contact = () => {
   };
   return (
     <>
-      <Container className="md:py-16dark:prose-invert prose prose-neutral !max-w-4xl py-8 ">
+      <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert md:py-16 ">
         <h1>Contact Us</h1>
         <form
           onSubmit={e => handleFormSubmit(e)}
