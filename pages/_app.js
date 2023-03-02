@@ -10,6 +10,8 @@ import Footer from "@/components/Footer";
 import { AuthProvider } from "@/utils/useAuth";
 
 import "@/styles/globals.css";
+import Terms from "./terms";
+import { Banner } from "@/components/Banner";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],
@@ -53,6 +55,7 @@ function MyApp({ Component, pageProps }) {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider enableSystem={false}>
             <>
+              <Banner />
               {!isAuthPage && <Header />}
               <Component {...pageProps} />
               {!isAuthPage && <Footer />}

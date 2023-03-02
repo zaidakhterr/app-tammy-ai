@@ -2,7 +2,7 @@ import Container from "@/components/Container";
 
 const Terms = () => {
   return (
-    <Container className="prose prose-neutral max-w-4xl py-8 dark:prose-invert">
+    <Container className="prose prose-neutral !max-w-4xl py-8 dark:prose-invert">
       <h1>Terms of Service</h1>
 
       <p>
