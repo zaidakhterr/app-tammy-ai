@@ -124,8 +124,7 @@ const Terms = () => {
       <h2>Contact</h2>
       <p>
         If you have any questions or concerns regarding these Terms, please
-        contact us via our contact us page. Tammy AI Pte. Ltd. 2 Venture Drive,
-        #13-24 VIsion Exchange Singapore (608526)
+        contact us via our contact us page.
       </p>
     </Container>
   );

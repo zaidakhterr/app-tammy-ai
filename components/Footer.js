@@ -3,10 +3,10 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="  mt-20  border-t border-neutral-200 p-2 py-10 text-xs dark:border-neutral-700   md:text-sm">
+    <footer className=" bg mt-20 border-t  border-neutral-200 bg-neutral-50 p-2 py-10 text-xs dark:border-neutral-700 dark:bg-transparent   md:text-sm">
       <Container className="flex w-full justify-end">
         <div />
-        <ul className="flex flex-wrap items-center gap-y-4 gap-x-6 whitespace-nowrap text-xs text-white dark:text-neutral-100  md:text-sm">
+        <ul className="flex flex-wrap items-center gap-y-4 gap-x-6 whitespace-nowrap text-xs   md:text-sm">
           <li>
             <Link href="/about" className=" hover:underline  ">
               About

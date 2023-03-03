@@ -17,8 +17,8 @@ function Header() {
   const { user, login, logout } = useAuth();
 
   return (
-    <header className="sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-neutral-700 dark:bg-neutral-900">
-      <Container className="flex h-full items-center justify-between ">
+    <header className=" sticky top-0 z-40 h-16 border-b bg-white py-3 dark:border-neutral-700 dark:bg-neutral-900 ">
+      <Container className="flex h-full items-center justify-between  ">
         <div className="flex items-center gap-3 sm:gap-6">
           <Link href="/" className="mr-2">
             <span className="hidden sm:block">
@@ -101,7 +101,7 @@ function Header() {
                             "block rounded-sm px-3 py-2 text-sm"
                           )}
                         >
-                          Subscription
+                          Pricing & Subscription
                         </Link>
                       )}
                     </Menu.Item>

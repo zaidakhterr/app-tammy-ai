@@ -706,7 +706,7 @@ const ExploreCard = ({ summary }) => {
             toast.success("Added to my items");
           }}
         >
-          Add
+          Shortlist
           <IconPlus className="ml-2 h-4 w-4" />
         </OutlineButton>
       </div>

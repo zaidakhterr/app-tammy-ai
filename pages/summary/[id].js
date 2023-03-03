@@ -33,7 +33,7 @@ function SummaryPoint({ point, seekTo }) {
               <p className="w-full ">
                 {point.emoji} {point.description}
               </p>
-              <span className="flex h-full flex-col items-stretch space-y-9">
+              <span className="flex h-full flex-col items-end space-y-9 ">
                 <button
                   className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
                   onClick={e => {
