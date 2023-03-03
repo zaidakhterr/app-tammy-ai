@@ -19,7 +19,7 @@ import MyListbox from "@/components/ListBox";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
 
-function SummaryPoint({ point, seekTo }) {
+export function SummaryPoint({ point, seekTo }) {
   return (
     <div
       className={classNames(
