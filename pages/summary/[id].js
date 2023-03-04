@@ -95,27 +95,51 @@ export default function SummaryPage() {
 
   async function handleCopyText() {
     try {
-      const copiedData = [data.description];
-      copiedData.push("\n\n");
+      const copyData = [`<p>`, data.description, `</p>`];
 
+      copyData.push(`<ol>`);
       data.points.forEach(point => {
+        copyData.push(`<>`);
         if (includeTimeStamp) {
-          copiedData.push(`${secondsToTime(point.timestamp)}: `);
+          copyData.push(
+            `<a href="http://google.com/">${secondsToTime(
+              point.timestamp
+            )}</a>: `
+          );
         }
 
-        copiedData.push(point.description);
-        copiedData.push("\n\n");
+        copyData.push(`${point.emoji} `);
+        copyData.push(point.description);
 
         if (includeSubPoints) {
-          copiedData.push(...point.subPoints.map(val => ` - ${val}\n`));
-          copiedData.push("\n\n");
+          copyData.push(`<ul>`);
+
+          point.subPoints.forEach(val => {
+            copyData.push(`<li>`);
+            copyData.push(val);
+            copyData.push(`</li>`);
+          });
+
+          copyData.push(`</ul>`);
         }
+
+        copyData.push(`</li>`);
       });
+      copyData.push(`</ol>`);
       if (includeLink) {
-        copiedData.push(`Summary for ${data.video} by tammy.ai`);
+        copyData.push(`Summary for ${data.video} by tammy.ai`);
       }
 
-      await copyToClipBoard(copiedData.join(""));
+      const copyText = copyData.join("");
+      const el = document.createElement("div");
+      el.innerHTML = copyText;
+
+      const clipboardItem = new ClipboardItem({
+        "text/plain": new Blob([el.innerText], { type: "text/plain" }),
+        "text/html": new Blob([el.outerHTML], { type: "text/html" }),
+      });
+
+      await copyToClipBoard([clipboardItem]);
       toast.success("Text Copied");
     } catch (err) {
       toast.error("Error Copying Text");

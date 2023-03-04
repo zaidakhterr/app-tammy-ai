@@ -31,6 +31,6 @@ export const secondsToTime = sec => {
   return ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);
 };
 export const copyToClipBoard = async data => {
-  let copiedText = await navigator.clipboard.writeText(data);
+  let copiedText = await navigator.clipboard.write(data);
   return copiedText;
 };
