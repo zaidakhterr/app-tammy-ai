@@ -99,10 +99,11 @@ export default function SummaryPage() {
 
       copyData.push(`<ol>`);
       data.points.forEach(point => {
-        copyData.push(`<>`);
+        copyData.push(`<li>`);
+
         if (includeTimeStamp) {
           copyData.push(
-            `<a href="http://google.com/">${secondsToTime(
+            `<a href="https://google.com/">${secondsToTime(
               point.timestamp
             )}</a>: `
           );
@@ -127,7 +128,9 @@ export default function SummaryPage() {
       });
       copyData.push(`</ol>`);
       if (includeLink) {
-        copyData.push(`Summary for ${data.video} by tammy.ai`);
+        copyData.push(
+          `Summary for <a href="${data.video}">https://youtu.be/${videoId}</a> by <a href="https://tammy.ai">tammy.ai</a>`
+        );
       }
 
       const copyText = copyData.join("");
