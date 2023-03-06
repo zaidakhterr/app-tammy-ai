@@ -19,7 +19,6 @@ import {
   SA,
   BA,
   NL,
-  GR,
   DE,
   IN,
   IT,
@@ -40,6 +39,7 @@ import Container from "@/components/Container";
 import MyListbox from "@/components/ListBox";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
+import Head from "next/head";
 
 const languageArr = [
   {
@@ -356,6 +356,10 @@ export default function SummaryPage() {
 
   return (
     <>
+      <Head>
+        <meta name="title" content="AI summary for “name of youtube video”" />
+        <meta name="description" content={data.description} />
+      </Head>
       <Container
         className={classNames(
           "summary-grid grid gap-4 !px-0 lg:mt-8 lg:gap-8 lg:!px-8"
