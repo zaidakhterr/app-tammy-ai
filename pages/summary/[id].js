@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import YouTube from "react-youtube";
@@ -40,6 +40,7 @@ import MyListbox from "@/components/ListBox";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
 import Head from "next/head";
+import Loading from "./loading";
 
 const languageArr = [
   {
@@ -216,49 +217,51 @@ const languageArr = [
 
 export function SummaryPoint({ point, seekTo }) {
   return (
-    <div
-      className={classNames(
-        "w-full border-b border-neutral-200 dark:border-neutral-700"
-      )}
-    >
-      <Disclosure>
-        {({ open }) => (
-          <>
-            <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 ">
-              <p className="w-full ">
-                {point.emoji} {point.description}
-              </p>
-              <span className="flex h-full flex-col items-end space-y-9 ">
-                <button
-                  className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
-                  onClick={e => {
-                    e.stopPropagation();
-                    seekTo(point.timestamp);
-                  }}
-                >
-                  {secondsToTime(point.timestamp)}
-                </button>
-                <IconChevronDown
-                  className={classNames(
-                    "h-6 w-6 min-w-[1.5rem] transition-transform",
-                    open && "rotate-180"
-                  )}
-                />
-              </span>
-            </Disclosure.Button>
-
-            <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
-              <ul className="ml-4 list-disc space-y-2 text-sm">
-                {/* iteration of points array */}
-                {point?.subPoints.map(val => {
-                  return <li key={val}>{val}</li>;
-                })}
-              </ul>
-            </Disclosure.Panel>
-          </>
+    <Suspense fallback={<Loading />}>
+      <div
+        className={classNames(
+          "w-full border-b border-neutral-200 dark:border-neutral-700"
         )}
-      </Disclosure>
-    </div>
+      >
+        <Disclosure>
+          {({ open }) => (
+            <>
+              <Disclosure.Button className="md transtion-colors flex w-full justify-between gap-2 p-4 text-left  text-sm hover:bg-neutral-50 dark:hover:bg-neutral-800 ">
+                <p className="w-full ">
+                  {point.emoji} {point.description}
+                </p>
+                <span className="flex h-full flex-col items-end space-y-9 ">
+                  <button
+                    className="flex items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
+                    onClick={e => {
+                      e.stopPropagation();
+                      seekTo(point.timestamp);
+                    }}
+                  >
+                    {secondsToTime(point.timestamp)}
+                  </button>
+                  <IconChevronDown
+                    className={classNames(
+                      "h-6 w-6 min-w-[1.5rem] transition-transform",
+                      open && "rotate-180"
+                    )}
+                  />
+                </span>
+              </Disclosure.Button>
+
+              <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
+                <ul className="ml-4 list-disc space-y-2 text-sm">
+                  {/* iteration of points array */}
+                  {point?.subPoints.map(val => {
+                    return <li key={val}>{val}</li>;
+                  })}
+                </ul>
+              </Disclosure.Panel>
+            </>
+          )}
+        </Disclosure>
+      </div>
+    </Suspense>
   );
 }
 
