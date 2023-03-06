@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [queryClient] = React.useState(() => new QueryClient());
   const isAuthPage = router.pathname.startsWith("/auth");
-
   return (
     <>
       <style jsx global>

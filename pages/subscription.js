@@ -1,5 +1,6 @@
 import Button from "@/components/Button";
 import Container from "@/components/Container";
+import UpgradePlanButton from "@/components/PayPal";
 import useAuth from "@/utils/useAuth";
 import {
   IconCheck,
@@ -192,12 +193,7 @@ export default function Subscription() {
               <IconArrowRight className="ml-2 h-5 w-5 " />
             </Button>
           )}
-          {user !== null && user?.plan !== "Pro" && (
-            <Button className="!hidden !h-auto !w-fit !py-1.5 !text-sm md:!flex">
-              Upgrade
-              <IconArrowRight className="ml-2 h-5 w-5 " />
-            </Button>
-          )}
+          {user !== null && user?.plan !== "Pro" && <UpgradePlanButton />}
           {user?.plan === "Pro" && user !== null && (
             <Button className="!hidden !h-auto !w-fit !py-1.5 !text-sm md:!flex">
               Active

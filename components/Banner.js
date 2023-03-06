@@ -1,7 +1,13 @@
+import useAuth from "@/utils/useAuth";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import React from "react";
 
 export const Banner = () => {
+  const { user } = useAuth();
+
+  if (!user) {
+    return null;
+  }
   return (
     <a
       href="#"
