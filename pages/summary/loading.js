@@ -1,13 +1,10 @@
 import React from "react";
-
 import classNames from "classnames";
-
-import Container from "@/components/Container";
-import { secondsToTime } from "@/utils/index";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSummaryDetailData } from "@/api";
 import { IconChevronDown } from "@tabler/icons-react";
+import Container from "@/components/Container";
+import { fetchSummaryDetailData } from "@/api";
 
 export function SummaryPoint() {
   return (
