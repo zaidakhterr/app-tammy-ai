@@ -12,12 +12,207 @@ import {
   IconShare,
 } from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
-import { US, FR, CH } from "country-flag-icons/react/3x2";
+import {
+  US,
+  FR,
+  CH,
+  SA,
+  BA,
+  NL,
+  GR,
+  DE,
+  IN,
+  IT,
+  JP,
+  KR,
+  PL,
+  PT,
+  RU,
+  ES,
+  SE,
+  TH,
+  TR,
+  PK,
+  VN,
+} from "country-flag-icons/react/3x2";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 import MyListbox from "@/components/ListBox";
 import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
+
+const languageArr = [
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <US className="mr-2 h-4 w-4" />
+        English
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <FR className="mr-2 h-4 w-4" />
+        French
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <SA className="mr-2 h-4 w-4" />
+        Arabic
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <BA className="mr-2 h-4 w-4" />
+        Bahasa Indonesia
+      </span>
+    ),
+  },
+
+  // Bahasa Melayu ????
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <CH className="mr-2 h-4 w-4" />
+        Chinese <sub className="ml-1">(Simplified)</sub>
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <CH className="mr-2 h-4 w-4" />
+        Chinese <sub className="ml-1">(Traditional)</sub>
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <NL className="mr-2 h-4 w-4" />
+        Netherlands
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <DE className="mr-2 h-4 w-4" />
+        German
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <IN className="mr-2 h-4 w-4" />
+        Hindi
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <IT className="mr-2 h-4 w-4" />
+        Italian
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <KR className="mr-2 h-4 w-4" />
+        Korean
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <PL className="mr-2 h-4 w-4" />
+        Polish
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <JP className="mr-2 h-4 w-4" />
+        Japanese
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <PT className="mr-2 h-4 w-4" />
+        Portuguese
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <RU className="mr-2 h-4 w-4" />
+        Russian
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <ES className="mr-2 h-4 w-4" />
+        Spanish
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <SE className="mr-2 h-4 w-4" />
+        Sweden
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <TH className="mr-2 h-4 w-4" />
+        Thai
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <TR className="mr-2 h-4 w-4" />
+        Turkish
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <PK className="mr-2 h-4 w-4" />
+        Urdu
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <VN className="mr-2 h-4 w-4" />
+        Vietnamese
+      </span>
+    ),
+  },
+];
 
 export function SummaryPoint({ point, seekTo }) {
   return (
@@ -276,34 +471,7 @@ export default function SummaryPage() {
               </Transition>
             </Menu>
 
-            <MyListbox
-              options={[
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <US className="mr-2 h-4 w-4" />
-                      English
-                    </span>
-                  ),
-                },
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <FR className="mr-2 h-4 w-4" />
-                      French
-                    </span>
-                  ),
-                },
-                {
-                  name: (
-                    <span className="flex items-center text-xs">
-                      <CH className="mr-2 h-4 w-4" />
-                      Chinese
-                    </span>
-                  ),
-                },
-              ]}
-            />
+            <MyListbox options={languageArr} />
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
           {data.points.map(point => {

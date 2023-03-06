@@ -134,6 +134,21 @@ function Header() {
                   <div className="py-1 ">
                     <Menu.Item>
                       {({ active }) => (
+                        <Link
+                          href="/support"
+                          className={classNames(
+                            active && "bg-neutral-100 dark:bg-neutral-700",
+                            "block rounded-sm px-3 py-2 text-sm"
+                          )}
+                        >
+                          Support
+                        </Link>
+                      )}
+                    </Menu.Item>
+                  </div>
+                  <div className="py-1 ">
+                    <Menu.Item>
+                      {({ active }) => (
                         <button
                           onClick={logout}
                           className={classNames(

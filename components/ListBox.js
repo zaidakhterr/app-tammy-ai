@@ -23,7 +23,7 @@ const MyListbox = ({ options = [] }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <Listbox.Options className="absolute top-full left-0  mt-1 max-h-60 w-full overflow-auto rounded border border-neutral-200  bg-white  py-1 text-sm shadow-lg  dark:border-neutral-700 dark:bg-neutral-800">
+          <Listbox.Options className="absolute top-full left-0  mt-1 max-h-60  w-auto  min-w-full overflow-auto rounded border border-neutral-200  bg-white  py-1 text-sm shadow-lg  dark:border-neutral-700 dark:bg-neutral-800">
             {options.map((option, idx) => (
               <Listbox.Option
                 key={idx}
