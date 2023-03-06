@@ -10,6 +10,7 @@ import {
   IconChevronDown,
   IconCopy,
   IconShare,
+  IconWand,
 } from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
 import {
@@ -291,19 +292,72 @@ export default function SummaryPage() {
     }
   }
 
+  // async function handleCopyText() {
+  //   try {
+  //     const copyData = [`<p>`, data.description, `</p>`];
+
+  //     copyData.push(`<ol>`);
+  //     data.points.forEach(point => {
+  //       copyData.push(`<li>`);
+
+  //       if (includeTimeStamp) {
+  //         copyData.push(
+  //           `<a href="https://google.com/">${secondsToTime(
+  //             point.timestamp
+  //           )}</a>: `
+  //         );
+  //       }
+
+  //       copyData.push(`${point.emoji} `);
+  //       copyData.push(point.description);
+
+  //       if (includeSubPoints) {
+  //         copyData.push(`<ul>`);
+
+  //         point.subPoints.forEach(val => {
+  //           copyData.push(`<li>`);
+  //           copyData.push(val);
+  //           copyData.push(`</li>`);
+  //         });
+
+  //         copyData.push(`</ul>`);
+  //       }
+
+  //       copyData.push(`</li>`);
+  //     });
+  //     copyData.push(`</ol>`);
+  //     if (includeLink) {
+  //       copyData.push(
+  //         `Summary for <a href="${data.video}">https://youtu.be/${videoId}</a> by <a href="https://tammy.ai">tammy.ai</a>`
+  //       );
+  //     }
+
+  //     const copyText = copyData.join("");
+  //     const el = document.createElement("div");
+  //     el.innerHTML = copyText;
+
+  //     const clipboardItem = new ClipboardItem({
+  //       "text/plain": new Blob([el.innerText], { type: "text/plain" }),
+  //       "text/html": new Blob([el.outerHTML], { type: "text/html" }),
+  //     });
+
+  //     await copyToClipBoard([clipboardItem]);
+  //     toast.success("Text Copied");
+  //   } catch (err) {
+  //     toast.error("Error Copying Text");
+  //   }
+  // }
+
   async function handleCopyText() {
     try {
       const copyData = [`<p>`, data.description, `</p>`];
 
       copyData.push(`<ol>`);
       data.points.forEach(point => {
-        copyData.push(`<li>`);
-
+        copyData.push(`<>`);
         if (includeTimeStamp) {
           copyData.push(
-            `<a href="https://google.com/">${secondsToTime(
-              point.timestamp
-            )}</a>: `
+            `Summary for <a href="${data.video}">https://youtu.be/${videoId}</a> by <a href="https://tammy.ai">tammy.ai</a>`
           );
         }
 
@@ -326,9 +380,7 @@ export default function SummaryPage() {
       });
       copyData.push(`</ol>`);
       if (includeLink) {
-        copyData.push(
-          `Summary for <a href="${data.video}">https://youtu.be/${videoId}</a> by <a href="https://tammy.ai">tammy.ai</a>`
-        );
+        copyData.push(`Summary for ${data.video} by tammy.ai`);
       }
 
       const copyText = copyData.join("");
@@ -387,6 +439,7 @@ export default function SummaryPage() {
               >
                 <IconCopy className="h-5 w-5 stroke-1" />
               </Popover.Button>
+
               <Transition
                 as={React.Fragment}
                 leave="transition ease-in duration-100"
@@ -504,7 +557,13 @@ export default function SummaryPage() {
                 </Menu.Items>
               </Transition>
             </Menu>
-
+            <Menu as="div" className="relative inline-block text-left">
+              <Menu.Button className=" flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+                <span className="flex">
+                  <IconWand className="h-5 w-5 stroke-1" />4
+                </span>
+              </Menu.Button>
+            </Menu>
             <MyListbox options={languageArr} />
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
