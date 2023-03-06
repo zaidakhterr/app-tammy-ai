@@ -135,8 +135,8 @@ function SubscriptionTableRow({ free, pro, text }) {
   return (
     <>
       <div className=" pricing-grid grid items-center border-b border-neutral-200 p-4  text-xs dark:border-neutral-700  md:text-base">
-        <div>{text}</div>
-        <div className="flex items-center justify-center">
+        <div className="ml-3  md:ml-14">{text}</div>
+        <div className="ml-2 flex items-center justify-center">
           {conditionalIcon(free)}
         </div>
         <div className="flex items-center justify-center">
@@ -153,7 +153,7 @@ export default function Subscription() {
   return (
     <Container className="mt-8 h-full max-w-5xl ">
       <div className=" pricing-grid sticky top-16 grid h-full border-b border-neutral-200 bg-white p-4 text-sm  font-bold  dark:border-neutral-700 dark:bg-neutral-900 md:text-xl">
-        <div className=""> Feature</div>
+        <div className="ml-0  md:ml-14"> Feature</div>
         <div className="flex flex-col items-center justify-between gap-2">
           Free
           {user === null && (
