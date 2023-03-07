@@ -2,7 +2,6 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import ErrorModal from "@/components/ErrorModal";
 import UpgradePlanButton from "@/components/PayPal";
-import { SellingPoint } from "@/components/SellingPoint";
 import useAuth from "@/utils/useAuth";
 import {
   IconCheck,
