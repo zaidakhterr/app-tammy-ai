@@ -212,7 +212,7 @@ export default function Subscription() {
           )}
         </div>
       </div>
-      <SellingPoint />
+
       {data.map(({ free, pro, text }, idx) => {
         return (
           <SubscriptionTableRow free={free} pro={pro} text={text} key={idx} />
