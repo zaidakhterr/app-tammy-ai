@@ -557,14 +557,15 @@ export default function SummaryPage() {
                 </Menu.Items>
               </Transition>
             </Menu>
-            <Menu as="div" className="relative inline-block text-left">
-              <Menu.Button className=" flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
-                <span className="flex">
-                  <IconWand className="h-5 w-5 stroke-1" />4
+            <MyListbox options={languageArr} />
+            <Menu as="div" className="ml-auto">
+              <Menu.Button className="  flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
+                <span className="flex ">
+                  <IconWand className="h-5 w-5 stroke-1" /> 4
+                  {/* Tokens Remaining */}
                 </span>
               </Menu.Button>
             </Menu>
-            <MyListbox options={languageArr} />
           </div>
           <p className="mt-2 py-2 px-4 text-sm font-bold">{data.description}</p>
           {data.points.map(point => {
