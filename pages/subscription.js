@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Container from "@/components/Container";
-import ErrorModal from "@/components/ErrorModal";
+// import ErrorModal from "@/components/ErrorModal";
 import UpgradePlanButton from "@/components/PayPal";
 import useAuth from "@/utils/useAuth";
 import {
@@ -11,7 +11,7 @@ import {
   IconBan,
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+// import { useState } from "react";
 
 const data = [
   {
@@ -153,15 +153,15 @@ function SubscriptionTableRow({ free, pro, text }) {
 export default function Subscription() {
   const router = useRouter();
   const { user } = useAuth();
-  const [state, setState] = useState();
+  // const [state, setState] = useState();
   return (
     <Container className="mt-8 h-full max-w-5xl ">
-      <ErrorModal
+      {/* <ErrorModal
         setState={setState}
         state={state}
         errorMessage="Please choose another video or try again 5 ~ 10 mins later."
         buttonText="Okay !!"
-      />
+      /> */}
       <div className=" pricing-grid sticky top-16 grid h-full border-b border-neutral-200 bg-white p-4 text-sm  font-bold  dark:border-neutral-700 dark:bg-neutral-900 md:text-xl">
         <div className="ml-0  md:ml-14">Features</div>
         <div className="flex flex-col items-center justify-between gap-2">
