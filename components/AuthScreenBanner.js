@@ -19,7 +19,7 @@ const AuthScreenBanner = () => {
             alt="YouTube Logo"
             className="mr-3 h-auto w-14"
           />
-          AI powered summaries
+          AI Psowered Summaries
         </p>
       </div>
     </div>

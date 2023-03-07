@@ -55,7 +55,6 @@ function MyApp({ Component, pageProps }) {
           <ThemeProvider enableSystem={false}>
             <>
               <Banner />
-
               {!isAuthPage && <Header />}
               <Component {...pageProps} />
               {!isAuthPage && <Footer />}

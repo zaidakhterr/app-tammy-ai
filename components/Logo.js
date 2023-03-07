@@ -4,8 +4,8 @@ const Logo = () => {
   return (
     <p className="flex items-center text-xl font-black text-blue-600 dark:text-white md:text-2xl">
       <IconCircleLetterT className="mr-1 h-7 w-7 stroke-blue-600 dark:stroke-white" />
-      tammy
-      <span className="font-normal text-blue-600 dark:text-white">.ai</span>
+      Tammy
+      <span className="font-normal text-blue-600 dark:text-white">.Ai</span>
     </p>
   );
 };
