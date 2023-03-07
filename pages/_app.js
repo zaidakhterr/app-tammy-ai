@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -26,6 +26,7 @@ function MyApp({ Component, pageProps }) {
   const router = useRouter();
   const [queryClient] = React.useState(() => new QueryClient());
   const isAuthPage = router.pathname.startsWith("/auth");
+
   return (
     <>
       <style jsx global>
@@ -54,6 +55,7 @@ function MyApp({ Component, pageProps }) {
           <ThemeProvider enableSystem={false}>
             <>
               <Banner />
+
               {!isAuthPage && <Header />}
               <Component {...pageProps} />
               {!isAuthPage && <Footer />}
