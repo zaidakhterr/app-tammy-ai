@@ -2,6 +2,7 @@ import Button from "@/components/Button";
 import Container from "@/components/Container";
 import ErrorModal from "@/components/ErrorModal";
 import UpgradePlanButton from "@/components/PayPal";
+import { SellingPoint } from "@/components/SellingPoint";
 import useAuth from "@/utils/useAuth";
 import {
   IconCheck,
@@ -211,7 +212,7 @@ export default function Subscription() {
           )}
         </div>
       </div>
-
+      <SellingPoint />
       {data.map(({ free, pro, text }, idx) => {
         return (
           <SubscriptionTableRow free={free} pro={pro} text={text} key={idx} />
