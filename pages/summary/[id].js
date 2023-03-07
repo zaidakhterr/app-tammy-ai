@@ -1,4 +1,4 @@
-import React, { Suspense } from "react";
+import React, { Suspense, useEffect } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "@tanstack/react-query";
 import YouTube from "react-youtube";
@@ -42,6 +42,7 @@ import { parseYoutubeURL, secondsToTime, copyToClipBoard } from "@/utils/index";
 import { fetchSummaryDetailData } from "@/api";
 import Head from "next/head";
 import Loading from "./loading";
+import useAuth from "@/utils/useAuth";
 
 const languageArr = [
   {
@@ -221,7 +222,7 @@ export function SummaryPoint({ point, seekTo }) {
     <Suspense fallback={<Loading />}>
       <div
         className={classNames(
-          "w-full border-b border-neutral-200 dark:border-neutral-700"
+          `w-full border-b border-neutral-200 dark:border-neutral-700 `
         )}
       >
         <Disclosure>
@@ -273,12 +274,15 @@ export default function SummaryPage() {
   const [includeSubPoints, setIncludeSubPoints] = React.useState(false);
 
   const router = useRouter();
-
+  const { user } = useAuth();
   const { data } = useQuery({
     queryKey: ["/summary", { id: router.query.id }],
     queryFn: () => fetchSummaryDetailData(router.query.id),
     enabled: router.isReady,
   });
+  useEffect(() => {
+    document.body.style.overflow = user ? "auto" : "hidden";
+  }, [user]);
 
   if (!data) {
     return null;
@@ -415,9 +419,12 @@ export default function SummaryPage() {
         <meta name="title" content="AI summary for “name of youtube video”" />
         <meta name="description" content={data.description} />
       </Head>
+
       <Container
         className={classNames(
-          "summary-grid grid gap-4 !px-0 lg:mt-8 lg:gap-8 lg:!px-8"
+          `summary-grid grid gap-4 !px-0 lg:mt-8 lg:gap-8 lg:!px-8 ${
+            !user ? "overlay  " : ""
+          } `
         )}
       >
         <YouTube
@@ -431,8 +438,8 @@ export default function SummaryPage() {
             player.current = e.target;
           }}
         />
-        <div>
-          <div className="flex gap-2 px-4">
+        <div className={!user ? "overflow-hidden" : ""}>
+          <div className={`flex gap-2 px-4 `}>
             <Popover className="relative">
               <Popover.Button
                 className={`flex h-10 items-center justify-center rounded border border-neutral-200  bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600`}
@@ -507,14 +514,14 @@ export default function SummaryPage() {
                       </Button>
                     </span>
                     {/* <span className=" mb-2  flex px-2">
-                      <OutlineButton
-                        onClick={handleCopyLink}
-                        type="button"
-                        className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
-                      >
-                        Copy Link
-                      </OutlineButton>
-                    </span> */}
+                        <OutlineButton
+                          onClick={handleCopyLink}
+                          type="button"
+                          className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
+                        >
+                          Copy Link
+                        </OutlineButton>
+                      </span> */}
                   </div>
                 </Popover.Panel>
               </Transition>
