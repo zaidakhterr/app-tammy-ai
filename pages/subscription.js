@@ -1,6 +1,6 @@
 import Button from "@/components/Button";
 import Container from "@/components/Container";
-import ErrorModal from "@/components/ErrorModal";
+// import ErrorModal from "@/components/ErrorModal";
 import UpgradePlanButton from "@/components/PayPal";
 import useAuth from "@/utils/useAuth";
 import {
@@ -11,30 +11,30 @@ import {
   IconBan,
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-import { useState } from "react";
+// import { useState } from "react";
 
 const data = [
   {
-    text: "Price",
+    text: "",
     free: <div className=" h-full  "> $0 / mo </div>,
     pro: (
-      <div className="flex flex-col  gap-1">
-        <span className=" text-[9px] md:text-sm">$12.90 / mo</span>
-        <span className="text-sm font-semibold"> OR </span>
-        <span className=" text-[9px] md:text-sm">$59.90 / 6 mo</span>
+      <div className="flex flex-col items-center gap-1">
+        <span className=" text-[10px] md:text-sm">$12.90 / mo</span>
+        <span className="text-[10px] font-semibold md:text-sm"> OR </span>
+        <span className=" text-[10px] md:text-sm">$59.90 / 6 mo</span>
       </div>
     ),
   },
   {
     text: "Unlimited access to our database of saved summaries",
     free: (
-      <div className="flex flex-col  items-center  gap-1 ">
+      <div className="flex flex-col items-center gap-1">
         <IconCircleCheckFilled className="text-green-600" />
         <span className=" text-[9px] md:text-sm"> (With Ads)</span>
       </div>
     ),
     pro: (
-      <div className="flex flex-col  items-center  gap-1 ">
+      <div className="flex flex-col items-center gap-1">
         <IconCircleCheckFilled className="text-green-600" />
         <span className=" whitespace-nowrap text-[9px] md:text-sm">
           {" "}
@@ -137,8 +137,8 @@ function SubscriptionTableRow({ free, pro, text }) {
 
   return (
     <>
-      <div className=" pricing-grid grid items-center border-b border-neutral-200 p-4  text-xs dark:border-neutral-700  md:text-base">
-        <div className="ml-3  md:ml-14">{text}</div>
+      <div className="pricing-grid grid items-center border-b border-neutral-200 p-4 text-xs dark:border-neutral-700 md:text-base">
+        <div className="">{text}</div>
         <div className="ml-2 flex items-center justify-center">
           {conditionalIcon(free)}
         </div>
@@ -153,17 +153,17 @@ function SubscriptionTableRow({ free, pro, text }) {
 export default function Subscription() {
   const router = useRouter();
   const { user } = useAuth();
-  const [state, setState] = useState();
+  // const [state, setState] = useState();
   return (
     <Container className="mt-8 h-full max-w-5xl ">
-      <ErrorModal
+      {/* <ErrorModal
         setState={setState}
         state={state}
         errorMessage="Please choose another video or try again 5 ~ 10 mins later."
         buttonText="Okay !!"
-      />
+      /> */}
       <div className=" pricing-grid sticky top-16 grid h-full border-b border-neutral-200 bg-white p-4 text-sm  font-bold  dark:border-neutral-700 dark:bg-neutral-900 md:text-xl">
-        <div className="ml-0  md:ml-14"> Feature</div>
+        <div className="ml-0  md:ml-14">Features</div>
         <div className="flex flex-col items-center justify-between gap-2">
           Free
           {user === null && (
