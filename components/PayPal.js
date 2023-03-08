@@ -110,7 +110,7 @@ export default function UpgradePlanButton() {
                     as="h3"
                     className="text-lg font-medium leading-6 text-gray-900"
                   >
-                    Subscribe to Tammy.AI
+                    Subscribe to Tammy AI
                   </Dialog.Title>
                   <Dialog.Panel>
                     <RadioGroup value={plan} onChange={setPlan} className="">
