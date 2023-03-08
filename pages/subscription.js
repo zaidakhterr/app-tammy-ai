@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import Container from "@/components/Container";
 // import ErrorModal from "@/components/ErrorModal";
-import UpgradePlanButton from "@/components/PayPal";
+import UpgradePlanButton, { DowngradePlanButton } from "@/components/PayPal";
 import useAuth from "@/utils/useAuth";
 import {
   IconCheck,
@@ -138,7 +138,7 @@ function SubscriptionTableRow({ free, pro, text }) {
   return (
     <>
       <div className="pricing-grid grid items-center border-b border-neutral-200 p-4 text-xs dark:border-neutral-700 md:text-base">
-        <div className="">{text}</div>
+        <div className="ml-2 md:ml-12 lg:ml-14">{text}</div>
         <div className="ml-2 flex items-center justify-center">
           {conditionalIcon(free)}
         </div>
@@ -181,15 +181,18 @@ export default function Subscription() {
               <IconCheck className="ml-2 h-5 w-5 " />
             </Button>
           )}
-          {user?.plan === "Pro" && user !== null && (
-            <Button
-              className="!hidden !h-auto !w-fit !border !border-blue-600 !bg-transparent !py-1.5  !text-sm !text-blue-600 !shadow-sm hover:!shadow-md md:!flex"
-              onClick={() => router.push("/auth/login")}
-            >
-              Downgrade
-              <IconArrowRight className="ml-2 h-5 w-5 " />
-            </Button>
-          )}
+          {
+            user?.plan === "Pro" && user !== null && <DowngradePlanButton />
+            //  (
+            //   <Button
+            //     className="!hidden !h-auto !w-fit !border !border-blue-600 !bg-transparent !py-1.5  !text-sm !text-blue-600 !shadow-sm hover:!shadow-md md:!flex"
+            //     onClick={() => router.push("/auth/login")}
+            //   >
+            //     Downgrade
+            //     <IconArrowRight className="ml-2 h-5 w-5 " />
+            //   </Button>
+            // )
+          }
         </div>
         <div className="flex flex-col items-center gap-2">
           Premium

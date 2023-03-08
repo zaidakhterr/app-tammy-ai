@@ -58,3 +58,31 @@ body {
     @apply gap-x-24;
   }
 }
+
+.overlay::after {
+  overflow-y: hidden;
+  content: "";
+  position: absolute;
+  top: 0;
+  height: 100vh;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+}
+.overlay {
+  overflow-y: hidden;
+  content: "";
+
+  height: 100vh;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 1)
+  );
+}
