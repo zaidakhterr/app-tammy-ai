@@ -138,7 +138,7 @@ function SubscriptionTableRow({ free, pro, text }) {
   return (
     <>
       <div className="pricing-grid grid items-center border-b border-neutral-200 p-4 text-xs dark:border-neutral-700 md:text-base">
-        <div className="">{text}</div>
+        <div className="ml-2 md:ml-12 lg:ml-14">{text}</div>
         <div className="ml-2 flex items-center justify-center">
           {conditionalIcon(free)}
         </div>
