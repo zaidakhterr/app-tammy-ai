@@ -12,38 +12,38 @@ import Button, { SecondaryButton } from "./Button";
 import { toast } from "react-hot-toast";
 import { useRouter } from "next/router";
 
-const SubscribeButtons = ({ plan_id }) => {
-  const [{ options }, dispatch] = usePayPalScriptReducer();
+// const SubscribeButtons = ({ plan_id }) => {
+//   const [{ options }, dispatch] = usePayPalScriptReducer();
 
-  useEffect(() => {
-    dispatch({
-      type: "resetOptions",
-      value: {
-        ...options,
-        intent: "subscription",
-      },
-    });
-  }, [plan_id]);
+//   useEffect(() => {
+//     dispatch({
+//       type: "resetOptions",
+//       value: {
+//         ...options,
+//         intent: "subscription",
+//       },
+//     });
+//   }, [plan_id]);
 
-  return (
-    <PayPalButtons
-      // createSubscription={(data, actions) => {
-      //   return actions.subscription
-      //     .create({
-      //       plan_id: plan_id,
-      //     })
-      //     .then(orderId => {
-      //       return orderId;
-      //     });
-      // }}
-      style={
-        {
-          // label: "  ",
-        }
-      }
-    />
-  );
-};
+//   return (
+//     <PayPalButtons
+//       // createSubscription={(data, actions) => {
+//       //   return actions.subscription
+//       //     .create({
+//       //       plan_id: plan_id,
+//       //     })
+//       //     .then(orderId => {
+//       //       return orderId;
+//       //     });
+//       // }}
+//       style={
+//         {
+//           // label: "  ",
+//         }
+//       }
+//     />
+//   );
+// };
 const UnSubscribeButtons = ({ plan_id }) => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
   const [{ subscriptions }] = usePayPalScriptReducer();
@@ -294,6 +294,7 @@ export const DowngradePlanButton = () => {
                     <Button
                       type="button"
                       onClick={() => {
+                        toast.success("You have successfully unsubscribed ");
                         setIsOpen(true);
                         router.push("/");
                       }}
