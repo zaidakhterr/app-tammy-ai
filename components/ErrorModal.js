@@ -1,12 +1,10 @@
 import { Dialog, Transition } from "@headlessui/react";
+import { useRouter } from "next/router";
 import React, { Fragment } from "react";
-import Button from "./Button";
+import Button, { OutlineButton } from "./Button";
 
-export default function ErrorModal({
-  buttonText = "Okay !!",
-  state = true,
-  setState,
-}) {
+export default function ErrorModal({ state = true, setState }) {
+  const router = useRouter();
   const errorMessages = [
     "Please choose another video or try again 5 ~ 10 mins later",
     "Our free video plan summary is limited to the following restrictions",
@@ -65,9 +63,25 @@ export default function ErrorModal({
                   })}
 
                   <div className="flex w-full items-center justify-end gap-3">
-                    <Button type="button" onClick={() => setState(false)}>
-                      {buttonText}
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setState(false);
+                        router.push("/subscription");
+                      }}
+                    >
+                      I am ok with restrictions
                     </Button>
+                    <OutlineButton
+                      type="button"
+                      className={""}
+                      onClick={() => {
+                        setState(false);
+                        router.push("/subscription");
+                      }}
+                    >
+                      Remove restrictions
+                    </OutlineButton>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
