@@ -11,7 +11,6 @@ import {
   IconBan,
 } from "@tabler/icons-react";
 import { useRouter } from "next/router";
-// import { useState } from "react";
 
 const data = [
   {
@@ -21,7 +20,7 @@ const data = [
       <div className="flex flex-col items-center gap-1">
         <span className=" text-[10px] md:text-sm">$12.90 / mo</span>
         <span className="text-[10px] font-semibold md:text-sm"> OR </span>
-        <span className=" text-[10px] md:text-sm">$59.90 / 6 mo</span>
+        <span className=" text-[10px] md:text-sm">$59.90 / 6 mo </span>
       </div>
     ),
   },

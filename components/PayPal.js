@@ -107,7 +107,11 @@ const PLANS = [
     key: "six_monthly",
     id: "P-8DA42812M5486504NMQC6UQI",
     title: "6 Monthly",
-    price: "$ 59.90 / 6 mo",
+    price: (
+      <span className="flex flex-col">
+        <p>$ 59.90 / 6 mo</p>($ 9.98 / mo)
+      </span>
+    ),
   },
 ];
 

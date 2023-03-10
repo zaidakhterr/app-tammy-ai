@@ -7,6 +7,7 @@ export const ErrorProvider = ({ children }) => {
 
   const showModal = state => {
     setShow(state);
+ 
   };
 
   return (
