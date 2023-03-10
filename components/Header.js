@@ -135,7 +135,7 @@ function Header() {
                     <Menu.Item>
                       {({ active }) => (
                         <Link
-                          href="/support"
+                          href="/contact"
                           className={classNames(
                             active && "bg-neutral-100 dark:bg-neutral-700",
                             "block rounded-sm px-3 py-2 text-sm"
