@@ -5,20 +5,18 @@ import YouTube from "react-youtube";
 import classNames from "classnames";
 import { Disclosure, Menu, Popover, Transition } from "@headlessui/react";
 import {
+  IconBolt,
   IconBrandFacebook,
   IconBrandTwitter,
   IconChevronDown,
   IconCopy,
   IconShare,
-  IconWand,
 } from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
 import {
   US,
   FR,
-  CH,
   SA,
-  BA,
   NL,
   DE,
   IN,
@@ -34,6 +32,9 @@ import {
   TR,
   PK,
   VN,
+  CN,
+  ID,
+  MY,
 } from "country-flag-icons/react/3x2";
 import Button from "@/components/Button";
 import Container from "@/components/Container";
@@ -45,6 +46,55 @@ import Loading from "./loading";
 import useAuth from "@/utils/useAuth";
 
 const languageArr = [
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <SA className="mr-2 h-4 w-4" />
+        Arabic
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <ID className="mr-2 h-4 w-4" />
+        Bahasa Indonesia
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <MY className="mr-2 h-4 w-4" />
+        Bahasa Melayu
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <CN className="mr-2 h-4 w-4" />
+        Chinese (Simplified)
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <CN className="mr-2 h-4 w-4" />
+        Chinese (Traditional)
+      </span>
+    ),
+  },
+
+  {
+    name: (
+      <span className="flex items-center text-xs">
+        <NL className="mr-2 h-4 w-4" />
+        Dutch
+      </span>
+    ),
+  },
   {
     name: (
       <span className="flex items-center text-xs">
@@ -61,48 +111,7 @@ const languageArr = [
       </span>
     ),
   },
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <SA className="mr-2 h-4 w-4" />
-        Arabic
-      </span>
-    ),
-  },
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <BA className="mr-2 h-4 w-4" />
-        Bahasa Indonesia
-      </span>
-    ),
-  },
 
-  // Bahasa Melayu ????
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <CH className="mr-2 h-4 w-4" />
-        Chinese <sub className="ml-1">(Simplified)</sub>
-      </span>
-    ),
-  },
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <CH className="mr-2 h-4 w-4" />
-        Chinese <sub className="ml-1">(Traditional)</sub>
-      </span>
-    ),
-  },
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <NL className="mr-2 h-4 w-4" />
-        Netherlands
-      </span>
-    ),
-  },
   {
     name: (
       <span className="flex items-center text-xs">
@@ -130,6 +139,14 @@ const languageArr = [
   {
     name: (
       <span className="flex items-center text-xs">
+        <JP className="mr-2 h-4 w-4" />
+        Japanese
+      </span>
+    ),
+  },
+  {
+    name: (
+      <span className="flex items-center text-xs">
         <KR className="mr-2 h-4 w-4" />
         Korean
       </span>
@@ -143,14 +160,7 @@ const languageArr = [
       </span>
     ),
   },
-  {
-    name: (
-      <span className="flex items-center text-xs">
-        <JP className="mr-2 h-4 w-4" />
-        Japanese
-      </span>
-    ),
-  },
+
   {
     name: (
       <span className="flex items-center text-xs">
@@ -179,7 +189,7 @@ const languageArr = [
     name: (
       <span className="flex items-center text-xs">
         <SE className="mr-2 h-4 w-4" />
-        Sweden
+        Swedish
       </span>
     ),
   },
@@ -566,10 +576,9 @@ export default function SummaryPage() {
             </Menu>
             <MyListbox options={languageArr} />
             <Menu as="div" className="ml-auto">
-              <Menu.Button className="  flex h-10 items-center justify-center rounded border bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600 ">
-                <span className="flex ">
-                  <IconWand className="h-5 w-5 stroke-1" /> 4
-                  {/* Tokens Remaining */}
+              <Menu.Button className=" flex h-10 cursor-auto items-center justify-center rounded  bg-transparent bg-right stroke-neutral-900  px-2 text-sm  transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-neutral-800 dark:stroke-white   ">
+                <span className="flex" title="4">
+                  <IconBolt className="mr-2 h-5 w-5" /> 4
                 </span>
               </Menu.Button>
             </Menu>
