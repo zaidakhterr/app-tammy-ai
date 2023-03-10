@@ -36,7 +36,6 @@ dayjs.extend(relativeTime);
 
 const CreateSummaryForm = () => {
   const router = useRouter();
-
   const onSubmit = e => {
     e.preventDefault();
     console.log("Submitted");

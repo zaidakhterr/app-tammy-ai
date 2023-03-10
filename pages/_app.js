@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -11,6 +11,7 @@ import { AuthProvider } from "@/utils/useAuth";
 import { Banner } from "@/components/Banner";
 
 import "@/styles/globals.css";
+import ErrorModal from "@/components/ErrorModal";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],
@@ -23,6 +24,7 @@ const sans = Montserrat({
 });
 
 function MyApp({ Component, pageProps }) {
+  const [state, setState] = useState();
   const router = useRouter();
   const [queryClient] = React.useState(() => new QueryClient());
   const isAuthPage = router.pathname.startsWith("/auth");
@@ -55,6 +57,7 @@ function MyApp({ Component, pageProps }) {
           <ThemeProvider enableSystem={false}>
             <>
               <Banner />
+              <ErrorModal state={state} setState={setState} />
               {!isAuthPage && <Header />}
               <Component {...pageProps} />
               {!isAuthPage && <Footer />}
