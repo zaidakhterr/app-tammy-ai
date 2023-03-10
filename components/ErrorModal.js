@@ -1,7 +1,7 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
-import Button, { OutlineButton } from "./Button";
+import Button, { SecondaryButton } from "./Button";
 
 export default function ErrorModal({ state = true, setState }) {
   const router = useRouter();
@@ -63,16 +63,15 @@ export default function ErrorModal({ state = true, setState }) {
                   })}
 
                   <div className="flex w-full items-center justify-end gap-3">
-                    <Button
+                    <SecondaryButton
                       type="button"
                       onClick={() => {
                         setState(false);
-                        router.push("/subscription");
                       }}
                     >
                       I am ok with restrictions
-                    </Button>
-                    <OutlineButton
+                    </SecondaryButton>
+                    <Button
                       type="button"
                       className={""}
                       onClick={() => {
@@ -81,7 +80,7 @@ export default function ErrorModal({ state = true, setState }) {
                       }}
                     >
                       Remove restrictions
-                    </OutlineButton>
+                    </Button>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
