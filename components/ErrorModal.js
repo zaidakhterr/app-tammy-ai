@@ -1,10 +1,12 @@
+import useError from "@/utils/useError";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import React, { Fragment } from "react";
 import Button, { SecondaryButton } from "./Button";
 
-export default function ErrorModal({ state = true, setState }) {
+export default function ErrorModal() {
   const router = useRouter();
+  const { show, showModal } = useError();
   const errorMessages = [
     "Please choose another video or try again 5 ~ 10 mins later",
     "Our free video plan summary is limited to the following restrictions",
@@ -23,8 +25,12 @@ export default function ErrorModal({ state = true, setState }) {
   ];
   return (
     <>
-      <Transition appear show={state} as={React.Fragment}>
-        <Dialog as="div" className="relative z-[100]" onClose={setState}>
+      <Transition appear show={show} as={React.Fragment}>
+        <Dialog
+          as="div"
+          className="relative z-[100]"
+          onClose={() => showModal(false)}
+        >
           <Transition.Child
             as={React.Fragment}
             enter="ease-out duration-300"
@@ -66,7 +72,7 @@ export default function ErrorModal({ state = true, setState }) {
                     <SecondaryButton
                       type="button"
                       onClick={() => {
-                        setState(false);
+                        showModal(false);
                       }}
                     >
                       I am ok with restrictions
@@ -74,7 +80,7 @@ export default function ErrorModal({ state = true, setState }) {
                     <Button
                       type="button"
                       onClick={() => {
-                        setState(false);
+                        showModal(false);
                         router.push("/subscription");
                       }}
                     >

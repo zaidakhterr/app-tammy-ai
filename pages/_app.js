@@ -12,6 +12,7 @@ import { Banner } from "@/components/Banner";
 
 import "@/styles/globals.css";
 import ErrorModal from "@/components/ErrorModal";
+import { ErrorProvider } from "@/utils/useError";
 
 // const sans = Roboto_Flex({
 //   subsets: ["latin"],
@@ -53,17 +54,19 @@ function MyApp({ Component, pageProps }) {
         }}
       />
       <AuthProvider>
-        <QueryClientProvider client={queryClient}>
-          <ThemeProvider enableSystem={false}>
-            <>
-              <Banner />
-              <ErrorModal state={state} setState={setState} />
-              {!isAuthPage && <Header />}
-              <Component {...pageProps} />
-              {!isAuthPage && <Footer />}
-            </>
-          </ThemeProvider>
-        </QueryClientProvider>
+        <ErrorProvider>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider enableSystem={false}>
+              <>
+                <Banner />
+                <ErrorModal />
+                {!isAuthPage && <Header />}
+                <Component {...pageProps} />
+                {!isAuthPage && <Footer />}
+              </>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </ErrorProvider>
       </AuthProvider>
     </>
   );
