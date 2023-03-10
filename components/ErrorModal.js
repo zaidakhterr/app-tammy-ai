@@ -73,7 +73,6 @@ export default function ErrorModal({ state = true, setState }) {
                     </SecondaryButton>
                     <Button
                       type="button"
-                      className={""}
                       onClick={() => {
                         setState(false);
                         router.push("/subscription");
