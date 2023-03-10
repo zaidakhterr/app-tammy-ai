@@ -1,5 +1,5 @@
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
-import { Fragment, useState } from "react";
+import React, { Fragment, useState } from "react";
 
 import { useEffect } from "react";
 import {
@@ -8,8 +8,9 @@ import {
   usePayPalScriptReducer,
 } from "@paypal/react-paypal-js";
 import { IconArrowRight } from "@tabler/icons-react";
-import Button from "./Button";
+import Button, { SecondaryButton } from "./Button";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/router";
 
 const SubscribeButtons = ({ plan_id }) => {
   const [{ options }, dispatch] = usePayPalScriptReducer();
@@ -77,17 +78,6 @@ const UnSubscribeButtons = ({ plan_id }) => {
     <>
       <PayPalButtons
         onClick={handleCancelSubscription}
-        // createSubscription={(data, actions) => {
-        //   return actions.subscription
-        //     .create({
-        //       plan_id: plan_id,
-        //     })
-        //     .then(orderId => {
-        //       console.log({ orderId });
-
-        //       return orderId;
-        //     });
-        // }}
         style={{
           label: "subscribe",
         }}
@@ -241,34 +231,11 @@ export default function UpgradePlanButton() {
       </Transition>
     </>
   );
-
-  //   <div id="paypal-button-container-P-1N0525853E735402FMPZRJTY"></div>
-  // <script src="https://www.paypal.com/sdk/js?client-id=AYJ3WqbqFKLEFLfPoJV1v9p-xYYjMNQ770vkQup6Pnl68xAXINnsHXMoTlb7xA6Fs8BP4xpkWYfOf8Ho&vault=true&intent=subscription" data-sdk-integration-source="button-factory"></script>
-  // <script>
-  //   paypal.Buttons({
-  //       style: {
-  //           shape: 'rect',
-  //           color: 'gold',
-  //           layout: 'vertical',
-  //           label: 'subscribe'
-  //       },
-  //       createSubscription: function(data, actions) {
-  //         return actions.subscription.create({
-  //           /* Creates the subscription */
-  //           plan_id: 'P-1N0525853E735402FMPZRJTY'
-  //         });
-  //       },
-  //       onApprove: function(data, actions) {
-  //         alert(data.subscriptionID); // You can add optional success message for the subscriber here
-  //       }
-  //   }).render('#paypal-button-container-P-1N0525853E735402FMPZRJTY'); // Renders the PayPal button
-  // </script>
 }
 
 export const DowngradePlanButton = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [downGradePlan, setDownGradePlan] = useState(PLANS[0]);
-
+  const router = useRouter();
   function closeModal() {
     setIsOpen(false);
   }
@@ -287,10 +254,10 @@ export const DowngradePlanButton = () => {
         <IconArrowRight className="ml-2 h-5 w-5 " />
       </Button>
 
-      <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+      <Transition appear show={isOpen} as={React.Fragment}>
+        <Dialog as="div" className="relative z-[100]" onClose={closeModal}>
           <Transition.Child
-            as={Fragment}
+            as={React.Fragment}
             enter="ease-out duration-300"
             enterFrom="opacity-0"
             enterTo="opacity-100"
@@ -298,13 +265,13 @@ export const DowngradePlanButton = () => {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-black bg-opacity-25" />
+            <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
             <div className="flex min-h-full items-center justify-center p-4 text-center">
               <Transition.Child
-                as={Fragment}
+                as={React.Fragment}
                 enter="ease-out duration-300"
                 enterFrom="opacity-0 scale-95"
                 enterTo="opacity-100 scale-100"
@@ -312,81 +279,28 @@ export const DowngradePlanButton = () => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-fit max-w-fit transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-gray-900"
+                    className="my-3  text-lg font-medium leading-6"
                   >
-                    Subscribe to Tammy AI
+                    Are you sure you want to unsubscribe
                   </Dialog.Title>
-                  <Dialog.Panel>
-                    <RadioGroup
-                      value={downGradePlan}
-                      onChange={setDownGradePlan}
-                      className=""
-                    >
-                      <RadioGroup.Label className="sr-only">
-                        Plan
-                      </RadioGroup.Label>
 
-                      <div className=" mt-5 flex w-full rounded-md bg-white">
-                        {PLANS.map(plan => {
-                          return (
-                            <>
-                              <RadioGroup.Option
-                                key={plan.key}
-                                value={plan}
-                                className={({ checked }) => `
-            ${checked ? "border-indigo-200 bg-indigo-50" : "border-gray-200"}
-            relative mb-5 ml-2 flex w-full cursor-pointer gap-6 border p-4 
-          `}
-                              >
-                                {({ checked }) => (
-                                  <div className="flex flex-col">
-                                    <RadioGroup.Label
-                                      as="span"
-                                      className={`${
-                                        checked
-                                          ? "text-indigo-900"
-                                          : "text-gray-900"
-                                      } block cursor-pointer text-sm font-medium `}
-                                    >
-                                      {plan.title}
-                                    </RadioGroup.Label>
-
-                                    <RadioGroup.Description
-                                      as="span"
-                                      className={`${
-                                        checked
-                                          ? "text-indigo-700"
-                                          : "text-gray-500"
-                                      } block text-sm`}
-                                    >
-                                      {plan.price}
-                                    </RadioGroup.Description>
-                                  </div>
-                                )}
-                              </RadioGroup.Option>
-                            </>
-                          );
-                        })}
-                      </div>
-                    </RadioGroup>
-                  </Dialog.Panel>
-
-                  {downGradePlan && (
-                    <PayPalScriptProvider
-                      options={{
-                        "client-id": process.env.NEXT_PUBLIC_CLIENT_ID,
-                        components: "buttons",
-                        intent: "subscription",
-                        vault: true,
+                  <div className="flex w-full items-center justify-end gap-3">
+                    <SecondaryButton type="button" onClick={closeModal}>
+                      cancel
+                    </SecondaryButton>
+                    <Button
+                      type="button"
+                      onClick={() => {
+                        setIsOpen(true);
+                        router.push("/");
                       }}
-                      deferLoading
                     >
-                      <SubscribeButtons plan_id={downGradePlan.id} />
-                    </PayPalScriptProvider>
-                  )}
+                      Yes Unsubscribe
+                    </Button>
+                  </div>
                 </Dialog.Panel>
               </Transition.Child>
             </div>
