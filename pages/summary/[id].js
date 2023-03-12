@@ -178,7 +178,7 @@ const languageArr = [
     name: (
       <span className="flex items-center text-xs">
         <SE className="mr-2 h-4 w-4" />
-        Sweden
+        Swedish
       </span>
     ),
   },
