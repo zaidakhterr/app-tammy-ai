@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -11,7 +11,7 @@ import {
   IconEdit,
   IconCircleCheckFilled,
 } from "@tabler/icons-react";
-import { Dialog, Transition } from "@headlessui/react";
+import { Dialog, Popover, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
@@ -31,6 +31,7 @@ import useIntersectionObserver from "@/utils/useIntersectionObserver";
 import classNames from "classnames";
 import Balancer from "react-wrap-balancer";
 import { toast } from "react-hot-toast";
+import MyListbox from "@/components/ListBox";
 
 dayjs.extend(relativeTime);
 
@@ -155,6 +156,7 @@ export const CreateFolderButton = () => {
 export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [selected, setSelected] = React.useState();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -170,9 +172,101 @@ export const CreateSummaryButton = ({ folderId }) => {
     console.log("Submitted", folderId);
     router.push("/summary/123");
   };
+  const filterOptions = [
+    {
+      name: "Filter by Folder",
+    },
+    { name: " Filter by Summaries" },
+  ];
+
+  // const handleFilter = e => {
+  //   console.log({ selected });
+  //   setSelected(e);
+  // };
+  // useEffect(() => {
+  //   handleFilter;
+  // }, [selected]);
 
   return (
     <>
+      {/* <div className={`flex gap-2 px-4 `}>
+        <Popover className="relative">
+          <Popover.Button
+            className={`flex h-10 items-center justify-center rounded border border-neutral-200  bg-transparent bg-right stroke-neutral-900 px-2  text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600`}
+          >
+            <IconCopy className="h-5 w-5 stroke-1" />
+          </Popover.Button>
+
+          <Transition
+            as={React.Fragment}
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <Popover.Panel className="absolute top-full left-0 mt-1  w-fit rounded border border-neutral-200 bg-white text-sm  shadow-lg dark:border-neutral-700   dark:bg-neutral-800  ">
+              <div className="flex w-full flex-col  overflow-hidden rounded py-1">
+                <label
+                  htmlFor="link"
+                  className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                >
+                  By Folder
+                  <input
+                    checked={filterByfolder}
+                    onChange={e => {
+                      setByFolder(e.target.checked);
+                    }}
+                    id="link"
+                    name="link"
+                    type="checkbox"
+                    className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
+                  />
+                </label>
+                <label
+                  htmlFor="timeStamp"
+                  className="mr-3 flex w-full cursor-pointer  items-center justify-between whitespace-nowrap p-2 text-xs hover:bg-neutral-200 dark:hover:bg-neutral-700"
+                >
+                  Include Timestamps
+                  <input
+                    checked={includeTimeStamp}
+                    onChange={e => {
+                      setIncludeTimeStamp(e.target.checked);
+                    }}
+                    id="timeStamp"
+                    name="timeStamp"
+                    type="filter"
+                    className="cursor-pointer rounded-sm border-blue-500 checked:bg-blue-500 focus:border-none  focus:shadow-none focus:outline-none focus:ring-0 dark:border-none"
+                  />
+                </label>
+
+                <span className="my-2 flex px-2 ">
+                  <Button
+                    onClick={handleFilters}
+                    type="button"
+                    className="mx-4 !h-auto w-full border border-blue-600 !px-2 !py-2  !text-xs"
+                  >
+                    Apply Filter
+                  </Button>
+                </span>
+                {/* <span className=" mb-2  flex px-2">
+                        <OutlineButton
+                          onClick={handleCopyLink}
+                          type="button"
+                          className="mx-4 !h-auto w-full !px-2 !py-2 !text-xs"
+                        >
+                          Copy Link
+                        </OutlineButton>
+                      </span> */}
+      {/* </div>
+            </Popover.Panel>
+          </Transition>
+        </Popover>
+      </div> */}
+      <MyListbox
+        options={filterOptions}
+        btnClassName="!hover:bg-blue-50 !dark:border-blue-600 !dark:text-blue-600 !dark:hover:bg-blue-500/10  !flex !h-10 items-center  !justify-center !rounded !border !border-blue-500 !py-2 !px-3 !text-center !text-blue-500 shadow-sm transition-colors !md:px-4 !whitespace-nowrap
+        "
+      />
+
       <OutlineButton
         onClick={openModal}
         className="!h-auto whitespace-nowrap !px-2.5 !py-1.5 !text-xs sm:!text-sm"

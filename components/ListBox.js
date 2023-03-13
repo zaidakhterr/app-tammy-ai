@@ -3,16 +3,22 @@ import classNames from "classnames";
 import { Listbox, Transition } from "@headlessui/react";
 import { IconChevronDown } from "@tabler/icons-react";
 
-const MyListbox = ({ options = [] }) => {
+const MyListbox = ({
+  options = [],
+  btnClassName,
+
+  callback = null,
+}) => {
   const [selected, setSelected] = React.useState(options[0]);
 
   return (
     <Listbox value={selected} onChange={setSelected}>
-      <div className="relative ">
+      <div className="relative">
         <Listbox.Button
-          className={
-            " flex h-10  cursor-pointer items-center justify-center rounded border border-neutral-200 bg-transparent stroke-neutral-900 px-2 text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600"
-          }
+          className={classNames(
+            " flex h-10  cursor-pointer items-center justify-center rounded border border-neutral-200 bg-transparent stroke-neutral-900 px-2 text-sm transition-colors hover:bg-neutral-100 disabled:cursor-not-allowed disabled:bg-neutral-100 disabled:stroke-neutral-400 dark:border-neutral-800 dark:stroke-white dark:hover:bg-neutral-800 dark:disabled:bg-neutral-800 dark:disabled:stroke-neutral-600",
+            btnClassName
+          )}
         >
           <span className="block truncate">{selected.name}</span>
           <IconChevronDown className="ml-2 h-5 w-5  stroke-1" />

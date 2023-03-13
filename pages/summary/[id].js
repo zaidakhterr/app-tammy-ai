@@ -10,6 +10,7 @@ import {
   IconBrandTwitter,
   IconChevronDown,
   IconCopy,
+  IconFlagFilled,
   IconShare,
 } from "@tabler/icons-react";
 import { toast } from "react-hot-toast";
@@ -262,10 +263,27 @@ export function SummaryPoint({ point, seekTo }) {
               </Disclosure.Button>
 
               <Disclosure.Panel className="w-full px-4 pt-4 pb-8  text-neutral-500 dark:text-neutral-400">
-                <ul className="ml-4 list-disc space-y-2 text-sm">
+                <ul className="ml-4  list-disc items-center space-y-2 text-sm">
                   {/* iteration of points array */}
                   {point?.subPoints.map(val => {
-                    return <li key={val}>{val}</li>;
+                    return (
+                      <>
+                        <div className="flex items-center">
+                          <li key={val}>{val}</li>
+                          <button
+                            className="items-center justify-center rounded bg-blue-50 py-0.5 px-1 text-center text-sm text-blue-500 transition-colors hover:bg-blue-100 dark:bg-blue-300/20 dark:text-blue-400 dark:hover:bg-blue-500/20 "
+                            onClick={e => {
+                              e.stopPropagation();
+                              // Change this to val.timestamp
+                              seekTo(point.timestamp);
+                            }}
+                          >
+                            {/* // Change this to val.timestamp */}
+                            {secondsToTime(point.timestamp)}
+                          </button>
+                        </div>
+                      </>
+                    );
                   })}
                 </ul>
               </Disclosure.Panel>
@@ -578,8 +596,12 @@ export default function SummaryPage() {
             <Menu as="div" className="ml-auto">
               <Menu.Button className=" flex h-10 cursor-auto items-center justify-center rounded  bg-transparent bg-right stroke-neutral-900  px-2 text-sm  transition-colors disabled:cursor-not-allowed disabled:bg-neutral-100 dark:border-neutral-800 dark:stroke-white   ">
                 <span className="flex" title="4">
-                  <IconBolt className="mr-2 h-5 w-5" /> 4
+                  <IconBolt className="mr-2 h-5 w-5" />
                 </span>
+
+                <button className="flex">
+                  <IconFlagFilled className="mr-2 h-5 w-5" />
+                </button>
               </Menu.Button>
             </Menu>
           </div>
