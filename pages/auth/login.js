@@ -79,7 +79,7 @@ export default function Login() {
           Forgot password?
         </Link>
         <p className="mt-10">
-          Don&apos;t have an account?{" "}
+          Don&apos;t have an account?
           <Link href="/auth/register" className="text-blue-600 hover:underline">
             Get started
           </Link>

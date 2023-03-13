@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -156,7 +156,6 @@ export const CreateFolderButton = () => {
 export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState();
 
   const closeModal = () => {
     setIsOpen(false);
