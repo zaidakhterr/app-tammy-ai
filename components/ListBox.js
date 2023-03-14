@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import classNames from "classnames";
 import { Listbox, Transition } from "@headlessui/react";
 import { IconChevronDown } from "@tabler/icons-react";
@@ -6,13 +6,19 @@ import { IconChevronDown } from "@tabler/icons-react";
 const MyListbox = ({
   options = [],
   btnClassName,
-
-  callback = null,
+  selectedProp,
+  setSelectedProp,
 }) => {
   const [selected, setSelected] = React.useState(options[0]);
 
+  useEffect(() => {
+    console.log(selectedProp);
+  }, [selectedProp]);
   return (
-    <Listbox value={selected} onChange={setSelected}>
+    <Listbox
+      value={selectedProp ? selectedProp : selected}
+      onChange={setSelectedProp ? setSelectedProp : setSelected}
+    >
       <div className="relative">
         <Listbox.Button
           className={classNames(
@@ -20,7 +26,9 @@ const MyListbox = ({
             btnClassName
           )}
         >
-          <span className="block truncate">{selected.name}</span>
+          <span className="block truncate">
+            {selectedProp ? selectedProp.name : selected.name}
+          </span>
           <IconChevronDown className="ml-2 h-5 w-5  stroke-1" />
         </Listbox.Button>
         <Transition

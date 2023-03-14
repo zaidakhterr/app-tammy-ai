@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -156,6 +156,7 @@ export const CreateFolderButton = () => {
 export const CreateSummaryButton = ({ folderId }) => {
   const router = useRouter();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [select, setSelect] = useState();
 
   const closeModal = () => {
     setIsOpen(false);
@@ -177,6 +178,8 @@ export const CreateSummaryButton = ({ folderId }) => {
     },
     { name: " Filter by Summaries" },
   ];
+
+  useEffect(() => {}, [select]);
 
   // const handleFilter = e => {
   //   console.log({ selected });
@@ -264,6 +267,8 @@ export const CreateSummaryButton = ({ folderId }) => {
         options={filterOptions}
         btnClassName="!hover:bg-blue-50 !dark:border-blue-600 !dark:text-blue-600 !dark:hover:bg-blue-500/10  !flex !h-10 items-center  !justify-center !rounded !border !border-blue-500 !py-2 !px-3 !text-center !text-blue-500 shadow-sm transition-colors !md:px-4 !whitespace-nowrap
         "
+        selectedProp={select}
+        setSelectedProp={setSelect}
       />
 
       <OutlineButton
