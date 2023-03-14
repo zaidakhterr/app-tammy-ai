@@ -1,12 +1,13 @@
 import useError from "@/utils/useError";
-import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-import React, { Fragment } from "react";
+import React from "react";
 import Button, { SecondaryButton } from "./Button";
+import { MyDialog } from "./Dialog";
 
 export default function ErrorModal() {
   const router = useRouter();
   const { show, showModal } = useError();
+
   const errorMessages = [
     "Please choose another video or try again 5 ~ 10 mins later",
     "Our free video plan summary is limited to the following restrictions",
@@ -23,76 +24,52 @@ export default function ErrorModal() {
       <p> Use our service during non-peak periods for higher success rates </p>
     </span>,
   ];
+
   return (
-    <>
-      <Transition appear show={show} as={React.Fragment}>
-        <Dialog
-          as="div"
-          className="relative z-[100]"
-          onClose={() => showModal(false)}
-        >
-          <Transition.Child
-            as={React.Fragment}
-            enter="ease-out duration-300"
-            enterFrom="opacity-0"
-            enterTo="opacity-100"
-            leave="ease-in duration-200"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <div className="fixed inset-0 bg-black bg-opacity-25 backdrop-blur-sm" />
-          </Transition.Child>
-
-          <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full items-center justify-center p-4 text-center">
-              <Transition.Child
-                as={React.Fragment}
-                enter="ease-out duration-300"
-                enterFrom="opacity-0 scale-95"
-                enterTo="opacity-100 scale-100"
-                leave="ease-in duration-200"
-                leaveFrom="opacity-100 scale-100"
-                leaveTo="opacity-0 scale-95"
-              >
-                <Dialog.Panel className="w-fit max-w-fit transform overflow-hidden rounded bg-white p-6 text-left align-middle shadow-xl shadow-neutral-800/10 transition-all dark:bg-neutral-800">
-                  {errorMessages?.map(val => {
-                    return (
-                      <>
-                        <Dialog.Title
-                          as="h3"
-                          className="my-3  text-lg font-medium leading-6"
-                        >
-                          {val}
-                        </Dialog.Title>
-                      </>
-                    );
-                  })}
-
-                  <div className="flex w-full items-center justify-end gap-3">
-                    <SecondaryButton
-                      type="button"
-                      onClick={() => {
-                        showModal(false);
-                      }}
-                    >
-                      I am ok with restrictions
-                    </SecondaryButton>
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        showModal(false);
-                        router.push("/subscription");
-                      }}
-                    >
-                      Remove restrictions
-                    </Button>
-                  </div>
-                </Dialog.Panel>
-              </Transition.Child>
-            </div>
+    <MyDialog
+      isOpen={show}
+      closeModal={() => showModal(false)}
+      title="Please choose another video or try again 5 ~ 10 mins later"
+      content={
+        <div className="flex w-full flex-col items-start gap-3">
+          <p>
+            Our free video plan summary is limited to the following
+            restrictions:
+          </p>
+          <ul>
+            <li>
+              <strong>Short:</strong> Less than 1 hour long videos
+            </li>
+            <li>
+              <strong>Popular Channel:</strong> Latest 15 videos from the
+              channel must above 20k views
+            </li>
+            <li>
+              <strong>Below Capacity Limits:</strong> Use our service during
+              non-peak periods for higher success rates
+            </li>
+          </ul>
+          <div className="flex w-full items-center justify-end gap-3">
+            <SecondaryButton
+              type="button"
+              onClick={() => {
+                showModal(false);
+              }}
+            >
+              I am ok with restrictions
+            </SecondaryButton>
+            <Button
+              type="button"
+              onClick={() => {
+                showModal(false);
+                router.push("/subscription");
+              }}
+            >
+              Remove restrictions
+            </Button>
           </div>
-        </Dialog>
-      </Transition>
-    </>
+        </div>
+      }
+    />
   );
 }
