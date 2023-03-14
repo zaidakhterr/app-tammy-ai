@@ -11,7 +11,7 @@ import {
   IconEdit,
   IconCircleCheckFilled,
 } from "@tabler/icons-react";
-import { Dialog, Popover, Transition } from "@headlessui/react";
+import { Dialog, Transition } from "@headlessui/react";
 import Container from "@/components/Container";
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import dayjs from "dayjs";
